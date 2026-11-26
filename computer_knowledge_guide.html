@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Computer Knowledge Master Guide — IBPS RRB Scale 2 (IT)</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="apple-touch-icon" href="favicon.svg">
+<script>(function(){try{var t=localStorage.getItem('site_theme')||localStorage.getItem('fa_theme')||localStorage.getItem('ck_theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 <link rel="stylesheet" href="sidebar.css">
 <link rel="stylesheet" href="study-tools.css">
 <style>
@@ -789,25 +792,6 @@
   </section>
 </main>
 
-<script>
-  (function() {
-    const root = document.documentElement;
-    const btn = document.getElementById('themeToggle');
-    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const saved = localStorage.getItem('ck_theme');
-    let theme = saved || (prefersDark ? 'dark' : 'light');
-    function applyTheme(t) {
-      root.setAttribute('data-theme', t);
-      btn.textContent = t === 'dark' ? 'Light' : 'Dark';
-      localStorage.setItem('ck_theme', t);
-    }
-    applyTheme(theme);
-    btn.addEventListener('click', () => {
-      theme = theme === 'dark' ? 'light' : 'dark';
-      applyTheme(theme);
-    });
-  })();
-</script>
 <script src="study-tools.js" defer></script>
 <script src="sidebar.js" defer></script>
 </body>

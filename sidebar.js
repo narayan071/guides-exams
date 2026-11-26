@@ -22,6 +22,45 @@
     },
   ];
 
+  const THEME_KEY = 'site_theme';
+
+  function getStoredTheme() {
+    try {
+      const direct = localStorage.getItem(THEME_KEY);
+      if (direct === 'dark' || direct === 'light') return direct;
+      const legacy = localStorage.getItem('fa_theme') || localStorage.getItem('ck_theme');
+      if (legacy === 'dark' || legacy === 'light') return legacy;
+    } catch {
+      // ignore storage errors
+    }
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'dark'
+      : 'light';
+  }
+
+  function formatThemeLabel(theme) {
+    return theme === 'dark' ? '\u2600\uFE0F Light' : '\uD83C\uDF19 Dark';
+  }
+
+  function applySiteTheme(theme) {
+    const t = theme === 'dark' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', t);
+    try {
+      localStorage.setItem(THEME_KEY, t);
+    } catch {
+      // ignore
+    }
+    document.querySelectorAll('[data-site-theme-btn]').forEach((btn) => {
+      btn.textContent = formatThemeLabel(t);
+      btn.setAttribute('aria-label', t === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+    });
+  }
+
+  function toggleSiteTheme() {
+    const current = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+    applySiteTheme(current === 'dark' ? 'light' : 'dark');
+  }
+
   function currentFile() {
     const raw = window.location.pathname.split('/').pop() || 'index.html';
     try {
@@ -42,14 +81,24 @@
       document.body.classList.add('guide-no-extra-pad');
     }
 
-    // Mobile top bar with drawer toggle button
+    const existingThemeBtn = document.getElementById('themeToggle');
+    if (existingThemeBtn) {
+      existingThemeBtn.setAttribute('data-site-theme-btn', 'true');
+      existingThemeBtn.addEventListener('click', toggleSiteTheme);
+    }
+
+    // Mobile top bar with drawer toggle button (and theme toggle on pages without sticky-nav)
     const mobileBar = document.createElement('div');
     mobileBar.className = 'guide-mobile-bar';
     mobileBar.innerHTML =
       '<button type="button" class="guide-menu-btn" id="guideMenuBtn" aria-label="Open guides menu" aria-expanded="false" aria-controls="guideSidebar">' +
       '<span aria-hidden="true">&#9776;</span><span>Guides</span>' +
       '</button>' +
-      '<span class="guide-mobile-title"></span>';
+      '<img class="guide-mobile-logo" src="favicon.svg" alt="" width="20" height="20">' +
+      '<span class="guide-mobile-title"></span>' +
+      (existingThemeBtn
+        ? ''
+        : '<button type="button" class="guide-theme-toggle" id="guideMobileThemeBtn" data-site-theme-btn="true"></button>');
     mobileBar.querySelector('.guide-mobile-title').textContent = activeGuide.title;
 
     // Backdrop for mobile drawer
@@ -87,8 +136,11 @@
     sidebar.innerHTML =
       '<div class="guide-sidebar-header">' +
       '<a class="guide-sidebar-brand" href="index.html">' +
+      '<img class="guide-sidebar-logo" src="favicon.svg" alt="" width="28" height="28">' +
+      '<span class="guide-sidebar-brand-text">' +
       '<span class="guide-sidebar-kicker">Exam Prep</span>' +
       '<span class="guide-sidebar-title">IBPS RRB Guides</span>' +
+      '</span>' +
       '</a>' +
       '<button type="button" class="guide-sidebar-close" id="guideSidebarClose" aria-label="Close guides menu">&times;</button>' +
       '</div>' +
@@ -96,11 +148,25 @@
       '<div class="guide-sidebar-label">Guides</div>' +
       linksHtml +
       '</nav>' +
-      '<div class="guide-sidebar-footer">1 HTML page per guide</div>';
+      '<div class="guide-sidebar-footer">' +
+      '<span>Theme</span>' +
+      '<button type="button" class="guide-theme-toggle" id="guideSidebarThemeBtn" data-site-theme-btn="true"></button>' +
+      '</div>';
 
     document.body.prepend(mobileBar);
     document.body.prepend(backdrop);
     document.body.prepend(sidebar);
+
+    document.getElementById('guideSidebarThemeBtn')?.addEventListener('click', toggleSiteTheme);
+    document.getElementById('guideMobileThemeBtn')?.addEventListener('click', toggleSiteTheme);
+
+    applySiteTheme(getStoredTheme());
+
+    window.addEventListener('storage', function (e) {
+      if (e.key === THEME_KEY && (e.newValue === 'dark' || e.newValue === 'light')) {
+        applySiteTheme(e.newValue);
+      }
+    });
 
     function syncMobileBarHeight() {
       const h = mobileBar.offsetHeight;

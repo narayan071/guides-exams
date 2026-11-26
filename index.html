@@ -4,11 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IBPS RRB Study Guides</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="apple-touch-icon" href="favicon.svg">
+  <script>(function(){try{var t=localStorage.getItem('site_theme')||localStorage.getItem('fa_theme')||localStorage.getItem('ck_theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
   <link rel="stylesheet" href="sidebar.css">
   <style>
     :root {
       --bg: #f8fafc;
       --surface: #ffffff;
+      --surface-2: #f1f5f9;
       --text: #0f172a;
       --muted: #475569;
       --border: #e2e8f0;
@@ -16,17 +20,16 @@
       --accent-soft: #f0fdfa;
       color-scheme: light;
     }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #0b1120;
-        --surface: #111827;
-        --text: #f1f5f9;
-        --muted: #94a3b8;
-        --border: #273449;
-        --accent: #2dd4bf;
-        --accent-soft: #042f2e;
-        color-scheme: dark;
-      }
+    [data-theme="dark"] {
+      --bg: #0b1120;
+      --surface: #111827;
+      --surface-2: #1e293b;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --border: #273449;
+      --accent: #2dd4bf;
+      --accent-soft: #042f2e;
+      color-scheme: dark;
     }
     * { box-sizing: border-box; }
     body {
@@ -100,8 +103,13 @@
 </head>
 <body data-sidebar-pad="flush">
   <main>
-    <p class="kicker">Exam Preparation</p>
-    <h1>IBPS RRB Study Guides</h1>
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+      <img src="favicon.svg" alt="" width="36" height="36" style="border-radius:9px;flex-shrink:0;">
+      <div>
+        <p class="kicker" style="margin-bottom:2px;">Exam Preparation</p>
+        <h1 style="margin:0;">IBPS RRB Study Guides</h1>
+      </div>
+    </div>
     <p class="lede">Select a guide from the sidebar (tap <strong>Guides</strong> on mobile) or pick one below. Each HTML page is a standalone study guide.</p>
 
     <div class="grid">

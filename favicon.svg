@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f766e"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="url(#bg)"/>
+  <!-- Open book pages -->
+  <path d="M13 19c0-2.2 1.8-4 4-4h11c2.2 0 4 1.8 4 4v27c-2.2-1.8-5.2-2.6-8.5-2.6H17c-2.2 0-4 1.8-4 4V19z" fill="#ffffff" fill-opacity="0.96"/>
+  <path d="M51 19c0-2.2-1.8-4-4-4H36c-2.2 0-4 1.8-4 4v27c2.2-1.8 5.2-2.6 8.5-2.6H47c2.2 0 4 1.8 4 4V19z" fill="#e2e8f0"/>
+  <!-- Spine highlight -->
+  <rect x="31" y="16" width="2" height="30" rx="1" fill="#0f766e" fill-opacity="0.35"/>
+  <!-- Gold bookmark ribbon -->
+  <path d="M39 15h8v16l-4-3-4 3V15z" fill="#facc15"/>
+  <!-- Crisp page lines -->
+  <rect x="17" y="23" width="10" height="2.6" rx="1.3" fill="#0f766e" fill-opacity="0.65"/>
+  <rect x="17" y="29" width="9" height="2.6" rx="1.3" fill="#0f766e" fill-opacity="0.45"/>
+  <rect x="17" y="35" width="7" height="2.6" rx="1.3" fill="#0f766e" fill-opacity="0.45"/>
+</svg>

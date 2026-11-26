@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Financial Awareness Master Guide — IBPS RRB Scale 2 (IT)</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="apple-touch-icon" href="favicon.svg">
+<script>(function(){try{var t=localStorage.getItem('site_theme')||localStorage.getItem('fa_theme')||localStorage.getItem('ck_theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 <link rel="stylesheet" href="sidebar.css">
 <link rel="stylesheet" href="study-tools.css">
 <style>
@@ -14,8 +17,8 @@
     --text: #0f172a;
     --muted: #475569;
     --border: #e2e8f0;
-    --accent: #1d4ed8;
-    --accent-soft: #eff6ff;
+    --accent: #0f766e;
+    --accent-soft: #f0fdfa;
     --green-bg: #dcfce7;
     --green-text: #166534;
     --green-border: #86efac;
@@ -38,8 +41,8 @@
     --text: #f1f5f9;
     --muted: #94a3b8;
     --border: #273449;
-    --accent: #60a5fa;
-    --accent-soft: #172554;
+    --accent: #2dd4bf;
+    --accent-soft: #042f2e;
     --green-bg: #052e16;
     --green-text: #86efac;
     --green-border: #166534;
@@ -828,25 +831,6 @@
   </section>
 </main>
 
-<script>
-  (function() {
-    const root = document.documentElement;
-    const btn = document.getElementById('themeToggle');
-    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const saved = localStorage.getItem('fa_theme');
-    let theme = saved || (prefersDark ? 'dark' : 'light');
-    function applyTheme(t) {
-      root.setAttribute('data-theme', t);
-      btn.textContent = t === 'dark' ? 'Light' : 'Dark';
-      localStorage.setItem('fa_theme', t);
-    }
-    applyTheme(theme);
-    btn.addEventListener('click', () => {
-      theme = theme === 'dark' ? 'light' : 'dark';
-      applyTheme(theme);
-    });
-  })();
-</script>
 <script src="study-tools.js" defer></script>
 <script src="sidebar.js" defer></script>
 </body>
