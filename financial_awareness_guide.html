@@ -230,6 +230,32 @@
   summary { cursor: pointer; font-weight: 600; font-size: 13.8px; }
   details[open] summary { margin-bottom: 6px; color: var(--accent); }
   .hidden-card { display: none; }
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+    gap: 12px;
+    margin: 12px 0;
+  }
+  .info-card {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+  .info-card h4 {
+    margin: 0 0 8px;
+    font-size: 14px;
+    color: var(--accent);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 5px;
+  }
+  .info-card ul {
+    margin: 0;
+    padding-left: 16px;
+    font-size: 13.5px;
+  }
+  .info-card li { margin-bottom: 5px; }
+  .info-card li:last-child { margin-bottom: 0; }
 </style>
 </head>
 <body data-sidebar-pad="flush">
@@ -246,6 +272,7 @@
       <a class="chip" href="#ch8">8. Ombudsman, NARCL &amp; Global</a>
       <a class="chip" href="#ch9">9. Inclusion &amp; Savings</a>
       <a class="chip" href="#ch10">10. Agri, PSL &amp; MSME</a>
+      <a class="chip" href="#years">Years &amp; Strategy</a>
       <a class="chip" href="#digits">Digit Cheat Sheet</a>
       <a class="chip" href="#latest">Latest Rates</a>
       <a class="chip" href="#glossary">Glossary</a>
@@ -258,12 +285,12 @@
 <main>
   <header class="hero">
     <h1>Financial Awareness Master Guide — IBPS RRB Scale 2 (IT)</h1>
-    <p>Living Revision Guide • 1:1 Mapped from Handwritten Notes (Pages 1–26) + Verified Exam Updates (Nov 2026)</p>
+    <p>Living Revision Guide • Notes (Pages 1–26) + Complete PYQ Coverage + Verified Nov 2026 Updates</p>
     <div class="stats-grid">
-      <div class="stat"><span class="val">Pages 1–26</span><span class="lbl">Notes Integrated</span></div>
-      <div class="stat"><span class="val">10 Chapters</span><span class="lbl">Zero-Loss Mapping</span></div>
+      <div class="stat"><span class="val">Pages 1–26</span><span class="lbl">Notes + Full PYQs</span></div>
+      <div class="stat"><span class="val">10 Chapters</span><span class="lbl">+ Years &amp; Strategy</span></div>
       <div class="stat"><span class="val">Repo 5.50%</span><span class="lbl">63rd MPC (Oct 2026)</span></div>
-      <div class="stat"><span class="val">100%</span><span class="lbl">1:1 Note Coverage</span></div>
+      <div class="stat"><span class="val">100%</span><span class="lbl">Complete Coverage</span></div>
     </div>
     <input class="search-box" id="quickSearch" type="search" placeholder="Instant filter chapters (e.g. KVP, KCC, PM-KISAN, PMFBY, MSME 2025, MUDRA, SVANidhi, Vishwakarma, PMEGP, CGTMSE, TReDS)...">
   </header>
@@ -278,15 +305,17 @@
 
     <h3>RBI Core Facts &amp; Currency</h3>
     <ul>
-      <li><strong>Act &amp; Founding:</strong> Established under <strong>RBI Act, 1934</strong> (also lays down legal provisions for <strong>foreign exchange reserves</strong>); started <strong>1 April 1935</strong>; <strong>nationalized in 1949</strong>.</li>
+      <li><strong>Act &amp; Founding:</strong> Established under <strong>RBI Act, 1934</strong> (Second Schedule defines Scheduled Banks; also lays down legal provisions for <strong>foreign exchange reserves</strong>); started <strong>1 April 1935</strong>; <strong>nationalized on 1 January 1949</strong>.</li>
       <li><strong>Governors:</strong> 1st Governor = <strong>Sir Osborne Smith</strong> | 1st Indian Governor = <strong>C. D. Deshmukh</strong> | Current (26th) = <strong>Sanjay Malhotra</strong> (Dec 11, 2024).</li>
       <li><strong>Offices &amp; Board:</strong> Central Office shifted from <strong>Kolkata to Mumbai in 1937</strong>. <strong>4 Zonal Offices</strong> (Chennai, Kolkata, Delhi, Mumbai), <strong>21 Regional Offices</strong>, <strong>11 Sub-Offices</strong>. Board: <strong>1 Governor, 4 Deputy Governors, 15 Directors</strong>. <strong>Reserve Bank Staff College</strong> is at <strong>Chennai</strong>.</li>
       <li><strong>Currency Facts:</strong>
-        - <strong>₹1 Note</strong> is printed by the <strong>Government of India</strong> (Ministry of Finance).
-        - <strong>Intaglio Printing:</strong> Technique used for raised printing of "Reserve Bank of India" on notes.
-        - <strong>Most preferred currency note</strong> (RBI survey): <strong>₹100</strong>.
-        - <strong>Soiled notes:</strong> Dirty or slightly cut notes. <strong>Mutilated notes:</strong> Torn, cut, or missing essential pieces.
-        - <strong>Decimal System of Coinage (1957):</strong> Moved from Anna system (<code>1 Rupee = 16 Anna = 64 Pice = 192 Pies</code>) to <code>1 Rupee = 100 Naya Paisa</code> ("Naya" dropped in <strong>1964</strong>).
+        <ul>
+          <li><strong>₹1 Note &amp; Coins:</strong> Issued/printed by the <strong>Government of India</strong> (Ministry of Finance); all higher notes by RBI.</li>
+          <li><strong>Intaglio Printing:</strong> Technique used for raised printing of "Reserve Bank of India" on notes.</li>
+          <li><strong>Most preferred currency note</strong> (RBI survey): <strong>₹100</strong>.</li>
+          <li><strong>Soiled vs Mutilated notes:</strong> Soiled = dirty or slightly cut; Mutilated = torn, cut, or missing essential pieces.</li>
+          <li><strong>Decimal System of Coinage (1957):</strong> Moved from Anna system (<code>1 Rupee = 16 Anna = 64 Pice = 192 Pies</code>) to <code>1 Rupee = 100 Naya Paisa</code> ("Naya" dropped in <strong>1964</strong>).</li>
+        </ul>
       </li>
     </ul>
 
@@ -310,14 +339,15 @@
       <table>
         <thead><tr><th>Institution</th><th>Full Form</th><th>Est. / HQ &amp; Key Exam Facts</th></tr></thead>
         <tbody>
-          <tr><td><strong>SEBI</strong></td><td>Securities and Exchange Board of India</td><td>Statutory est. <strong>1992</strong>. Roles: (1) Investor interest protection, (2) Development of securities market, (3) Securities market regulation. Registered Depositories: <strong>NSDL</strong> &amp; <strong>CDSL</strong>.</td></tr>
-          <tr><td><strong>IRDAI</strong></td><td>Insurance Regulatory &amp; Development Authority of India</td><td>Established <strong>1999</strong>.</td></tr>
-          <tr><td><strong>PFRDA</strong></td><td>Pension Fund Regulatory &amp; Development Authority</td><td>Regulates <strong>NPS</strong> (National Pension System) &amp; issues 12-digit <strong>PRAN</strong>.</td></tr>
+          <tr><td><strong>SEBI</strong></td><td>Securities and Exchange Board of India</td><td>Set up <strong>12 April 1988</strong>; statutory body under SEBI Act <strong>1992</strong>. Roles: (1) Investor protection, (2) Market development, (3) Market regulation. Registered Depositories: <strong>NSDL</strong> &amp; <strong>CDSL</strong>.</td></tr>
+          <tr><td><strong>IRDAI</strong></td><td>Insurance Regulatory &amp; Development Authority of India</td><td>IRDA Act passed <strong>1999</strong>; statutory body in <strong>April 2000</strong>.</td></tr>
+          <tr><td><strong>PFRDA</strong></td><td>Pension Fund Regulatory &amp; Development Authority</td><td>Set up interim <strong>2003</strong>; PFRDA Act passed <strong>2013</strong>. Regulates <strong>NPS</strong> &amp; issues 12-digit <strong>PRAN</strong>.</td></tr>
           <tr><td><strong>NABARD</strong></td><td>National Bank for Agriculture &amp; Rural Development</td><td>Est. <strong>12 July 1982</strong> (Act 1981); HQ: <strong>Mumbai</strong>; initial corpus <strong>₹100 crore</strong>; <strong>B. Sivaraman Committee</strong>. <strong>Land Development Banks</strong> are part of NABARD.</td></tr>
-          <tr><td><strong>NHB</strong></td><td>National Housing Bank</td><td>Est. <strong>July 9, 1988</strong>; HQ: <strong>New Delhi</strong>.</td></tr>
-          <tr><td><strong>SIDBI &amp; MUDRA</strong></td><td>Small Industries Development Bank of India</td><td>SIDBI est. <strong>1990</strong>; HQ: <strong>Lucknow</strong>. <strong>MUDRA</strong> (Micro Units Development &amp; Refinance Agency Ltd) is a <strong>subsidiary of SIDBI</strong>.</td></tr>
-          <tr><td><strong>Development Banks</strong></td><td>Long-term industrial &amp; infrastructure finance</td><td><strong>IFCI</strong> (Industrial Finance Corp. of India, <strong>1948</strong>), <strong>IDBI</strong> (Industrial Dev. Bank of India), <strong>SFC</strong> (State Financial Corporation).</td></tr>
-          <tr><td><strong>EXIM / ECGC / LIC / NIACL / FICCI</strong></td><td>Trade, Insurance &amp; Industry Bodies</td><td><strong>EXIM Bank</strong> (1982, Act 1981) | <strong>ECGC</strong> (Export Credit Guarantee Corp.) | <strong>LIC</strong> (<strong>1956</strong>) | <strong>NIACL</strong> (<strong>1919</strong>) | <strong>FICCI</strong> (Fed. of Indian Chambers of Commerce &amp; Industry, <strong>1927</strong>).</td></tr>
+          <tr><td><strong>NHB</strong></td><td>National Housing Bank</td><td>NHB Act passed <strong>1987</strong>; started <strong>9 July 1988</strong>; HQ: <strong>New Delhi</strong>.</td></tr>
+          <tr><td><strong>SIDBI &amp; MUDRA</strong></td><td>Small Industries Development Bank of India</td><td>SIDBI started <strong>2 April 1990</strong>; HQ: <strong>Lucknow</strong>. <strong>MUDRA</strong> (est. <strong>8 April 2015</strong>) is a <strong>subsidiary of SIDBI</strong>.</td></tr>
+          <tr><td><strong>NaBFID</strong></td><td>National Bank for Financing Infrastructure &amp; Development</td><td>Est. <strong>2021</strong>; HQ: <strong>Mumbai</strong>. Specialized infrastructure finance DFI.</td></tr>
+          <tr><td><strong>Development Banks</strong></td><td>Long-term industrial finance</td><td><strong>IFCI</strong> (1st DFI, <strong>1948</strong>) | <strong>ICICI</strong> (<strong>1955</strong>) | <strong>IDBI</strong> (<strong>1964</strong>) | <strong>UTI</strong> (<strong>1964</strong>) | <strong>SFC</strong> (State Financial Corp).</td></tr>
+          <tr><td><strong>Trade, Insurance &amp; Oversight</strong></td><td>EXIM, ECGC, LIC, GIC, NIACL, FIU-IND, IBBI, FICCI</td><td><strong>EXIM Bank</strong> (<strong>1 Jan 1982</strong>, Mumbai) | <strong>ECGC</strong> | <strong>LIC</strong> (<strong>1 Sept 1956</strong>) | <strong>GIC</strong> (<strong>1972</strong>, general insurance nationalised) | <strong>NIACL</strong> (<strong>1919</strong>) | <strong>FIU-IND</strong> (<strong>18 Nov 2004</strong>) | <strong>IBBI</strong> (<strong>2016</strong>) | <strong>FICCI</strong> (<strong>1927</strong>).</td></tr>
         </tbody>
       </table>
     </div>
@@ -349,14 +379,29 @@
       <table>
         <thead><tr><th>Bank Category</th><th>Key Rules &amp; Examples</th><th>Current Count</th></tr></thead>
         <tbody>
-          <tr><td><strong>Public Sector Banks (PSBs)</strong></td><td>Majority govt-owned. <strong>1st Phase Nationalization: July 19, 1969</strong> (14 banks); <strong>2nd Phase: 1980</strong> (6 banks). <strong>Imperial Bank of India</strong> formed in <strong>1921</strong> (merging 3 Presidency Banks) → renamed <strong>SBI</strong> on <strong>1 July 1955</strong> (tagline: <em>"Bade Bank ke Bade Fayde"</em>). <strong>Bank of Baroda</strong> merged Vijaya &amp; Dena Bank (<strong>1 April 2019</strong>); <strong>Syndicate Bank</strong> merged with Canara Bank (<strong>2020</strong>).</td><td><strong>12 PSBs</strong></td></tr>
+          <tr><td><strong>Public Sector Banks (PSBs)</strong></td><td>Majority govt-owned. <strong>1st Phase Nationalization: 19 July 1969</strong> (14 banks); <strong>2nd Phase: 15 April 1980</strong> (6 banks). <strong>Presidency Banks</strong> (Calcutta <strong>1806</strong>, Bombay <strong>1840</strong>, Madras <strong>1843</strong>) merged in <strong>1921</strong> as <strong>Imperial Bank of India</strong> → renamed <strong>SBI</strong> on <strong>1 July 1955</strong> (tagline: <em>"Bade Bank ke Bade Fayde"</em>). Vijaya &amp; Dena Bank merged into BoB (<strong>1 Apr 2019</strong>); <strong>10 PSBs merged into 4 on 1 April 2020</strong> (leaving 12 PSBs).</td><td><strong>12 PSBs</strong></td></tr>
           <tr><td><strong>Private Sector Banks</strong></td><td>Owned by private entities. 1st new-gen Private Bank: <strong>HDFC (30 Aug 1994)</strong>. <strong>UTI Bank</strong> renamed <strong>Axis Bank</strong>. <strong>South Indian Bank</strong> &amp; <strong>IndusInd Bank</strong> are Private. <strong>RBL Bank</strong> (Ratnakar Bank, Mumbai: founded 6 Aug 1943, license 1970). <strong>Yes Bank</strong> launched <em>Agri Infinity</em>. <strong>J&amp;K Bank Ltd:</strong> Govt-owned (59.4%) but classified as <strong>Private</strong> by RBI.</td><td><strong>21 Private</strong></td></tr>
           <tr><td><strong>Foreign Banks</strong></td><td>Owned by foreign companies (e.g., Citi, <strong>HSBC</strong> — 1st bank to introduce ATM in India in <strong>1987</strong>).</td><td><strong>44 Foreign</strong></td></tr>
-          <tr><td><strong>Regional Rural Banks (RRBs)</strong></td><td>Est. <strong>1975</strong>; Ownership ratio <strong>50 : 15 : 35</strong> (Central Govt : State Govt : Sponsor Bank). 1st RRB: <strong>Prathama Bank</strong> (UP, HQ Moradabad, sponsored by Syndicate Bank).</td><td><strong>28 RRBs</strong></td></tr>
-          <tr><td><strong>Non-Scheduled &amp; Neo Banks</strong></td><td><strong>Non-Scheduled</strong> (e.g., Local Area Banks): follow CRR, cannot borrow from RBI. <strong>Neo Banks:</strong> not directly regulated by RBI (indirectly via partner banks).</td><td>—</td></tr>
+          <tr><td><strong>Regional Rural Banks (RRBs)</strong></td><td>1st RRBs set up <strong>2 October 1975</strong> (<strong>RRB Act 1976</strong>); Ownership ratio <strong>50 : 15 : 35</strong> (Central Govt : State Govt : Sponsor Bank). 1st RRB: <strong>Prathama Bank</strong> (UP, HQ Moradabad, sponsored by Syndicate Bank).</td><td><strong>28 RRBs</strong></td></tr>
+          <tr><td><strong>Non-Scheduled &amp; Neo Banks</strong></td><td><strong>Scheduled Bank:</strong> Listed in <strong>2nd Schedule of RBI Act 1934</strong>. <strong>Non-Scheduled</strong> (e.g., LABs): follow CRR, cannot borrow from RBI. <strong>Neo Banks:</strong> not directly regulated by RBI (indirectly via partner banks).</td><td>—</td></tr>
           <tr><td><strong>Cooperative Banks</strong></td><td>Retail/commercial banking on cooperative basis; dual control (more than one head). <strong>SEWA Bank</strong> (Self Employed Women's Association, Gujarat) — cooperative bank launched in <strong>1974</strong>.</td><td>—</td></tr>
-          <tr><td><strong>Payments Banks</strong></td><td>Deposit cap: <strong>₹2,00,000</strong> <em>(updated from ₹1L)</em>; <strong>no loans or Credit Cards</strong>; min capital <strong>₹100 cr</strong>; promoter stake ≥ 40% for 5 yrs. <strong>IPPB</strong> (India Post Payments Bank): launched <strong>1 Sept 2018</strong>, tagline <em>"Aapka Bank, Aapke Dwaar"</em>.</td><td><strong>5 Payments</strong></td></tr>
-          <tr><td><strong>Small Finance Banks (SFBs)</strong></td><td>Public ltd in private sector (NBFCs/MFIs/LABs can convert); no regional restriction; <strong>75%</strong> PSL; <strong>50%</strong> loans ≤ ₹25L; cannot lend to big businesses/industry.</td><td><strong>11 SFBs</strong></td></tr>
+          <tr><td><strong>Payments Banks</strong></td><td>In-principle licences <strong>2015</strong>. Deposit cap: <strong>₹2,00,000</strong> <em>(updated from ₹1L)</em>; <strong>no loans or Credit Cards</strong>; min capital <strong>₹100 cr</strong>; promoter stake ≥ 40% for 5 yrs. <strong>IPPB</strong>: launched <strong>1 Sept 2018</strong>, tagline <em>"Aapka Bank, Aapke Dwaar"</em>.</td><td><strong>5 Payments</strong></td></tr>
+          <tr><td><strong>Small Finance Banks (SFBs)</strong></td><td>Licensed from <strong>2015</strong>. Public ltd in private sector (NBFCs/MFIs/LABs can convert); no regional restriction; <strong>75%</strong> PSL; <strong>50%</strong> loans ≤ ₹25L; cannot lend to big businesses/industry.</td><td><strong>11 SFBs</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>All 12 Public Sector Banks — Founding Years &amp; Headquarters</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Bank</th><th>Founded</th><th>HQ</th><th>Bank</th><th>Founded</th><th>HQ</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Punjab National Bank (PNB)</strong></td><td><strong>1894</strong> (1st wholly Indian-managed)</td><td>New Delhi</td><td><strong>Indian Bank</strong></td><td><strong>1907</strong></td><td>Chennai</td></tr>
+          <tr><td><strong>Bank of India</strong></td><td><strong>1906</strong></td><td>Mumbai</td><td><strong>Bank of Baroda</strong></td><td><strong>1908</strong></td><td>Vadodara</td></tr>
+          <tr><td><strong>Canara Bank</strong></td><td><strong>1906</strong></td><td>Bengaluru</td><td><strong>Punjab &amp; Sind Bank</strong></td><td><strong>1908</strong></td><td>New Delhi</td></tr>
+          <tr><td><strong>Central Bank of India</strong></td><td><strong>1911</strong></td><td>Mumbai</td><td><strong>Union Bank of India</strong></td><td><strong>1919</strong></td><td>Mumbai</td></tr>
+          <tr><td><strong>State Bank of India (SBI)</strong></td><td><strong>1921</strong> (Imperial) / <strong>1955</strong> (SBI)</td><td>Mumbai</td><td><strong>Bank of Maharashtra</strong></td><td><strong>16 Sept 1935</strong></td><td>Pune</td></tr>
+          <tr><td><strong>Indian Overseas Bank (IOB)</strong></td><td><strong>1937</strong></td><td>Chennai</td><td><strong>UCO Bank</strong></td><td><strong>1943</strong></td><td>Kolkata</td></tr>
         </tbody>
       </table>
     </div>
@@ -394,21 +439,47 @@
           <tr><td><strong>SLR (Statutory Liquidity Ratio)</strong></td><td>Reserve under <strong>Section 24 of Banking Regulation Act, 1949</strong>; held internally by bank in cash, gold, or approved securities (securities earn interest).</td><td><strong>18.00%</strong></td></tr>
           <tr><td><strong>WMA (Ways &amp; Means Advances)</strong></td><td>Max short-term loan govt can borrow from RBI (at Repo Rate) for temporary receipts/payments mismatch.</td><td><strong>₹50,000 crore</strong> (H2 limit)</td></tr>
           <tr><td><strong>MCLR</strong></td><td><strong>Marginal Cost of Funds-Based Lending Rate</strong> (introduced <strong>1 April 2016</strong>) — minimum lending rate below which a bank is not allowed to lend.</td><td>Bank-specific</td></tr>
-          <tr><td><strong>OMO (Open Market Operations)</strong></td><td>RBI primarily <strong>buys and sells government securities</strong> to manage liquidity.</td><td>Liquidity tool</td></tr>
-          <tr><td><strong>LRR (Legal Reserve Ratio)</strong></td><td>Minimum fraction of deposits banks are legally required to keep as reserves (combines <strong>CRR + SLR</strong>).</td><td>CRR + SLR</td></tr>
-          <tr><td><strong>LCR (Liquidity Coverage Ratio)</strong></td><td>Ensures bank holds enough High-Quality Liquid Assets (cash, govt securities) to survive an acute <strong>30-day</strong> cash outflow stress scenario (Basel III).</td><td>30-day stress</td></tr>
-          <tr><td><strong>NSFR (Net Stable Funding Ratio)</strong></td><td>Ensures bank maintains a stable funding profile relative to off-balance-sheet assets &amp; activities over a <strong>1-year horizon</strong> (Basel III).</td><td>1-year horizon</td></tr>
+          <tr><td><strong>OMO (Open Market Operations)</strong></td><td>RBI primarily <strong>buys and sells government securities</strong> to manage liquidity (buying injects cash; selling absorbs cash).</td><td>Liquidity tool</td></tr>
+          <tr><td><strong>LAF (Liquidity Adjustment Facility)</strong></td><td>Daily lending/borrowing window between RBI &amp; banks via <strong>Repo, Reverse Repo, SDF &amp; MSF</strong>. Policy corridor gap (SDF–MSF) = <strong>50 bps (0.50%)</strong>.</td><td>Daily window</td></tr>
+          <tr><td><strong>LRR / LCR / NSFR</strong></td><td><strong>LRR</strong> = CRR + SLR. <strong>LCR</strong> = liquid assets for <strong>30-day</strong> stress. <strong>NSFR</strong> = stable funding over <strong>1-year</strong> horizon (Basel III).</td><td>Reserves &amp; Liquidity</td></tr>
         </tbody>
       </table>
     </div>
 
-    <h3>Inflation &amp; Fiscal Policy Terms</h3>
+    <h3>MPC Rules, Qualitative Tools, Inflation &amp; Macro (GDP / Crypto)</h3>
+    <div class="info-grid">
+      <div class="info-card">
+        <h4>MPC Structure &amp; Stances</h4>
+        <ul>
+          <li><strong>Setup (2016):</strong> Amended RBI Act 1934; <strong>6 members</strong> = 3 RBI (Governor as Chair, Dy. Governor, 1 officer) + 3 external (appointed by Govt for <strong>4 yrs</strong>).</li>
+          <li><strong>Meetings (Trap!):</strong> Act mandates <strong>at least 4/year</strong>; RBI holds <strong>6</strong> (bi-monthly). Quorum = <strong>4</strong>; Governor has <strong>casting vote</strong>.</li>
+          <li><strong>Stances:</strong> Accommodative (ready to cut), Neutral (either way), Withdrawal / Calibrated tightening. <code>100 bps = 1%</code>.</li>
+          <li><strong>Qualitative Tools:</strong> Moral suasion, margin requirements, selective credit control.</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h4>Inflation Indices &amp; Target</h4>
+        <ul>
+          <li><strong>FIT (2016):</strong> Target <strong>4% &plusmn; 2%</strong> (band <strong>2%–6%</strong>), renewed March 2026 for <strong>2026–31</strong>. Outside band for <strong>3 straight quarters</strong> → RBI must explain to Govt.</li>
+          <li><strong>CPI (MPC Target):</strong> Monthly household prices by <strong>NSO</strong> (MoSPI). <strong>WPI:</strong> Wholesale prices by Economic Adviser, <strong>DPIIT</strong>.</li>
+          <li><strong>Core Inflation:</strong> Excludes food &amp; fuel. <strong>Disinflation:</strong> Prices rising slower (vs Deflation = falling; Stagflation = high inflation + slow growth; Galloping = 2–3 digit).</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h4>GDP, GVA &amp; Crypto / VDA</h4>
+        <ul>
+          <li><strong>GDP vs GVA:</strong> <strong>Real GDP</strong> (inflation-adjusted, used for growth) vs Nominal GDP. <strong>GVA</strong> = <code>GDP &minus; taxes + subsidies</code>.</li>
+          <li><strong>NSO Release (FY Apr–Mar):</strong> Q1 (Apr–Jun) end-Aug; Q2 (Jul–Sep) end-Nov; Q3 end-Feb; Q4 end-May. <strong>Q2 FY26 = 8.2%</strong>; <strong>Q1 FY27 = 7.8%</strong>.</li>
+          <li><strong>Bitcoin &amp; VDA:</strong> Created 2009 (Satoshi Nakamoto) on blockchain; <strong>Max supply = 21 million</strong>; reward halves ~4 yrs. India: <strong>30% tax + 1% TDS</strong> on VDAs (not RBI legal tender).</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Fiscal Policy Terms</h3>
     <div class="table-wrap">
       <table>
         <thead><tr><th>Term</th><th>Definition / Mechanism</th></tr></thead>
         <tbody>
-          <tr><td><strong>Inflation / Deflation</strong></td><td>Inflation = rise in prices due to currency devaluation (<strong>Demand-Pull</strong>, <strong>Cost-Push</strong>, <strong>Built-in</strong>: wage ↑ → cost ↑). Deflation = price decline.</td></tr>
-          <tr><td><strong>Stagflation / Galloping</strong></td><td><strong>Stagflation</strong> = slow growth + high unemployment + high inflation. <strong>Galloping</strong> = double/triple-digit inflation.</td></tr>
           <tr><td><strong>Fiscal Push / Fiscal Drag</strong></td><td><strong>Fiscal Push:</strong> govt actions (e.g., low tax) to boost demand &amp; growth. <strong>Fiscal Drag:</strong> slowdown when rising incomes/inflation push taxpayers into higher tax brackets.</td></tr>
           <tr><td><strong>Austerity Measures</strong></td><td>Strict govt cost-cutting &amp; tax increases to shrink deficits &amp; public debt (cools inflation but slows short-term growth).</td></tr>
           <tr><td><strong>Capex vs Opex</strong></td><td><strong>Capex:</strong> capital expenditure on long-term assets (roads, railways). <strong>Opex:</strong> daily running/operational costs.</td></tr>
@@ -417,19 +488,24 @@
       </table>
     </div>
 
+    <div class="trap-box">
+      <strong class="trap-title">Exam Traps (MPC &amp; LAF)</strong>
+      MPC statutory minimum is <strong>4 meetings/year</strong> (6 is actual practice). LAF works via <strong>Repo, Reverse Repo, SDF &amp; MSF</strong> — never equity underwriting.
+    </div>
+
     <h3>Quick Check</h3>
     <details><summary>1. Under which section of the Banking Regulation Act 1949 is SLR mandated?</summary>Section 24 (currently 18%, held internally in cash, gold, or approved securities).</details>
-    <details><summary>2. What is the difference between Fiscal Push and Fiscal Drag?</summary>Fiscal Push boosts demand via lower taxes/spending; Fiscal Drag slows demand as rising incomes push taxpayers into higher tax brackets.</details>
-    <details><summary>3. When was MCLR introduced and what does it represent?</summary>April 1, 2016; minimum lending rate below which a bank cannot lend.</details>
-    <details><summary>4. What is the H2 WMA limit and at what rate is it offered?</summary>₹50,000 crore, offered at the Repo Rate.</details>
+    <details><summary>2. What is the statutory minimum MPC meetings per year, quorum, and FIT inflation target band?</summary>Minimum 4 meetings/yr (6 held in practice); quorum 4; target 4% ± 2% (2%–6%, renewed for 2026–31).</details>
+    <details><summary>3. When was MCLR introduced and what is the H2 WMA limit?</summary>MCLR: 1 April 2016; H2 WMA limit: ₹50,000 crore at Repo Rate.</details>
+    <details><summary>4. What is Bitcoin's maximum supply and how are VDAs taxed in India?</summary>21 million coins; 30% tax + 1% TDS on Virtual Digital Assets.</details>
   </section>
 
   <!-- CH 4 -->
   <section class="card" id="ch4">
-    <h2>Ch 4: Financial Markets, FDI &amp; Investment Types <span class="badge badge-upd">Updated Limits</span></h2>
+    <h2>Ch 4: Financial Markets, G-Secs, LRS/FDI &amp; Company Law <span class="badge badge-upd">Updated Limits</span></h2>
     <div class="start-box">
       <strong>Start Here</strong>
-      <strong>Money Market</strong> (high liquidity, ≤ 1 yr) includes T-Bills, CP, CD, CMB, Call/Notice Money. <strong>Capital Market</strong> (&gt; 1 yr) splits into Primary (IPO) and Secondary (Stock Exchanges). Also know the 4 investment flows (FDI, Indirect, Downstream, Upstream).
+      <strong>Money Market</strong> (high liquidity, ≤ 1 yr) includes T-Bills, CP, CD, CMB, Call/Notice Money, and TREPS. <strong>Capital Market</strong> (&gt; 1 yr) splits into Primary (IPO/ASBA) and Secondary (Stock Exchanges, T+1). Also master G-Secs, LRS ($250K), FDI flows, and Companies Act 2013 limits.
     </div>
 
     <h3>Money Market Instruments (High Liquidity, ≤ 1 Year)</h3>
@@ -437,28 +513,62 @@
       <table>
         <thead><tr><th>Instrument</th><th>Issuer</th><th>Maturity</th><th>Min Amount &amp; Rules</th></tr></thead>
         <tbody>
-          <tr><td><strong>Treasury Bill (T-Bill)</strong></td><td>Central Govt via RBI</td><td><strong>91, 182, 364 days</strong></td><td>Notes: ₹25K <em>(Updated: ₹10K &amp; multiples)</em>.</td></tr>
+          <tr><td><strong>Treasury Bill (T-Bill)</strong></td><td>Central Govt via RBI</td><td><strong>91, 182, 364 days</strong></td><td>Sold at discount, redeemed at face value. Min ₹10K &amp; multiples <em>(old ₹25K)</em>.</td></tr>
           <tr><td><strong>Cash Management Bill (CMB)</strong></td><td>Central Govt via RBI</td><td><strong>&lt; 91 days</strong></td><td>Same as T-Bill, shorter tenure.</td></tr>
           <tr><td><strong>Call / Notice Money</strong></td><td>Interbank</td><td>Call: ≤ 1 day | Notice: 2–14 days</td><td>Short-term interbank borrowing.</td></tr>
-          <tr><td><strong>Certificate of Deposit (CD)</strong></td><td>Banks &amp; selected FIs (<strong>NOT RRBs/LABs</strong>)</td><td>Banks: 15d–1yr <em>(Updated: 7d–1yr)</em>; FIs: 1–3 yrs</td><td>Notes: ₹1L <em>(Updated: ₹5L &amp; multiples)</em>.</td></tr>
-          <tr><td><strong>Commercial Paper (CP)</strong></td><td>Large Corporates</td><td><strong>7 days to 1 year</strong></td><td>Min <strong>₹5 Lakh</strong>; <strong>needs credit rating</strong>.</td></tr>
-          <tr><td><strong>Commercial Bills (CB)</strong></td><td>Trade/Business</td><td>Short-term</td><td>Trade bill of exchange.</td></tr>
+          <tr><td><strong>Certificate of Deposit (CD)</strong></td><td>Banks &amp; selected FIs (<strong>NOT RRBs/LABs</strong>)</td><td>Banks: <strong>7d–1yr</strong> <em>(old 15d)</em>; FIs: 1–3 yrs</td><td>Min ₹5L &amp; multiples <em>(old ₹1L)</em>.</td></tr>
+          <tr><td><strong>Commercial Paper (CP)</strong></td><td>Large Corporates (unsecured)</td><td><strong>7 days to 1 year</strong></td><td>Min <strong>₹5 Lakh</strong>; <strong>needs credit rating</strong>.</td></tr>
+          <tr><td><strong>TREPS &amp; Commercial Bills</strong></td><td>Clearing / Trade</td><td>TREPS: Overnight / short-term</td><td><strong>TREPS</strong> (Tri-Party Repo) replaced <strong>CBLO</strong>. <strong>CB</strong> = trade bill of exchange.</td></tr>
         </tbody>
       </table>
     </div>
 
-    <h3>Capital Market &amp; Investment Flows</h3>
+    <h3>Capital Market, ASBA, Share Issues &amp; G-Secs</h3>
+    <div class="info-grid">
+      <div class="info-card">
+        <h4>ASBA, Exchanges &amp; G-Secs</h4>
+        <ul>
+          <li><strong>ASBA (2008, SEBI):</strong> <em>Application Supported by Blocked Amount</em> — blocks IPO money in your bank account until allotment (debited only if allotted; retail UPI mandate supported).</li>
+          <li><strong>Exchanges &amp; Settlement:</strong> <strong>BSE</strong> (Sensex), <strong>NSE</strong> (Nifty 50); Depositories <strong>NSDL &amp; CDSL</strong>; Retail IPO cap <strong>₹2 Lakh</strong>; Settlement = <strong>T+1</strong>.</li>
+          <li><strong>G-Secs:</strong> Buying a G-sec = <strong>lending to the government</strong> (zero default risk). <strong>Dated G-Secs</strong> (5–40 yrs, half-yearly coupon), <strong>SDLs</strong> (state bonds). Bought via <strong>RBI Retail Direct</strong> (12 Nov 2021).</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h4>Types of Share Issues</h4>
+        <ul>
+          <li><strong>IPO:</strong> First-time public share sale by unlisted company (Primary Market).</li>
+          <li><strong>FPO:</strong> Already-listed company issues new shares to public.</li>
+          <li><strong>Rights Issue:</strong> New shares offered to existing shareholders (usually discounted).</li>
+          <li><strong>OFS (Offer for Sale):</strong> Promoters/holders sell existing shares (money goes to sellers, NOT company).</li>
+          <li><strong>QIP / Private Placement / Bonus:</strong> QIP = quick sale to big institutions; Private = small chosen group; Bonus = free shares from reserves.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Foreign Exchange, LRS &amp; Investment Flows</h3>
     <ul>
-      <li><strong>Primary vs Secondary Market:</strong> Primary = new issues (<strong>IPO</strong>); Secondary = trading previously issued securities (Stock Exchanges). Depositories under SEBI: <strong>NSDL</strong> (National Securities Depository Ltd) &amp; <strong>CDSL</strong> (Central Depository Services Ltd).</li>
-      <li><strong>FDI (Foreign Direct Investment):</strong> Foreign company invests <strong>directly</strong> into an Indian company.</li>
-      <li><strong>Indirect Investment:</strong> Foreign money enters an Indian company indirectly through another Indian entity owned by foreigners.</li>
-      <li><strong>Downstream Investment:</strong> Investment by one Indian company in another Indian company.</li>
-      <li><strong>Upstream Investment:</strong> When a <strong>subsidiary</strong> company invests back up into its <strong>parent</strong> company.</li>
+      <li><strong>LRS (Liberalised Remittance Scheme, FEMA 1999):</strong> <strong>Resident individuals</strong> (not companies) can remit up to <strong>USD 250,000 per FY</strong> abroad (started 2004 at $25K → $250K in 2015) for education, travel, medical, gifts, overseas investment (prohibited: lottery tickets). Under FEMA, Current Account is largely free; Capital Account is controlled.</li>
+      <li><strong>FDI vs FPI vs ECB:</strong> <strong>FDI</strong> = lasting stake/control directly into an Indian firm | <strong>FPI</strong> = Foreign Portfolio Investment (shares/bonds without control) | <strong>ECB</strong> = External Commercial Borrowing (foreign loan raised by Indian firm).</li>
+      <li><strong>Indirect / Downstream / Upstream:</strong> <strong>Indirect</strong> = foreign money via another foreign-owned Indian entity | <strong>Downstream</strong> = Indian company investing in another Indian company | <strong>Upstream</strong> = subsidiary investing back into its parent.</li>
     </ul>
 
+    <h3>Companies Act, 2013 &amp; LLP Act, 2008</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Entity Type</th><th>Members / Partners</th><th>Min Directors &amp; Key Rules</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Private Company</strong></td><td><strong>2 to 200</strong> members</td><td>Min <strong>2 directors</strong> (Max 15 overall, extendable via special resolution).</td></tr>
+          <tr><td><strong>Public Company</strong></td><td>Min <strong>7</strong> members | No upper limit</td><td>Min <strong>3 directors</strong>. Registered by <strong>ROC</strong> (under <strong>MCA</strong>); disputes → <strong>NCLT</strong>.</td></tr>
+          <tr><td><strong>OPC / Section 8 / LLP</strong></td><td><strong>OPC:</strong> 1 member | <strong>LLP:</strong> min 2 partners</td><td><strong>OPC:</strong> 1 director | <strong>Section 8:</strong> Non-profit | <strong>LLP Act 2008</strong>.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
     <h3>Quick Check</h3>
-    <details><summary>1. What is the difference between Downstream and Upstream investment?</summary>Downstream = one Indian company investing in another Indian company; Upstream = subsidiary investing back up into its parent company.</details>
-    <details><summary>2. Name the two depositories registered with SEBI.</summary>NSDL and CDSL.</details>
+    <details><summary>1. What does ASBA do to IPO application money, and when did SEBI introduce it?</summary>Blocks money in the applicant's own bank account until allotment (debited only if allotted); introduced in 2008.</details>
+    <details><summary>2. What is the LRS annual limit and who is eligible?</summary>USD 250,000 per financial year, for resident individuals only.</details>
+    <details><summary>3. Minimum members required for a Public Company vs Private Company?</summary>Public Company: 7 (no max); Private Company: 2 (max 200).</details>
+    <details><summary>4. What is the difference between Downstream and Upstream investment, and what did TREPS replace?</summary>Downstream = Indian firm investing in another Indian firm; Upstream = subsidiary investing in parent. TREPS replaced CBLO.</details>
   </section>
 
   <!-- CH 5 -->
@@ -484,18 +594,39 @@
       </table>
     </div>
 
-    <h3>Cheques, MICR, Demand Draft &amp; Cards</h3>
+    <h3>Cheques, Negotiable Instruments, Demand Draft &amp; Cards</h3>
+    <div class="info-grid">
+      <div class="info-card">
+        <h4>NI Act 1881, Parties &amp; Cheque Types</h4>
+        <ul>
+          <li><strong>3 Negotiable Instruments (NI Act 1881):</strong> Cheque (Sec 6 incl. electronic/truncated), <strong>Bill of Exchange</strong> (creditor orders debtor), <strong>Promissory Note</strong> (debtor promises to pay).</li>
+          <li><strong>3 Parties:</strong> <strong>Drawer</strong> (writes cheque), <strong>Drawee</strong> (paying bank), <strong>Payee</strong> (receiver).</li>
+          <li><strong>Types:</strong> <strong>Bearer</strong> (payable to holder) | <strong>Order</strong> (named payee or endorsed) | <strong>Open</strong> (cash at counter) | <strong>Crossed</strong> (bank account only) | <strong>Self</strong> (withdraw own cash).</li>
+          <li><strong>Dates &amp; Siblings:</strong> Valid <strong>3 months</strong> (since 1 Apr 2012) → <strong>Stale</strong> after 3m | <strong>Post-dated</strong> (future) | <strong>Antedated</strong> (past, valid ≤ 3m) | <strong>Mutilated</strong> (needs drawer confirmation). <strong>Traveller's cheque</strong> = prepaid, redeemable abroad; <strong>Banker's cheque / Pay order</strong> = drawn by bank on itself (same city).</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h4>4 Crossings, Endorsements &amp; Bounce (Sec 138)</h4>
+        <ul>
+          <li><strong>General Crossing (<code>//</code> or "&amp; Co."):</strong> Collected through any bank account (cannot encash at counter).</li>
+          <li><strong>Special Crossing:</strong> Bank name written across lines → collected ONLY via that named bank.</li>
+          <li><strong>"Account Payee" Crossing:</strong> Credited ONLY to payee's account; <strong>cannot be endorsed/transferred</strong>.</li>
+          <li><strong>"Not Negotiable" (Sec 130):</strong> Transferable, but new holder gets <strong>no better title</strong> than transferor.</li>
+          <li><strong>4 Endorsements (back sign):</strong> Blank (becomes bearer), Special/Full (names new payee), Restrictive ("Pay X only"), Conditional.</li>
+          <li><strong>Dishonour (Sec 138 NI Act):</strong> Up to <strong>2 yrs jail</strong> or <strong>2× amount fine</strong> or both. Process: Notice within <strong>30d</strong> of return memo → <strong>15d</strong> to pay → file case within <strong>1 month</strong>. <strong>CTS:</strong> moving to continuous clearing (since Oct 2025).</li>
+        </ul>
+      </div>
+    </div>
     <ul>
-      <li><strong>Cheque Types (Section 6, NI Act 1881 covers cheques, electronic &amp; truncated cheques):</strong>
-        - <strong>Open Cheque:</strong> Not crossed (can be encashed at counter).
-        - <strong>Crossed Cheque:</strong> Two parallel lines (<code>//</code>) on top-left; deposited in bank account only, not encashed.
-        - <strong>Order Cheque:</strong> Payable to the specific person named on it.
-        - <strong>Stale Cheque:</strong> Presented <strong>after 3 months</strong> from issue date <em>(note: old 6-month rule was changed by RBI to 3 months)</em>.
-      </li>
       <li><strong>MICR Code (9 digits at bottom of cheque):</strong> First 3 = <strong>City</strong> | Middle 3 = <strong>Bank Code</strong> | Last 3 = <strong>Branch Code</strong>.</li>
-      <li><strong>Demand Draft (Banker's Cheque):</strong> Valid for <strong>3 months</strong>; cash limit <strong>&lt; ₹50,000</strong> (≥ ₹50,000 via cheque + PAN).</li>
+      <li><strong>Demand Draft (DD):</strong> Prepaid bank order; valid <strong>3 months</strong>; cash limit <strong>&lt; ₹50,000</strong> (≥ ₹50,000 via cheque + PAN).</li>
       <li><strong>Cards &amp; Terms:</strong> Debit Card = <strong>16 digits</strong> | <strong>CVV</strong> = Card Verification Value (proves physical possession) | <strong>EMV</strong> = <strong>Europay, Mastercard, Visa</strong> | <strong>MDR</strong> = Merchant Discount Rate | <strong>Charge Card</strong> (pay in full or pay fees).</li>
     </ul>
+
+    <div class="trap-box">
+      <strong class="trap-title">Cheque Crossing Trap</strong>
+      A plain <strong>Crossed Cheque</strong> means "collect through a bank account" (NOT "cannot be endorsed"). <strong>"Cannot be endorsed"</strong> applies ONLY to an <strong>Account Payee</strong> crossing.
+    </div>
 
     <h3>Government Savings &amp; Pension Schemes</h3>
     <div class="table-wrap">
@@ -513,9 +644,9 @@
 
     <h3>Quick Check</h3>
     <details><summary>1. What do the 3 groups of 3 digits in a 9-digit MICR code represent?</summary>First 3 = City, Middle 3 = Bank code, Last 3 = Branch code.</details>
-    <details><summary>2. What is the lock-in period, interest rate, and NRI eligibility of PPF?</summary>15 years lock-in, 7.1% interest, NRIs are NOT eligible.</details>
-    <details><summary>3. Who prepares a Bank Reconciliation Statement?</summary>The customer of the bank.</details>
-    <details><summary>4. What does EMV stand for?</summary>Europay, Mastercard, Visa.</details>
+    <details><summary>2. What is the difference between "Account Payee" and "Not Negotiable" crossing?</summary>Account Payee cannot be endorsed/transferred; Not Negotiable (Sec 130) can be transferred, but transferee gets no better title than transferor.</details>
+    <details><summary>3. What is the Section 138 cheque-bounce penalty and notice timeline?</summary>Up to 2 yrs jail or 2× cheque amount fine (or both); 30-day notice → 15 days to pay → 1 month to file complaint.</details>
+    <details><summary>4. What does EMV stand for and who prepares a Bank Reconciliation Statement?</summary>EMV = Europay, Mastercard, Visa; Bank Reconciliation Statement is prepared by the customer of the bank.</details>
   </section>
 
   <!-- CH 6 -->
@@ -523,26 +654,25 @@
     <h2>Ch 6: NPCI, Digital Payments, SWIFT &amp; ATMs <span class="badge badge-upd">24×7 &amp; ₹5L Updated</span></h2>
     <div class="start-box">
       <strong>Start Here</strong>
-      <strong>NPCI</strong> (National Payments Corporation of India, est. <strong>19 Dec 2008</strong>) operates India's retail payment rails, while <strong>NEFT &amp; RTGS</strong> are managed directly by <strong>RBI</strong>.
+      <strong>NPCI</strong> (National Payments Corporation of India, non-profit set up <strong>19 Dec 2008</strong> by <strong>RBI &amp; IBA</strong>) operates India's retail payment rails, while <strong>NEFT, RTGS &amp; CBDC</strong> are managed directly by <strong>RBI</strong> under the <strong>PSS Act, 2007</strong>.
     </div>
 
     <h3>NPCI Products vs RBI Systems</h3>
     <ul>
-      <li><strong>Managed by NPCI:</strong> <strong>UPI</strong>, <strong>AePS</strong> (Aadhaar Enabled Payment System — uses Aadhaar for authentication), <strong>BHIM</strong> (launched <strong>30 Dec 2016</strong> by PM Modi; supports <strong>20 languages</strong>), <strong>IMPS</strong> (uses 7-digit <strong>MMID</strong> — Mobile Money Identifier), <strong><code>*99#</code></strong> (USSD basic mobile banking without internet), <strong>RuPay</strong>, <strong>NFS</strong> (National Financial Switch — ATM network), <strong>NETC / FASTag</strong> (National Electronic Toll Collection), <strong>BBPS / Bharat Connect</strong> (recurrent bill payments), <strong>NACH</strong> (National Automated Clearing House), <strong>CTS</strong> (Cheque Truncation System), <strong>e-RUPI</strong>.</li>
-      <li><strong>Managed directly by RBI (NOT NPCI):</strong> <strong>NEFT</strong>, <strong>RTGS</strong>, <strong>CBDC</strong> (Central Bank Digital Currency), <strong>ADF</strong> (Automated Data Flow).</li>
-      <li><strong>CBS (Core Banking Solution):</strong> Allows customers to access accounts and banking services across interconnected branches.</li>
-      <li><strong>ECS (Electronic Clearing Service):</strong> Used for bulk payments (salaries, dividends, utility bills); succeeded by NACH.</li>
-      <li><strong>SWIFT:</strong> <strong>Society for Worldwide Interbank Financial Telecommunication</strong> — international money transfer messaging.</li>
+      <li><strong>Managed by NPCI:</strong> <strong>UPI</strong> (launched <strong>11 Apr 2016</strong>; typical limit ₹1L, higher for taxes/hospitals/education; uses VPA <code>name@bank</code>), <strong>AePS</strong> (Aadhaar + fingerprint/iris), <strong>BHIM</strong> (launched <strong>30 Dec 2016</strong> by NPCI; 20 languages), <strong>IMPS</strong> (7-digit <strong>MMID</strong>), <strong><code>*99#</code></strong> (USSD offline), <strong>RuPay</strong> (launched <strong>26 Mar 2012</strong>; India's domestic network vs Visa/Mastercard), <strong>NFS</strong>, <strong>NETC / FASTag</strong>, <strong>BBPS / Bharat Connect</strong>, <strong>NACH</strong> (replaced ECS), <strong>CTS</strong> (2008 pilot), <strong>e-RUPI</strong>.</li>
+      <li><strong>UPI Apps &amp; Partnerships:</strong> GPay, PhonePe, Paytm = <strong>TPAPs</strong> (Third-Party Application Providers) partnering with a <strong>PSP Bank</strong>. <strong>Flex by Google Pay:</strong> UPI RuPay credit card launched <strong>Dec 2025</strong> with <strong>Axis Bank</strong>.</li>
+      <li><strong>Managed directly by RBI (NOT NPCI):</strong> <strong>NEFT</strong>, <strong>RTGS</strong>, <strong>CBDC (e₹)</strong> (pilots: wholesale <strong>1 Nov 2022</strong>, retail <strong>1 Dec 2022</strong>), <strong>ADF</strong> (Automated Data Flow), <strong>MANI</strong> (Mobile Aided Note Identifier, Jan 2020 — note identifier app for visually impaired users).</li>
+      <li><strong>Other Rails &amp; Instruments:</strong> <strong>CBS</strong> (Core Banking Solution) | <strong>PPIs</strong> (Prepaid Payment Instruments: Closed, Semi-Closed, Open) | <strong>Micro ATM</strong> (handheld device for Business Correspondents) | <strong>SWIFT</strong> (international messaging).</li>
     </ul>
 
     <h3>NEFT vs RTGS vs IMPS</h3>
     <div class="table-wrap">
       <table>
-        <thead><tr><th>Rail</th><th>Min – Max</th><th>Settlement &amp; Availability</th></tr></thead>
+        <thead><tr><th>Rail</th><th>Min – Max</th><th>Settlement &amp; Launch History</th></tr></thead>
         <tbody>
-          <tr><td><strong>NEFT</strong></td><td>₹1 to ∞</td><td>Half-hourly batches; <strong>24×7×365</strong> <em>(old: 12 batches 8am–6:30pm)</em></td></tr>
-          <tr><td><strong>RTGS</strong></td><td><strong>₹2 Lakh to ∞</strong></td><td>Immediate; <strong>24×7×365</strong> <em>(old: 7am–6pm working days)</em></td></tr>
-          <tr><td><strong>IMPS</strong></td><td>₹1 to <strong>₹5 Lakh</strong> <em>(old ₹2L)</em></td><td>Immediate; <strong>24×7×365</strong></td></tr>
+          <tr><td><strong>NEFT</strong></td><td>₹1 to ∞ (no RBI cap)</td><td>Half-hourly batches; <strong>24×7×365</strong> (since 16 Dec 2019; started Nov 2005)</td></tr>
+          <tr><td><strong>RTGS</strong></td><td><strong>₹2 Lakh to ∞</strong></td><td>Immediate; <strong>24×7×365</strong> (since 14 Dec 2020; started 26 Mar 2004)</td></tr>
+          <tr><td><strong>IMPS</strong></td><td>₹1 to <strong>₹5 Lakh</strong> <em>(old ₹2L)</em></td><td>Immediate; <strong>24×7×365</strong> (pilot Nov 2010)</td></tr>
         </tbody>
       </table>
     </div>
@@ -570,31 +700,60 @@
     </div>
 
     
-    <h3>Basel Accords &amp; CAMELS Rating</h3>
+    <h3>Basel Accords, India Capital Norms &amp; CAMELS Rating</h3>
     <div class="table-wrap">
       <table>
         <thead><tr><th>Accord / Tool</th><th>Year / Scope</th><th>Key Focus &amp; Components</th></tr></thead>
         <tbody>
-          <tr><td><strong>Basel I</strong></td><td><strong>1988</strong></td><td>Focuses on <strong>Credit Risk</strong> + <strong>8% Capital Adequacy</strong>.</td></tr>
-          <tr><td><strong>Basel II</strong></td><td><strong>2004</strong></td><td>Introduced <strong>3 Pillars:</strong> (1) Minimum Capital Requirements, (2) Supervisory Review, (3) Market Discipline.</td></tr>
-          <tr><td><strong>Basel III</strong></td><td><strong>2010</strong> (post-2008 crisis)</td><td>Focuses on Capital, Leverage, Liquidity &amp; Funding → introduced <strong>LCR + NSFR</strong>.</td></tr>
+          <tr><td><strong>Basel I</strong></td><td><strong>1988</strong> (BCBS, est. 1974)</td><td>Credit Risk + <strong>8%</strong> minimum capital of Risk-Weighted Assets (RWA).</td></tr>
+          <tr><td><strong>Basel II</strong></td><td><strong>2004</strong></td><td><strong>3 Pillars:</strong> (1) Minimum Capital (credit, market, operational risk), (2) Supervisory Review (<strong>ICAAP &amp; SREP</strong>), (3) Market Discipline (disclosures).</td></tr>
+          <tr><td><strong>Basel III</strong></td><td><strong>2010</strong> (post-2008 crisis)</td><td>Capital quality (<strong>CET1, AT1, Tier 1 vs Tier 2</strong>), Buffers (<strong>CCB 2.5%</strong>, <strong>CCyB 0–2.5%</strong>), Leverage Ratio, Liquidity (<strong>LCR + NSFR</strong>).</td></tr>
+          <tr><td><strong>India Norms &amp; D-SIBs</strong></td><td>RBI Adaptation</td><td>Min <strong>CRAR = 9%</strong> (<strong>11.5%</strong> with 2.5% CCB); <strong>CET1 ≥ 5.5%</strong>; <strong>Tier 1 ≥ 7%</strong>. <strong>3 D-SIBs:</strong> SBI, HDFC Bank, ICICI Bank.</td></tr>
           <tr><td><strong>Basel IV (Endgame)</strong></td><td>Implementation phase</td><td>Greater standardization of <strong>risk-weight calculations</strong>.</td></tr>
-          <tr><td><strong>CAMELS Rating</strong></td><td>Score <strong>1 to 5</strong> per component</td><td>Tool to assess health of banks/financial institutions: <strong>C</strong>apital Adequacy, <strong>A</strong>sset Quality, <strong>M</strong>anagement Capability, <strong>E</strong>arnings Sufficiency, <strong>L</strong>iquidity Position, <strong>S</strong>ensitivity to Market Risk.</td></tr>
+          <tr><td><strong>CAMELS Rating</strong></td><td>Score <strong>1 to 5</strong> per component</td><td><strong>C</strong>apital Adequacy, <strong>A</strong>sset Quality, <strong>M</strong>anagement Capability, <strong>E</strong>arnings Sufficiency, <strong>L</strong>iquidity Position, <strong>S</strong>ensitivity to Market Risk.</td></tr>
         </tbody>
       </table>
     </div>
+    <div class="trap-box">
+      <strong class="trap-title">Basel Trap</strong>
+      Deposit insurance (DICGC), financial inclusion, grievance redressal, and branch licensing are <strong>NOT</strong> Basel II pillars.
+    </div>
 
-    <h3>Key Acts &amp; Regulatory Scope</h3>
+    <h3>KYC, Officially Valid Documents (OVDs) &amp; Anti-Money Laundering (AML)</h3>
+    <div class="info-grid">
+      <div class="info-card">
+        <h4>KYC Master Direction (2016)</h4>
+        <ul>
+          <li><strong>6 OVDs:</strong> Passport, Driving Licence (DL), Aadhaar proof, Voter ID, NREGA job card (signed by state officer), <strong>NPR letter</strong>.</li>
+          <li><strong>NOT OVDs (Trap!):</strong> <strong>Ration card</strong>, <strong>PAN card</strong> (needed separately, not an OVD), college ID, bank passbook.</li>
+          <li><strong>Deemed Address OVDs:</strong> Utility bill (≤ 2 months), property/municipal tax receipt, govt pension payment order.</li>
+          <li><strong>CKYC &amp; Digital:</strong> <strong>CKYCRR</strong> (under CERSAI) issues <strong>14-digit KIN</strong>; <strong>e-KYC</strong> (Aadhaar OTP); <strong>V-CIP</strong> (video KYC).</li>
+          <li><strong>Re-KYC &amp; PEP:</strong> High-risk <strong>2 yrs</strong>, Medium <strong>8 yrs</strong>, Low <strong>10 yrs</strong>. <strong>PEP</strong> (Politically Exposed Person) → <strong>EDD</strong> (Enhanced Due Diligence).</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h4>AML, PMLA &amp; FATF</h4>
+        <ul>
+          <li><strong>3 Money Laundering Stages:</strong> <strong>Placement</strong> → <strong>Layering</strong> → <strong>Integration</strong>.</li>
+          <li><strong>PMLA (2002, in force 2005):</strong> Banks report to <strong>FIU-IND</strong> (est. 18 Nov 2004).</li>
+          <li><strong>CTR vs STR:</strong> <strong>CTR</strong> (Cash Transaction Report) = cash &gt; <strong>₹10 Lakh/month</strong>; <strong>STR</strong> = any suspicious transaction (any amount).</li>
+          <li><strong>FATF (est. 1989, Paris):</strong> Global AML &amp; CFT standard-setter ("grey" and "black" lists).</li>
+          <li><strong>Shell Bank:</strong> No physical presence in any country &amp; not part of a regulated group — banks are <strong>barred</strong> from dealing with them (distinct from a shell company).</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Key Acts &amp; Reforms</h3>
     <div class="table-wrap">
       <table>
-        <thead><tr><th>Act</th><th>Key Exam Facts</th></tr></thead>
+        <thead><tr><th>Act / Law</th><th>Key Exam Facts</th></tr></thead>
         <tbody>
           <tr><td><strong>Banking Regulation Act, 1949</strong></td><td>Has <strong>56 sections</strong>. Regulates <strong>Scheduled Commercial Banks</strong>. Section 24 = SLR; Section 35A = Banking Ombudsman.</td></tr>
-          <tr><td><strong>RBI Act, 1934</strong></td><td>Regulates <strong>NBFCs</strong>; lays down legal provisions for foreign exchange reserves.</td></tr>
-          <tr><td><strong>Negotiable Instruments Act, 1881</strong></td><td><strong>Section 6</strong> deals with <strong>cheques, electronic cheques, and truncated cheques</strong>.</td></tr>
-          <tr><td><strong>FEMA (1 June 2000)</strong></td><td>Foreign Exchange Management Act — replaced <strong>FERA</strong> (Foreign Exchange Regulation Act, <strong>1973</strong>).</td></tr>
-          <tr><td><strong>PMLA (Prevention of Money Laundering Act)</strong></td><td><strong>KYC</strong> introduced under PMLA (ID, face, document, biometric verification; banks must comply). Valid KYC docs: <strong>Passport, Driving License (DL), Aadhaar Card, PAN Card</strong>.</td></tr>
-          <tr><td><strong>IT Act, 2000</strong></td><td><strong>Section 66C:</strong> Punishment for identity theft / fraudulent use of unique electronic signature, password, etc.</td></tr>
+          <tr><td><strong>RBI Act, 1934</strong></td><td>Regulates <strong>NBFCs</strong>; lays down legal provisions for foreign exchange reserves; 2nd Schedule defines Scheduled Banks.</td></tr>
+          <tr><td><strong>Negotiable Instruments Act, 1881</strong></td><td><strong>Section 6:</strong> cheques, electronic &amp; truncated cheques. <strong>Section 130:</strong> Not Negotiable crossing. <strong>Section 138:</strong> cheque bounce criminal offence.</td></tr>
+          <tr><td><strong>FEMA (1999, eff. 1 June 2000)</strong></td><td>Foreign Exchange Management Act — replaced <strong>FERA</strong> (1973).</td></tr>
+          <tr><td><strong>SARFAESI (2002) &amp; IBC (2016)</strong></td><td><strong>SARFAESI Act, 2002:</strong> recovery of secured NPAs without court intervention. <strong>IBC, 2016:</strong> Insolvency &amp; Bankruptcy Code (regulated by IBBI).</td></tr>
+          <tr><td><strong>FRBM (2003), GST (2017) &amp; IT Act</strong></td><td><strong>FRBM Act 2003</strong> (fiscal discipline) | <strong>GST</strong> launched <strong>1 July 2017</strong> | <strong>Demonetisation:</strong> 8 Nov 2016 | <strong>IT Act 2000 Sec 66C:</strong> identity/password fraud.</td></tr>
         </tbody>
       </table>
     </div>
@@ -604,41 +763,60 @@
       <li><strong>NPA (Non-Performing Asset):</strong> Loan/advance for which principal or interest payment is overdue for <strong>90+ days</strong>.</li>
       <li><strong>Banking Risk Types:</strong> <strong>Market Risk, Liquidity Risk, Systematic Risk, Reputational Risk</strong>.</li>
       <li><strong>Narasimham Committee:</strong> Recommended <strong>Banking Structure Reforms</strong>.</li>
-      <li><strong>Banking Cyber Frauds:</strong>
-        - <strong>Skimming:</strong> Fraudsters install a <strong>skimmer</strong> device on ATMs/gas pumps to steal card data.
-        - <strong>Phishing:</strong> Fake emails/websites to steal credentials.
-        - <strong>Smishing:</strong> Phishing via <strong>SMS</strong>.
-        - <strong>Spoofing:</strong> Disguising communication (Caller ID / IP / email) to appear legitimate.
-        - <strong>SIM Swap:</strong> Fraudster duplicates victim's SIM card to hijack <strong>OTPs</strong>.
-      </li>
+      <li><strong>Banking Cyber Frauds:</strong> <strong>Skimming</strong> (hardware skimmer on ATMs/pumps) | <strong>Phishing</strong> (fake emails/sites) | <strong>Smishing</strong> (SMS phishing) | <strong>Spoofing</strong> (forging Caller ID/IP/email) | <strong>SIM Swap</strong> (cloning SIM to hijack OTPs).</li>
     </ul>
 
     <h3>Quick Check</h3>
-    <details><summary>1. Which Act replaced FERA (1973) on June 1, 2000?</summary>FEMA (Foreign Exchange Management Act).</details>
-    <details><summary>2. Under which section of the IT Act 2000 is fraudulent use of a password/electronic signature punished?</summary>Section 66C.</details>
-    <details><summary>3. How many sections are in the Banking Regulation Act, 1949, and which entities does it regulate vs RBI Act 1934?</summary>56 sections; BR Act 1949 regulates Scheduled Commercial Banks, while RBI Act 1934 regulates NBFCs.</details>
-    <details><summary>4. What is the difference between Skimming and Smishing?</summary>Skimming uses a hardware skimmer on ATMs/gas pumps to steal card data; Smishing is phishing via SMS.</details>
+    <details><summary>1. Which is NOT an OVD: Passport, Driving Licence, Voter ID, PAN Card, or Ration Card?</summary>Both Ration Card and PAN Card are NOT OVDs (PAN is required separately; the 6 OVDs are Passport, DL, Aadhaar, Voter ID, NREGA card, NPR letter).</details>
+    <details><summary>2. What is India's minimum CRAR (with and without CCB) and who are the 3 D-SIBs?</summary>CRAR 9% (11.5% with 2.5% CCB); 3 D-SIBs: SBI, HDFC Bank, ICICI Bank.</details>
+    <details><summary>3. What is the CTR monthly cash threshold and what are the 3 stages of money laundering?</summary>Above ₹10 lakh in a month; Placement → Layering → Integration.</details>
+    <details><summary>4. What is a Shell Bank and how does Section 66C IT Act apply to fraud?</summary>A Shell Bank has no physical presence in any country and no regulated-group affiliation (banned); Section 66C punishes identity/password theft.</details>
   </section>
 
   <!-- CH 8 -->
   <section class="card" id="ch8">
-    <h2>Ch 8: Banking Ombudsman, NARCL &amp; Global Institutions <span class="badge badge-upd">RB-IOS Update</span></h2>
+    <h2>Ch 8: RBI Ombudsman, Customer Rights, Tax Reporting &amp; Global Bodies <span class="badge badge-upd">RB-IOS 2021 vs 2026</span></h2>
+    <div class="start-box">
+      <strong>Start Here</strong>
+      Understand both <strong>RB-IOS 2021</strong> (12 Nov 2021, ₹20L / ₹1L — still tested in older paper keys) and the <strong>2026 Ombudsman Scheme</strong> (₹30L / ₹3L), the 5 Customer Rights, FATCA/CRS, and headquarters of all major global financial institutions.
+    </div>
+
+    <h3>RBI Integrated Ombudsman Scheme (RB-IOS)</h3>
     <ul>
-      <li><strong>Integrated Ombudsman Scheme – 2026 (Effective June 1, 2026; replaces 2021 scheme):</strong>
-        - Motto: <strong>"One Nation, One Ombudsman"</strong>; statutory base: <strong>Section 35A, BR Act 1949</strong> (orig. 1995 → 2002 → 2006 → 2021 → 2026). Financial loss is <strong>not</strong> the only criteria; <strong>No fee</strong> for filing.
-        - <strong>Tenure &amp; Offices:</strong> RBI Ombudsman &amp; Deputy Ombudsman tenure = <strong>3 years</strong>; 21 Regional Offices.
-        - <strong>Covered Entities:</strong> All SCBs, RRBs, <strong>all Cooperative Banks</strong> (non-scheduled Primary UCBs if deposit size <strong>≥ ₹50 Cr</strong>), customer-interface NBFCs (asset size <strong>&gt; ₹100 Cr</strong>) &amp; deposit-taking NBFCs, Non-bank <strong>PPI</strong> issuers, and <strong>Credit Information Companies (CICs)</strong> (newly covered). <strong>Excluded:</strong> Housing Finance Companies (HFCs).
-        - <strong>Filing &amp; Timelines:</strong> First complain to Regulated Entity (within <strong>Limitation Act, 1963</strong> period) → wait <strong>&gt; 30 days</strong> (or unsatisfactory/no response) → file with RBI Ombudsman within <strong>90 days</strong> from waiting period expiry. File personally or via authorised representative (<strong>Advocate normally NOT authorised</strong> unless personally affected).
-        - <strong>Channels:</strong> Online via <strong>CMS</strong> (Complaint Management System); Email/Physical processed at <strong>CRPC (Centralised Receipt and Processing Centre, Chandigarh)</strong>. <strong>NOT accepted</strong> via RBI Contact Centre.
-        - <strong>Exclusions:</strong> Already in court proceedings; Vendor–RE dispute; Employee–Employer dispute; Dispute between REs; incomplete/abusive/frivolous complaints.
-        - <strong>Proceedings &amp; Awards:</strong> Nature = <strong>Summary proceedings</strong>. RE gets <strong>15 days</strong> for written response + docs (on failure, RBI proceeds <strong>ex-parte</strong>). Outcomes: Settlement, Award, or Rejection. <strong>Underlying dispute value: No limit</strong>; Max compensation for consequential loss = <strong>₹30 Lakh</strong> + additional <strong>₹3 Lakh</strong> for mental harassment. Complainant must accept award within <strong>30 days</strong> (else lapses).
-        - <strong>Appeals &amp; Compliance:</strong> Appeal within <strong>30 days max</strong> to Appellate Authority = <strong>Executive Director in charge of CEPD</strong> (Consumer Education &amp; Protection Dept.). RE <strong>cannot appeal</strong> if it failed to furnish required info/docs. <strong>Principal Nodal Officer</strong> at RE head office must be min rank <strong>General Manager or equivalent</strong>. Salient features displayed at branches in <strong>English, Hindi, and Regional</strong> language.
-      </li>
-      <li><strong>NARCL (National Asset Reconstruction Company Ltd):</strong> India's <strong>Bad Bank</strong>; takes over and manages stressed assets (bad loans) from banks.</li>
-      <li><strong>IMF (International Monetary Fund):</strong> Resolves Balance of Payments issues worldwide; est. <strong>27 Dec 1945</strong>; HQ: <strong>Washington, D.C.</strong></li>
-      <li><strong>World Bank:</strong> Formally <strong>IBRD</strong> (International Bank for Reconstruction and Development).</li>
-      <li><strong>NDB (New Development Bank / BRICS Bank):</strong> First President = <strong>K. V. Kamath</strong>.</li>
+      <li><strong>History &amp; Motto ("One Nation, One Ombudsman"):</strong> Statutory base: <strong>Section 35A, BR Act 1949</strong>. Originated 1995 → 2002 → 2006 (merged Banking 2006 + NBFC 2018 + Digital Transactions 2019 into <strong>RB-IOS 2021 on 12 Nov 2021</strong>; CICs added 2022) → <strong>2026 Scheme</strong> (took effect June/1 July 2026). <strong>Zero filing fee</strong>; financial loss not the only criteria.</li>
+      <li><strong>Compensation Limits (Paper vs 2026):</strong> <strong>2021 Scheme:</strong> Consequential loss up to <strong>₹20 Lakh</strong> + harassment up to <strong>₹1 Lakh</strong>. <strong>2026 Scheme:</strong> Underlying dispute value <strong>no limit</strong>; consequential loss up to <strong>₹30 Lakh</strong> + harassment up to <strong>₹3 Lakh</strong>.</li>
+      <li><strong>Covered Entities &amp; Tenure:</strong> All SCBs, RRBs, Cooperative Banks (non-scheduled UCBs if deposits ≥ ₹50 Cr), customer-interface NBFCs (assets &gt; ₹100 Cr) &amp; deposit-taking NBFCs, Non-bank PPI issuers, CICs. <strong>Excluded:</strong> Housing Finance Companies (HFCs). Ombudsman/Deputy tenure = <strong>3 years</strong> (21 Regional Offices).</li>
+      <li><strong>Filing, Channels &amp; Proceedings:</strong> Complain to bank first → wait <strong>30 days</strong> → file via <strong>CMS</strong> or CRPC (<strong>Chandigarh</strong>) within <strong>90 days</strong> (not via RBI Contact Centre; advocates normally barred). Summary proceedings; RE gets <strong>15 days</strong> to respond (else <strong>ex-parte</strong>). Accept award within <strong>30 days</strong>. Appeal within <strong>30 days</strong> to <strong>ED in charge of CEPD</strong>. Principal Nodal Officer ≥ GM rank; salient features in English, Hindi &amp; Regional.</li>
     </ul>
+
+    <h3>Customer Rights, NARCL &amp; International Tax Reporting</h3>
+    <ul>
+      <li><strong>Charter of Customer Rights (5 Rights):</strong> Fair treatment; Transparency, fair &amp; honest dealing; Suitability; Privacy; Grievance redress &amp; compensation (promoted by <strong>BCSBI</strong>).</li>
+      <li><strong>FATCA &amp; CRS:</strong> <strong>FATCA</strong> (Foreign Account Tax Compliance Act) = <strong>US law (2010)</strong> requiring foreign banks to report US taxpayers (India signed IGA in 2015). <strong>CRS</strong> (Common Reporting Standard) = global automatic tax-info exchange by <strong>OECD</strong>.</li>
+      <li><strong>NARCL (National Asset Reconstruction Company Ltd):</strong> India's <strong>Bad Bank</strong>; resolves stressed assets/bad loans.</li>
+    </ul>
+
+    <h3>Global Financial Institutions &amp; Headquarters</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Body</th><th>Full Form &amp; Key Facts</th><th>Headquarters</th></tr></thead>
+        <tbody>
+          <tr><td><strong>BIS</strong></td><td>Bank for International Settlements ("central bank of central banks", est. <strong>1930</strong>)</td><td><strong>Basel, Switzerland</strong></td></tr>
+          <tr><td><strong>BCBS &amp; FSB</strong></td><td>Basel Committee on Banking Supervision (<strong>1974</strong>, hosted by BIS) &amp; Financial Stability Board (<strong>2009</strong>)</td><td><strong>Basel, Switzerland</strong></td></tr>
+          <tr><td><strong>IMF &amp; World Bank (IBRD)</strong></td><td>Bretton Woods (<strong>1944</strong>), est. <strong>1945</strong> (IMF: 27 Dec 1945, BoP crises)</td><td><strong>Washington, D.C.</strong></td></tr>
+          <tr><td><strong>ADB</strong></td><td>Asian Development Bank (est. <strong>1966</strong>)</td><td><strong>Manila, Philippines</strong></td></tr>
+          <tr><td><strong>AIIB</strong></td><td>Asian Infrastructure Investment Bank (est. <strong>2015</strong>, ops Jan 2016)</td><td><strong>Beijing, China</strong></td></tr>
+          <tr><td><strong>NDB</strong></td><td>New Development Bank (BRICS bank, est. <strong>2015</strong>; 1st President <strong>K. V. Kamath</strong>)</td><td><strong>Shanghai, China</strong></td></tr>
+          <tr><td><strong>FATF &amp; OECD</strong></td><td>FATF (<strong>1989</strong>, AML/CFT) &amp; OECD (<strong>1961</strong>, economic cooperation)</td><td><strong>Paris, France</strong></td></tr>
+          <tr><td><strong>IOSCO / WTO / UN</strong></td><td><strong>IOSCO</strong> (securities, <strong>1983</strong>) | <strong>WTO</strong> (<strong>1995</strong>, replaced GATT 1947) | <strong>UN</strong> (<strong>1945</strong>)</td><td>Madrid / Geneva / New York</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Quick Check</h3>
+    <details><summary>1. When was RB-IOS originally launched and what are the 2021 vs 2026 loss limits?</summary>12 November 2021; 2021 limit ₹20 Lakh (+ ₹1L harassment), 2026 limit ₹30 Lakh (+ ₹3L harassment).</details>
+    <details><summary>2. Where is BIS headquartered and what is its role?</summary>Basel, Switzerland; "central bank of central banks" (est. 1930, hosts BCBS).</details>
+    <details><summary>3. Where did FATCA originate, and which body runs CRS?</summary>FATCA is a 2010 US law; CRS is run by the OECD (Paris).</details>
   </section>
 
   
@@ -670,21 +848,29 @@
       <table>
         <thead><tr><th>Scheme</th><th>Launch &amp; Rate</th><th>Eligibility &amp; Deposit Range</th><th>Tenure, Tax &amp; Special Rules</th></tr></thead>
         <tbody>
-          <tr><td><strong>SSY</strong> (Sukanya Samriddhi Yojana)</td><td><strong>22 Jan 2015</strong><br><strong>8.2%</strong></td><td>Girl child <strong>&lt; 10 yrs</strong> (max 2/family; twins/triplets exception)<br><strong>₹250 – ₹1.5 Lakh/FY</strong></td><td>Deposit <strong>15 yrs</strong>; matures at <strong>21 yrs</strong> from opening (or marriage after 18). <strong>EEE</strong> tax status.</td></tr>
+          <tr><td><strong>SSY / SSA</strong> (Sukanya Samriddhi Account)</td><td><strong>22 Jan 2015</strong> (Beti Bachao Beti Padhao)<br><strong>8.2%</strong></td><td>Girl child <strong>&lt; 10 yrs</strong> (max 2/family; twins/triplets exception)<br><strong>₹250 – ₹1.5 Lakh/FY</strong></td><td>Deposit <strong>15 yrs</strong>; matures at <strong>21 yrs</strong> from opening (or marriage after 18). <strong>EEE</strong> tax status.</td></tr>
           <tr><td><strong>SCSS</strong> (Senior Citizen Savings Scheme)</td><td><strong>2004</strong><br><strong>8.2%</strong> (quarterly)</td><td><strong>60+ yrs</strong> (55–60 retired civilians; 50–60 retired defence)<br><strong>₹1,000 – ₹30 Lakh</strong> (raised from ₹15L)</td><td><strong>5 years</strong> (extendable in <strong>3-yr blocks</strong>). <strong>Sec 80C</strong> on principal; <strong>interest is taxed</strong>.</td></tr>
           <tr><td><strong>PPF</strong> (Public Provident Fund)</td><td><strong>1968</strong><br><strong>7.1%</strong></td><td><strong>No age limit</strong>; <strong>NRIs NOT eligible</strong><br><strong>₹500 – ₹1.5 Lakh/FY</strong></td><td><strong>15-yr lock-in</strong> (extendable in <strong>5-yr blocks</strong>). <strong>EEE</strong>. Loan: <strong>3rd–6th FY</strong>; Partial withdrawal: after <strong>7th FY</strong> (up to 50%, 1/FY); Premature closure: after <strong>5 yrs</strong> (1% penalty).</td></tr>
-          <tr><td><strong>GMS</strong> (Gold Monetization Scheme)</td><td><strong>Nov 2015</strong></td><td>Min raw gold: <strong>10 grams</strong></td><td>Mobilizes idle household gold into productive use.</td></tr>
+          <tr><td><strong>SGB</strong> (Sovereign Gold Bond)</td><td><strong>Nov 2015</strong> (RBI for GoI)<br><strong>2.5% p.a.</strong> (half-yearly)</td><td>Denominated in grams (Min <strong>1 g</strong>; Max <strong>4 kg/indiv/FY</strong>)</td><td><strong>8-yr tenure</strong> (early exit from <strong>5th yr</strong>); tradable on exchanges; <strong>capital gains tax-free</strong> if held to maturity (check if fresh tranches open).</td></tr>
+          <tr><td><strong>GMS</strong> (Gold Monetization Scheme)</td><td><strong>Sept / Nov 2015</strong></td><td>Min raw gold: <strong>10 grams</strong> (revamped scheme paper key)</td><td>Mobilizes idle household gold into interest-earning bank deposits to cut gold imports.</td></tr>
           <tr><td><strong>KVP</strong> (Kisan Vikas Patra)</td><td><strong>1988</strong> (2014 relaunch)<br><strong>7.5%</strong></td><td>Resident adults (or minor via guardian)<br>Min <strong>₹1,000</strong> (no upper limit)</td><td>Money <strong>doubles in 115 months</strong> (9 yrs 7 mos). Premature closure after <strong>2.5 yrs</strong>. <strong>No Sec 80C</strong> tax benefit.</td></tr>
-          <tr><td><strong>NSC / POMIS / TD / RD</strong></td><td>NSC: <strong>7.7%</strong> | POMIS: <strong>7.4%</strong><br>5-yr TD: <strong>7.5%</strong> | 5-yr RD: <strong>6.7%</strong></td><td>NSC: Min ₹1K (no max), 5 yrs.<br>POMIS: Max <strong>₹9L (Single)</strong> / <strong>₹15L (Joint)</strong>, 5 yrs.</td><td>Post Office small savings instruments (quarterly reviewed by MoF).</td></tr>
+          <tr><td><strong>NSC / POMIS / TD / RD</strong></td><td>NSC: <strong>7.7%</strong> | POMIS: <strong>7.4%</strong><br>5-yr TD: <strong>7.5%</strong> | 5-yr RD: <strong>6.7%</strong></td><td>NSC: Min ₹1K (no max), 5 yrs.<br>POMIS: Max <strong>₹9L (Single)</strong> / <strong>₹15L (Joint)</strong>, 5 yrs.<br>PO RD: Min <strong>₹100/mo</strong> (no max), 5 yrs.</td><td>Post Office small savings instruments (rates reviewed quarterly by MoF).</td></tr>
         </tbody>
       </table>
     </div>
 
+    <h3>SHGs, DAY-NRLM &amp; Lakhpati Didi</h3>
+    <ul>
+      <li><strong>SHG (Self-Help Group):</strong> Voluntary group of ~<strong>10–20 members</strong> (mostly women) who save regularly, lend internally, and borrow from banks. <strong>SHG-Bank Linkage Programme</strong> started by <strong>NABARD in 1992</strong>.</li>
+      <li><strong>DAY-NRLM:</strong> Deendayal Antyodaya Yojana – National Rural Livelihoods Mission (NRLM 2011, renamed 2016; Min. of Rural Development). National SHG-bank linkage award: <strong>2024–25 winner = Karnataka Grameena Bank</strong> (RRB); earlier private-sector winner = <strong>HDFC Bank</strong>.</li>
+      <li><strong>Lakhpati Didi (2023):</strong> Goal to help <strong>3 crore</strong> rural women earn ≥ <strong>₹1 lakh/year</strong>.</li>
+    </ul>
+
     <h3>Quick Check</h3>
     <details><summary>1. What are the 3 sub-indices and exact weights of RBI's Financial Inclusion Index (70 in March 2026)?</summary>Access (35%), Usage (45%), Quality (20%).</details>
     <details><summary>2. Compare PMSBY and PMJJBY premiums, entry ages, and death coverage.</summary>PMSBY: ₹20/yr, age 18–70, accidental only. PMJJBY: ₹436/yr, age 18–50 (cover to 55), death due to any cause.</details>
-    <details><summary>3. Under NPS Vatsalya (Jan 2026 guidelines), what is the minimum annual contribution and the 100% lump-sum corpus limit?</summary>Min contribution ₹250; 100% lump-sum exit allowed if corpus ≤ ₹8 Lakh.</details>
-    <details><summary>4. Compare SSY, SCSS, and PPF interest rates and tax status.</summary>SSY: 8.2% (EEE); SCSS: 8.2% (80C on principal, interest taxed); PPF: 7.1% (EEE).</details>
+    <details><summary>3. What is the fixed interest rate, tenure, and individual annual limit on Sovereign Gold Bonds (SGBs)?</summary>2.5% p.a. (paid half-yearly), 8-yr tenure (exit from 5th yr), max 4 kg/FY (min 1 g).</details>
+    <details><summary>4. Who started the SHG-Bank Linkage Programme in 1992, and who won the 2024–25 DAY-NRLM national award?</summary>NABARD (1992); Karnataka Grameena Bank (2024–25 award; HDFC Bank was an earlier private-sector winner).</details>
   </section>
 
   
@@ -696,9 +882,10 @@
       For IBPS RRB Scale 2, Agriculture schemes (KCC, PM-KISAN, PMFBY), RRB PSL targets (<strong>75% of ANBC</strong>), and the revised <strong>April 2025 MSME limits</strong> (2.5× investment, 2× turnover) are core exam territory.
     </div>
 
-    <h3>PSL Target for RRBs &amp; Farmer Classification</h3>
+    <h3>PSL Targets (Domestic Banks vs RRBs) &amp; Farmer Classification</h3>
     <ul>
-      <li><strong>PSL Target for RRBs:</strong> <strong>75% of ANBC</strong> (Adjusted Net Bank Credit) — including <strong>18% for Agriculture</strong> (with a <strong>10% sub-target</strong> for Small &amp; Marginal Farmers).</li>
+      <li><strong>Domestic Commercial Banks PSL:</strong> <strong>40% of ANBC</strong> (Sub-targets: Agriculture <strong>18%</strong>, Small &amp; Marginal Farmers <strong>10%</strong>, Micro Enterprises <strong>7.5%</strong>, Weaker Sections <strong>12%</strong>). Priority sectors: Agriculture, MSME, Export credit, Education, Housing, Social infra, Renewable energy.</li>
+      <li><strong>PSL Target for RRBs &amp; SFBs:</strong> <strong>75% of ANBC</strong> (incl. 18% Agriculture, 10% Small &amp; Marginal Farmers).</li>
       <li><strong>Farmer Classification (by Landholding):</strong> <strong>Marginal Farmer</strong> = up to <strong>1 hectare</strong> (≤ 2.5 acres) | <strong>Small Farmer</strong> = <strong>1 to 2 hectares</strong> (2.5 to 5 acres).</li>
     </ul>
 
@@ -716,8 +903,8 @@
       </table>
     </div>
 
-    <h3>MSME Classification (Effective 1 April 2025 — Budget 2025–26)</h3>
-    <p style="font-size:13.5px;color:var(--muted);">Investment limits hiked <strong>2.5×</strong> &amp; turnover limits hiked <strong>2×</strong>; applies equally to Manufacturing &amp; Services.</p>
+    <h3>MSME Classification (MSMED Act 2006 — Effective 1 April 2025)</h3>
+    <p style="font-size:13.5px;color:var(--muted);">Firms register on <strong>Udyam Portal</strong> (since 1 July 2020). Investment limits hiked <strong>2.5×</strong> &amp; turnover limits hiked <strong>2×</strong>; applies equally to Manufacturing &amp; Services.</p>
     <div class="table-wrap">
       <table>
         <thead><tr><th>Category</th><th>Investment in Plant &amp; Machinery</th><th>Annual Turnover</th></tr></thead>
@@ -739,7 +926,10 @@
           <tr><td><strong>PM Vishwakarma</strong></td><td><strong>17 Sept 2023</strong><br>Min. of MSME (₹13K Cr till FY 27–28)</td><td>Traditional artisans/craftspeople (<strong>18 trades</strong>, age 18+). Collateral-free loan <strong>@ 5%</strong>: <strong>₹1 Lakh (18m)</strong> &amp; <strong>₹2 Lakh (30m)</strong>. Toolkit incentive <strong>₹15K</strong>; training stipend <strong>₹500/day</strong>.</td></tr>
           <tr><td><strong>Stand-Up India</strong></td><td><strong>5 April 2016</strong><br>Ministry of Finance (<strong>SIDBI</strong>)</td><td>For <strong>SC/ST and/or women</strong> entrepreneurs (18+). Composite loan <strong>₹10 Lakh to ₹1 Crore</strong> for greenfield enterprises (mfg, services, trading, allied agri). Min <strong>51%</strong> shareholding by SC/ST/women.</td></tr>
           <tr><td><strong>PMEGP</strong> (Employment Generation)</td><td><strong>Aug 2008</strong><br>Min. of MSME (Nodal: <strong>KVIC</strong>)</td><td>Individuals 18+ (new micro enterprises). Max project cost: <strong>₹50L (Mfg)</strong> / <strong>₹20L (Service)</strong>. Margin Money Subsidy: <strong>General</strong> = 15% (Urban) / 25% (Rural); <strong>Special</strong> (SC/ST/OBC/Women/NE) = 25% (Urban) / 35% (Rural).</td></tr>
-          <tr><td><strong>CGTMSE</strong></td><td>Min. of MSME + <strong>SIDBI</strong></td><td>Credit Guarantee Fund Trust for Micro &amp; Small Enterprises: collateral-free ceiling raised from ₹5 Cr to <strong>₹10 Cr</strong> for MSEs (<strong>₹20 Cr</strong> for startups) in Budget 2025–26.</td></tr>
+          <tr><td><strong>CGTMSE &amp; CGFSEL</strong></td><td><strong>NCGTC / SIDBI</strong></td><td><strong>CGTMSE</strong> (MSEs): collateral-free ceiling raised to <strong>₹10 Cr</strong> (<strong>₹20 Cr</strong> for startups). <strong>CGFSEL</strong> (via NCGTC): collateral-free <strong>education loan guarantee up to ₹7.5 Lakh</strong>.</td></tr>
+          <tr><td><strong>JanSamarth Portal</strong></td><td><strong>6 June 2022</strong></td><td>Single-window digital portal linking credit-linked govt schemes (education, agriculture, business loans).</td></tr>
+          <tr><td><strong>PMKVY &amp; Skill India</strong></td><td><strong>15 July 2015</strong><br><strong>MSDE</strong> (Partner: <strong>NSDC</strong>)</td><td>PM Kaushal Vikas Yojana — skill training &amp; certification under Ministry of Skill Development &amp; Entrepreneurship. (<strong>Digital India:</strong> 1 July 2015).</td></tr>
+          <tr><td><strong>PMKKKY</strong></td><td><strong>2015</strong><br>Min. of Mines</td><td>PM Khanij Kshetra Kalyan Yojana — mining-area welfare implemented via <strong>DMFs (District Mineral Foundations)</strong> under <strong>MMDR Act</strong> (2015); ≥ <strong>60%</strong> on high-priority areas (water, health, education, sanitation).</td></tr>
           <tr><td><strong>Customized CCs for Micro Enterprises</strong></td><td>Budget 2025–26</td><td><strong>₹5 Lakh</strong> credit card limit for micro enterprises registered on <strong>Udyam Portal</strong> (10 Lakh cards target in 1st year).</td></tr>
           <tr><td><strong>TReDS</strong></td><td>RBI-regulated platform</td><td><strong>Trade Receivables Discounting System</strong> — electronic platform for MSMEs to finance/discount trade receivables from corporate buyers &amp; PSUs.</td></tr>
         </tbody>
@@ -747,11 +937,39 @@
     </div>
 
     <h3>Quick Check</h3>
-    <details><summary>1. What are the revised April 2025 investment and turnover limits for a Small Enterprise?</summary>Investment up to ₹25 Crore; Annual Turnover up to ₹100 Crore.</details>
-    <details><summary>2. What are the 4 categories of PMMY (MUDRA) loans?</summary>Shishu (up to ₹50K), Kishore (₹50K–₹5L), Tarun (₹5L–₹10L), and Tarun Plus (₹10L–₹20L).</details>
-    <details><summary>3. What are the uniform farmer premium rates under PMFBY?</summary>2% for Kharif, 1.5% for Rabi, and 5% for Commercial &amp; Horticultural crops.</details>
-    <details><summary>4. What is the effective KCC interest rate after the 3% prompt repayment incentive, and which committee recommended KCC?</summary>4% p.a. (7% base − 3% incentive); R. V. Gupta Committee (Aug 1998).</details>
-    <details><summary>5. What does TReDS stand for and who regulates it?</summary>Trade Receivables Discounting System, regulated by RBI.</details>
+    <details><summary>1. What are the revised April 2025 investment and turnover limits for a Small &amp; Medium Enterprise?</summary>Small: ₹25 Cr inv / ₹100 Cr turnover. Medium: ₹125 Cr inv / ₹500 Cr turnover.</details>
+    <details><summary>2. What is the PSL target for Domestic Commercial Banks vs RRBs, and what are the sub-targets?</summary>Domestic: 40% of ANBC (Agri 18%, SMF 10%, Micro 7.5%, Weaker 12%); RRBs: 75% of ANBC.</details>
+    <details><summary>3. Which ministry runs PMKVY, how does PMKKKY spend funds, and what does CGFSEL cover?</summary>PMKVY: MSDE (via NSDC); PMKKKY: via District Mineral Foundations (DMFs); CGFSEL: collateral-free education loans up to ₹7.5 lakh.</details>
+    <details><summary>4. What is JanSamarth Portal and what are the 4 MUDRA categories?</summary>JanSamarth (2022) = single-window portal for credit schemes; MUDRA = Shishu (≤₹50K), Kishore (₹50K–₹5L), Tarun (₹5L–₹10L), Tarun Plus (₹10L–₹20L).</details>
+    <details><summary>5. What is the effective KCC interest rate and what does TReDS stand for?</summary>KCC = 4% p.a. (7% − 3% prompt incentive, R. V. Gupta Committee); TReDS = Trade Receivables Discounting System (RBI-regulated).</details>
+  </section>
+
+  <!-- YEARS & STRATEGY -->
+  <section class="card" id="years">
+    <h2>Quick Memory Ladders, Key Years &amp; Exam Strategy</h2>
+    <div class="info-grid">
+      <div class="info-card">
+        <h4>High-Yield Year Ladders</h4>
+        <ul>
+          <li><strong>1982 (Mumbai):</strong> <strong>NABARD</strong> (12 July) &amp; <strong>EXIM Bank</strong> (1 Jan).</li>
+          <li><strong>1935 / 1937:</strong> <strong>RBI</strong> (1 Apr 1935) &amp; <strong>Bank of Maharashtra</strong> (16 Sept 1935); <strong>IOB</strong> &amp; RBI HQ shift to Mumbai (1937).</li>
+          <li><strong>1906 / 1908:</strong> <strong>BOI &amp; Canara</strong> (1906); <strong>Bank of Baroda &amp; Punjab &amp; Sind</strong> (1908).</li>
+          <li><strong>1969 &amp; 1980:</strong> 14 banks nationalised (19 July 1969), then 6 more (15 April 1980).</li>
+          <li><strong>1988 / 1992:</strong> <strong>SEBI</strong> set up (1988), statutory (1992); <strong>NHB &amp; KVP</strong> (1988).</li>
+          <li><strong>2002 / 2016:</strong> <strong>SARFAESI &amp; PMLA</strong> (2002); <strong>IBC, IBBI, MPC, UPI, BHIM, Demonetisation</strong> (2016).</li>
+          <li><strong>9 May 2015:</strong> <strong>PMSBY, PMJJBY &amp; APY</strong> launched together.</li>
+          <li><strong>12 Nov 2021:</strong> <strong>RB-IOS &amp; RBI Retail Direct</strong> launched together.</li>
+          <li><strong>Payments Ladder:</strong> RTGS 2004 → NEFT 2005 → NPCI &amp; CTS 2008 → IMPS 2010 → RuPay 2012 → UPI 2016 → MANI 2020 → e₹ 2022.</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h4>Attempt &amp; Elimination Strategy (40 Qs / 15 Min)</h4>
+        <ul>
+          <li><strong>Negative Marking (-0.25):</strong> Blind guess (5 options) = <code>0</code> EV; eliminate <strong>1 option</strong> (4 left) = <code>+0.0625</code> EV; eliminate <strong>2 options</strong> (3 left) = <code>+0.17</code> EV. Attempt whenever you can eliminate ≥ 1 option; skip pure blind guesses.</li>
+          <li><strong>Pacing (~22 sec/Q):</strong> Do a fast 1st pass for sure-shot answers, then return to eliminated questions.</li>
+        </ul>
+      </div>
+    </div>
   </section>
 
   <!-- DIGIT CHEAT SHEET -->
@@ -766,6 +984,7 @@
           <tr><td><strong>PAN</strong></td><td><strong>10 characters</strong></td><td>Permanent Account Number (alphanumeric)</td></tr>
           <tr><td><strong>IFSC</strong></td><td><strong>11 characters</strong></td><td>4 Bank + <code>0</code> + 6 Branch (alphanumeric)</td></tr>
           <tr><td><strong>PRAN</strong></td><td><strong>12 digits</strong></td><td>Permanent Retirement Account Number (NPS / PFRDA)</td></tr>
+          <tr><td><strong>KIN</strong></td><td><strong>14 digits</strong></td><td>KYC Identification Number (CKYC / CKYCRR)</td></tr>
           <tr><td><strong>Debit Card</strong></td><td><strong>16 digits</strong></td><td>Standard payment card number</td></tr>
           <tr><td><strong>LEI</strong></td><td><strong>20 characters</strong></td><td>Legal Entity Identifier (alphanumeric)</td></tr>
         </tbody>
@@ -780,8 +999,9 @@
       <table>
         <thead><tr><th>Parameter</th><th>Current Verified Value (Nov 2026)</th><th>Note / Change from Old Notes</th></tr></thead>
         <tbody>
-          <tr><td><strong>63rd MPC Rates (Oct 2026)</strong></td><td>Repo: <strong>5.50%</strong> | SDF: <strong>5.25%</strong> | MSF / Bank Rate: <strong>5.75%</strong> | Reverse Repo: <strong>3.35%</strong> | CRR: <strong>3.00%</strong> (99% daily min) | SLR: <strong>18.00%</strong></td><td>Stance: Calibrated Tightening</td></tr>
-          <tr><td><strong>Payments Bank / IMPS</strong></td><td>Payments Bank Deposit: <strong>₹2 Lakh</strong> | IMPS Max: <strong>₹5 Lakh</strong></td><td>Updated from ₹1L / ₹2L</td></tr>
+          <tr><td><strong>63rd MPC Rates (Oct 2026)</strong></td><td>Repo: <strong>5.50%</strong> | SDF: <strong>5.25%</strong> | MSF / Bank Rate: <strong>5.75%</strong> | Reverse Repo: <strong>3.35%</strong> | CRR: <strong>3.00%</strong> (99% daily min) | SLR: <strong>18.00%</strong></td><td>Stance: Calibrated Tightening (FIT 4% &plusmn; 2% renewed 2026–31)</td></tr>
+          <tr><td><strong>GDP &amp; SHG Award</strong></td><td><strong>Q2 FY26:</strong> 8.2% | <strong>Q1 FY27:</strong> 7.8% | <strong>SHG Award (24–25):</strong> Karnataka Grameena Bank</td><td>NSO / MoSPI &amp; DAY-NRLM</td></tr>
+          <tr><td><strong>Payments Bank / IMPS / GPay Flex</strong></td><td>Payments Bank Deposit: <strong>₹2 Lakh</strong> | IMPS Max: <strong>₹5 Lakh</strong> | <strong>Flex by GPay:</strong> Axis Bank (Dec 2025)</td><td>Updated from ₹1L / ₹2L; RuPay CC on UPI</td></tr>
           <tr><td><strong>NEFT &amp; RTGS</strong></td><td><strong>24×7×365</strong> (NEFT: 48 half-hourly batches)</td><td>Updated from working-hours only</td></tr>
           <tr><td><strong>Stale Cheque / CD / T-Bill</strong></td><td>Stale Cheque: <strong>3 months</strong> | CD min: <strong>₹5 Lakh</strong> | T-Bill min: <strong>₹10,000</strong></td><td>Updated from 6m / ₹1L / ₹25K</td></tr>
         </tbody>
@@ -819,6 +1039,27 @@
           <tr><td><strong>AIF / ANBC / CGFMU</strong></td><td>Agri Infra Fund / Adjusted Net Bank Credit / Credit Guarantee Fund for Micro Units</td><td><strong>CGTMSE / DBT / FPO</strong></td><td>Credit Guarantee Fund Trust for MSEs / Direct Benefit Transfer / Farmer Producer Org</td></tr>
           <tr><td><strong>KCC / KVIC / KVP</strong></td><td>Kisan Credit Card / Khadi &amp; Village Industries Comm. / Kisan Vikas Patra</td><td><strong>NCGTC / NSC / PACS</strong></td><td>National Credit Guarantee Trustee Co / National Savings Cert / Primary Agri Credit Soc</td></tr>
           <tr><td><strong>PMEGP / PMFBY / PM-KMY</strong></td><td>PM Employment Gen. Prog. / Fasal Bima / Kisan Maandhan Yojana</td><td><strong>PMMY / POMIS / TReDS</strong></td><td>PM Mudra Yojana / Post Office Monthly Income Scheme / Trade Receivables Discounting Sys</td></tr>
+          <tr><td><strong>ADB / AIIB / AML</strong></td><td>Asian Development Bank / Asian Infrastructure Investment Bank / Anti-Money Laundering</td><td><strong>ASBA / AT1 / BCBS</strong></td><td>Application Supported by Blocked Amount / Additional Tier 1 / Basel Committee on Banking Supervision</td></tr>
+          <tr><td><strong>BCSBI / BIS / bps</strong></td><td>Banking Codes &amp; Standards Board of India / Bank for International Settlements / basis points</td><td><strong>BRICS / BSE / CBLO</strong></td><td>Brazil-Russia-India-China-SA / Bombay Stock Exchange / Collateralised Borrowing &amp; Lending Obligation</td></tr>
+          <tr><td><strong>CCB / CCyB / CERSAI</strong></td><td>Capital Conservation Buffer / Countercyclical Capital Buffer / Central Registry of Securitisation Asset Reconstruction</td><td><strong>CET1 / CFT / CGFSEL</strong></td><td>Common Equity Tier 1 / Combating the Financing of Terrorism / Credit Guarantee Fund Scheme for Education Loans</td></tr>
+          <tr><td><strong>CKYC / CRS / CTR</strong></td><td>Central KYC / Common Reporting Standard / Cash Transaction Report</td><td><strong>DAY-NRLM / DD / DMF</strong></td><td>Deendayal Antyodaya Yojana – NRLM / Demand Draft / District Mineral Foundation</td></tr>
+          <tr><td><strong>DPIIT / D-SIB / ECB</strong></td><td>Dept for Promotion of Industry &amp; Internal Trade / Domestic Systemically Important Bank / External Commercial Borrowing</td><td><strong>EDD / EMI / FATCA</strong></td><td>Enhanced Due Diligence / Equated Monthly Instalment / Foreign Account Tax Compliance Act</td></tr>
+          <tr><td><strong>FATF / FIT / FIU-IND</strong></td><td>Financial Action Task Force / Flexible Inflation Targeting / Financial Intelligence Unit – India</td><td><strong>FPI / FPO / FRBM</strong></td><td>Foreign Portfolio Investment / Follow-on Public Offer / Fiscal Responsibility &amp; Budget Mgmt Act</td></tr>
+          <tr><td><strong>FSB / GATT / GDP</strong></td><td>Financial Stability Board / General Agreement on Tariffs &amp; Trade / Gross Domestic Product</td><td><strong>GIC / GST / GVA</strong></td><td>General Insurance Corp. of India / Goods &amp; Services Tax / Gross Value Added</td></tr>
+          <tr><td><strong>IBA / IBC / IBBI</strong></td><td>Indian Banks' Association / Insolvency &amp; Bankruptcy Code / Insolvency &amp; Bankruptcy Board of India</td><td><strong>ICAAP / ICICI / IMF</strong></td><td>Internal Capital Adequacy Assessment Process / Industrial Credit &amp; Inv. Corp. / International Monetary Fund</td></tr>
+          <tr><td><strong>IOSCO / IPO / KIN</strong></td><td>Int. Org of Securities Commissions / Initial Public Offer / KYC Identification Number</td><td><strong>LLP / LOLR / LRS</strong></td><td>Limited Liability Partnership / Lender of Last Resort / Liberalised Remittance Scheme</td></tr>
+          <tr><td><strong>MANI / MCA / MGNREGA</strong></td><td>Mobile Aided Note Identifier / Ministry of Corporate Affairs / Mahatma Gandhi NREGA</td><td><strong>MMDR / MoSPI / MSDE</strong></td><td>Mines &amp; Minerals Dev. &amp; Reg. Act / Ministry of Statistics &amp; Prog. Impl. / Ministry of Skill Dev. &amp; Entrepreneurship</td></tr>
+          <tr><td><strong>MSMED / NaBFID / NCLT</strong></td><td>MSME Development Act / National Bank for Financing Infra &amp; Dev. / National Company Law Tribunal</td><td><strong>NPR / NSDC / NSE</strong></td><td>National Population Register / National Skill Dev. Corp. / National Stock Exchange</td></tr>
+          <tr><td><strong>NSO / OECD / OFS</strong></td><td>National Statistics Office / Org. for Economic Co-operation &amp; Dev. / Offer for Sale</td><td><strong>OPC / OTP / OVD</strong></td><td>One Person Company / One-Time Password / Officially Valid Document</td></tr>
+          <tr><td><strong>PEP / PM-KISAN / PMKKKY</strong></td><td>Politically Exposed Person / PM Kisan Samman Nidhi / PM Khanij Kshetra Kalyan Yojana</td><td><strong>PMKVY / PSL / PSP</strong></td><td>PM Kaushal Vikas Yojana / Priority Sector Lending / Payment Service Provider</td></tr>
+          <tr><td><strong>PSS Act / QIP / RB-IOS</strong></td><td>Payment &amp; Settlement Systems Act / Qualified Institutional Placement / Reserve Bank – Integrated Ombudsman Scheme</td><td><strong>ROC / RRB / RWA</strong></td><td>Registrar of Companies / Regional Rural Bank / Risk-Weighted Assets</td></tr>
+          <tr><td><strong>SARFAESI / SDL / SFB</strong></td><td>Securitisation &amp; Reconstruction of Financial Assets / State Development Loan / Small Finance Bank</td><td><strong>SGB / SHG / SREP</strong></td><td>Sovereign Gold Bond / Self-Help Group / Supervisory Review &amp; Evaluation Process</td></tr>
+          <tr><td><strong>SSA / STR / T-bill</strong></td><td>Sukanya Samriddhi Account / Suspicious Transaction Report / Treasury Bill</td><td><strong>TDS / TPAP / TREPS</strong></td><td>Tax Deducted at Source / Third-Party Application Provider / Tri-Party Repo</td></tr>
+          <tr><td><strong>UN / UTI / V-CIP</strong></td><td>United Nations / Unit Trust of India / Video-based Customer Identification Process</td><td><strong>VDA / VPA / WPI / WTO</strong></td><td>Virtual Digital Asset / Virtual Payment Address / Wholesale Price Index / World Trade Organization</td></tr>
+          <tr><td><strong>CKYCRR / CPI / CRAR</strong></td><td>Central KYC Records Registry / Consumer Price Index / Capital to Risk-Weighted Assets Ratio</td><td><strong>EXIM / FRBM Act / FY</strong></td><td>Export-Import Bank of India / Fiscal Responsibility &amp; Budget Management Act / Financial Year</td></tr>
+          <tr><td><strong>G-sec / HDFC / IMPS</strong></td><td>Government Security / Housing Development Finance Corporation / Immediate Payment Service</td><td><strong>LAF / MMDR Act / MSMED Act</strong></td><td>Liquidity Adjustment Facility / Mines &amp; Minerals Dev. &amp; Reg. Act / MSME Development Act</td></tr>
+          <tr><td><strong>NBFC / NEFT / NI Act</strong></td><td>Non-Banking Financial Company / National Electronic Funds Transfer / Negotiable Instruments Act</td><td><strong>NITI Aayog / PPI</strong></td><td>National Institution for Transforming India / Prepaid Payment Instrument</td></tr>
+          <tr><td><strong>RTGS / UCO / UPI</strong></td><td>Real Time Gross Settlement / United Commercial Bank / Unified Payments Interface</td><td><strong>SC / ST</strong></td><td>Scheduled Caste / Scheduled Tribe</td></tr>
         </tbody>
       </table>
     </div>
