@@ -225,6 +225,33 @@
   summary { cursor: pointer; font-weight: 600; font-size: 13.8px; }
   details[open] summary { margin-bottom: 6px; color: var(--accent); }
   .hidden-card { display: none; }
+  .office-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+    gap: 12px;
+    margin: 12px 0 16px;
+  }
+  .office-card {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+  .office-card h4 {
+    margin: 0 0 8px;
+    font-size: 14px;
+    color: var(--accent);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 5px;
+  }
+  .office-card ul {
+    margin: 0;
+    padding-left: 16px;
+    font-size: 13.5px;
+    line-height: 1.5;
+  }
+  .office-card li { margin-bottom: 5px; }
+  .office-card li:last-child { margin-bottom: 0; }
 </style>
 </head>
 <body data-sidebar-pad="flush">
@@ -499,9 +526,44 @@
           <tr><td><strong>Font Dropdown / Max</strong></td><td><strong>8–72</strong> / Max <strong>1638</strong></td><td>8–72 / Max 409</td><td><strong>8–96</strong> / Max 4000</td></tr>
           <tr><td><strong>Zoom (Min/Def/Max)</strong></td><td>10% / 100% / <strong>500%</strong></td><td>10% / 100% / <strong>400%</strong></td><td>10% / 100% / <strong>400%</strong></td></tr>
           <tr><td><strong>Apple / Open-Source</strong></td><td>Apple <strong>Pages</strong> / LibreOffice Writer (WordPad: <code>.rtf</code>)</td><td>Apple <strong>Numbers</strong> / Google Sheets / LibreOffice <strong>Calc</strong></td><td>Apple <strong>Keynote</strong> / LibreOffice <strong>Impress</strong></td></tr>
-          <tr><td><strong>Tabs &amp; Key Features</strong></td><td><strong>11 Tabs:</strong> File, Home, Insert, Draw, Design, Layout, References, Mailings, Review, View, Help.<br>• <strong>References:</strong> Footnote<br>• <strong>Design:</strong> Watermark<br>• <strong>View:</strong> New Window, Arrange All, Split<br>• <strong>Review → Proofing:</strong> Spelling, Thesaurus, Word Count<br>• <strong>5 Margins:</strong> Top, Left, Right, Bottom, <strong>Gutter</strong> (binding: Top or Left)<br>• <strong>10 Paper Sizes:</strong> Letter, Tabloid, Legal, Statement, Executive, A3, A4, A5, B4, B5<br>• Table max: <strong>63 cols</strong>, <strong>32,767 rows</strong>; <strong>Drop Cap</strong> (enlarges 1st letter of a text block): Min 1 / Default <strong>3</strong> / Max 10 lines; Font Effects: Strikethrough, Small Caps, Sub/Superscript; <strong>Change Case (5 types):</strong> Sentence case, lowercase, UPPERCASE, Capitalize Each Word, tOGGLE cASE; <strong>Underlines:</strong> Red = Spelling, Green = Grammar, Blue = Contextual spelling; <strong>Mail Merge:</strong> creates multiple personalized letters using a common document + names/addresses list.</td><td><code>Workbook &gt; Worksheet &gt; Range &gt; Cell</code>.<br>• <strong>Name Box:</strong> displays <em>address</em> of active cell<br>• <strong>Formula Bar:</strong> displays <em>content</em> of active cell<br>• <strong>Grid:</strong> Rows = Numbers, Columns = Letters (e.g., cell <code>D8</code>)<br>• <strong>Alignment:</strong> Numbers &amp; Date/Time = <strong>Right-aligned</strong>; Text = Left-aligned<br>• Max chars/cell: <strong>32,767</strong><br>• Protect Workbook = <strong>Review</strong> tab<br>• Macros = <strong>View</strong> tab (<code>Alt+F8</code>, <strong>VBA</strong>).</td><td><strong>3 Ways to Start Slideshow:</strong> From Beginning (<code>F5</code>), From Current (<code>Shift+F5</code>), Custom; End = <code>Esc</code>.<br>• <strong>5 Views:</strong> Normal, Outline, <strong>Slide Sorter</strong> (all slides at once), Notes Page, Reading.<br>• <strong>Slide Master</strong>; Slide Show → Rehearse Timings; <strong>Quick Access Toolbar</strong> (top: Save, Undo, Redo — customizable), Status Bar (bottom).</td></tr>
         </tbody>
       </table>
+    </div>
+
+    <h3>App-Wise Tabs, Limits &amp; Key Features</h3>
+    <div class="office-grid">
+      <div class="office-card">
+        <h4>MS Word</h4>
+        <ul>
+          <li><strong>11 Tabs:</strong> File, Home, Insert, Draw, Design, Layout, References, Mailings, Review, View, Help.</li>
+          <li><strong>Key Tab Tools:</strong> References → <strong>Footnote</strong>; Design → <strong>Watermark</strong>; View → New Window, Arrange All, Split; Review → Proofing (Spelling, Thesaurus, Word Count).</li>
+          <li><strong>5 Margins:</strong> Top, Left, Right, Bottom, <strong>Gutter</strong> (binding: Top or Left).</li>
+          <li><strong>10 Paper Sizes:</strong> Letter, Tabloid, Legal, Statement, Executive, A3, A4, A5, B4, B5.</li>
+          <li><strong>Limits &amp; Drop Cap:</strong> Table max <strong>63 cols</strong>, <strong>32,767 rows</strong>; <strong>Drop Cap</strong> (1st letter): Min 1 / Default <strong>3</strong> / Max 10 lines.</li>
+          <li><strong>Font &amp; Case:</strong> Effects = Strikethrough, Small Caps, Sub/Superscript. <strong>5 Cases:</strong> Sentence, lowercase, UPPERCASE, Capitalize Each Word, tOGGLE cASE.</li>
+          <li><strong>Underlines &amp; Mail Merge:</strong> Red = Spelling, Green = Grammar, Blue = Contextual. <strong>Mail Merge</strong> = common doc + names/addresses list.</li>
+        </ul>
+      </div>
+      <div class="office-card">
+        <h4>MS Excel</h4>
+        <ul>
+          <li><strong>Hierarchy:</strong> <code>Workbook &gt; Worksheet &gt; Range &gt; Cell</code>.</li>
+          <li><strong>Name Box vs Formula Bar:</strong> Name Box = <em>address</em> of active cell; Formula Bar = <em>content</em> of active cell.</li>
+          <li><strong>Grid:</strong> Rows = Numbers, Columns = Letters (e.g., cell <code>D8</code>).</li>
+          <li><strong>Alignment:</strong> Numbers &amp; Date/Time = <strong>Right-aligned</strong>; Text = Left-aligned.</li>
+          <li><strong>Cell Limit:</strong> Max <strong>32,767</strong> chars/cell.</li>
+          <li><strong>Protection &amp; Macros:</strong> Protect Workbook = <strong>Review</strong> tab; Macros = <strong>View</strong> tab (<code>Alt+F8</code>, <strong>VBA</strong>).</li>
+        </ul>
+      </div>
+      <div class="office-card">
+        <h4>MS PowerPoint</h4>
+        <ul>
+          <li><strong>Slideshow Start / End:</strong> From Beginning (<code>F5</code>), From Current (<code>Shift+F5</code>), Custom; End = <code>Esc</code>.</li>
+          <li><strong>5 Views:</strong> Normal, Outline, <strong>Slide Sorter</strong> (all slides at once), Notes Page, Reading.</li>
+          <li><strong>Master &amp; Timings:</strong> <strong>Slide Master</strong>; Slide Show → Rehearse Timings.</li>
+          <li><strong>Bars:</strong> <strong>Quick Access Toolbar</strong> (top: Save, Undo, Redo — customizable); Status Bar (bottom).</li>
+        </ul>
+      </div>
     </div>
 
     <h3>MS Excel Functions &amp; Symbols</h3>
