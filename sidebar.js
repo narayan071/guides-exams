@@ -7,8 +7,13 @@
     },
     {
       href: 'Financial Awareness Gap Guide.html',
-      title: 'Financial Awareness',
+      title: 'Financial Awareness (PYQ)',
       subtitle: 'IBPS RRB GBO Scale II · PYQ Gap Guide',
+    },
+    {
+      href: 'financial_awareness_guide.html',
+      title: 'Financial Awareness Master',
+      subtitle: 'IBPS RRB Scale 2 (IT) · Master Guide',
     },
     {
       href: 'computer_knowledge_guide.html',
