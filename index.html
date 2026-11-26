@@ -5,7 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IBPS RRB Study Guides</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="apple-touch-icon" href="favicon.svg">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f766e">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="RRB Guides">
   <script>(function(){try{var t=localStorage.getItem('site_theme')||localStorage.getItem('fa_theme')||localStorage.getItem('ck_theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
   <link rel="stylesheet" href="sidebar.css">
   <style>
@@ -99,6 +105,49 @@
       font-weight: 600;
       color: var(--accent);
     }
+    .shortcut-box {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      background: var(--accent-soft);
+      border: 1px solid var(--accent);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 20px;
+      font-size: 13.5px;
+    }
+    .shortcut-box[hidden] { display: none; }
+    .shortcut-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      min-width: 210px;
+    }
+    .shortcut-btn {
+      padding: 7px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--accent);
+      background: var(--accent);
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    [data-theme="dark"] .shortcut-btn {
+      color: #0b1120;
+    }
+    .shortcut-steps {
+      width: 100%;
+      font-size: 12.5px;
+      color: var(--muted);
+      padding-top: 6px;
+      border-top: 1px solid var(--border);
+    }
+    .shortcut-steps[hidden] { display: none; }
   </style>
 </head>
 <body data-sidebar-pad="flush">
@@ -111,6 +160,21 @@
       </div>
     </div>
     <p class="lede">Select a guide from the sidebar (tap <strong>Guides</strong> on mobile) or pick one below. Each HTML page is a standalone study guide.</p>
+
+    <div class="shortcut-box" id="shortcutBox">
+      <div class="shortcut-info">
+        <img src="icon-192.png" alt="" width="28" height="28" style="border-radius:7px;flex-shrink:0;">
+        <div>
+          <strong>Use as Mobile App (No Browser Bar)</strong>
+          <div style="font-size:12.5px;color:var(--muted);">Add a Home Screen shortcut to open full-screen without the URL bar.</div>
+        </div>
+      </div>
+      <button type="button" class="shortcut-btn" id="installShortcutBtn">+ Add to Home Screen</button>
+      <div class="shortcut-steps" id="shortcutSteps" hidden>
+        <strong>iPhone (Safari):</strong> Tap <strong>Share</strong> (square with &uarr;) &rarr; <strong>Add to Home Screen</strong>.<br>
+        <strong>Android (Chrome):</strong> Tap <strong>&#8942;</strong> menu &rarr; <strong>Add to Home screen</strong> / <strong>Install app</strong>.
+      </div>
+    </div>
 
     <div class="grid">
       <a class="guide-card" href="Financial%20Awareness%20Gap%20Guide.html">
@@ -139,5 +203,35 @@
     </div>
   </main>
   <script src="sidebar.js" defer></script>
+  <script>
+    (function () {
+      var box = document.getElementById('shortcutBox');
+      var btn = document.getElementById('installShortcutBtn');
+      var steps = document.getElementById('shortcutSteps');
+      if (!box || !btn) return;
+      var isStandalone =
+        (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) ||
+        window.navigator.standalone === true;
+      if (isStandalone) {
+        box.hidden = true;
+        return;
+      }
+      var deferredPrompt = null;
+      window.addEventListener('beforeinstallprompt', function (e) {
+        e.preventDefault();
+        deferredPrompt = e;
+      });
+      btn.addEventListener('click', function () {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          deferredPrompt.userChoice.finally(function () {
+            deferredPrompt = null;
+          });
+        } else {
+          steps.hidden = !steps.hidden;
+        }
+      });
+    })();
+  </script>
 </body>
 </html>

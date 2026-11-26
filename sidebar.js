@@ -23,6 +23,44 @@
   ];
 
   const THEME_KEY = 'site_theme';
+  const SCALE_KEY = 'site_scale';
+  const SCALE_STEPS = [0.8, 0.9, 1, 1.1, 1.2, 1.3];
+
+  function getStoredScale() {
+    try {
+      const val = parseFloat(localStorage.getItem(SCALE_KEY));
+      if (SCALE_STEPS.includes(val)) return val;
+    } catch {
+      // ignore
+    }
+    return 1;
+  }
+
+  function applySiteScale(scale) {
+    const clamped = SCALE_STEPS.includes(scale) ? scale : 1;
+    document.documentElement.style.setProperty('--site-scale', String(clamped));
+    try {
+      localStorage.setItem(SCALE_KEY, String(clamped));
+    } catch {
+      // ignore
+    }
+    const valEl = document.getElementById('guideScaleVal');
+    const decBtn = document.getElementById('guideScaleDec');
+    const incBtn = document.getElementById('guideScaleInc');
+    if (valEl) valEl.textContent = Math.round(clamped * 100) + '%';
+    if (decBtn) decBtn.disabled = clamped <= SCALE_STEPS[0];
+    if (incBtn) incBtn.disabled = clamped >= SCALE_STEPS[SCALE_STEPS.length - 1];
+  }
+
+  function stepSiteScale(delta) {
+    const current = getStoredScale();
+    const idx = SCALE_STEPS.indexOf(current);
+    const nextIdx = Math.max(0, Math.min(SCALE_STEPS.length - 1, (idx === -1 ? 2 : idx) + delta));
+    applySiteScale(SCALE_STEPS[nextIdx]);
+  }
+
+  // Apply stored scale immediately to minimize layout shift
+  applySiteScale(getStoredScale());
 
   function getStoredTheme() {
     try {
@@ -149,8 +187,18 @@
       linksHtml +
       '</nav>' +
       '<div class="guide-sidebar-footer">' +
+      '<div class="guide-footer-row">' +
+      '<span>Text Size</span>' +
+      '<div class="guide-scale-controls">' +
+      '<button type="button" class="guide-scale-btn" id="guideScaleDec" aria-label="Decrease text size" title="Smaller text">A&minus;</button>' +
+      '<span class="guide-scale-val" id="guideScaleVal">100%</span>' +
+      '<button type="button" class="guide-scale-btn" id="guideScaleInc" aria-label="Increase text size" title="Larger text">A+</button>' +
+      '</div>' +
+      '</div>' +
+      '<div class="guide-footer-row">' +
       '<span>Theme</span>' +
       '<button type="button" class="guide-theme-toggle" id="guideSidebarThemeBtn" data-site-theme-btn="true"></button>' +
+      '</div>' +
       '</div>';
 
     document.body.prepend(mobileBar);
@@ -159,12 +207,17 @@
 
     document.getElementById('guideSidebarThemeBtn')?.addEventListener('click', toggleSiteTheme);
     document.getElementById('guideMobileThemeBtn')?.addEventListener('click', toggleSiteTheme);
+    document.getElementById('guideScaleDec')?.addEventListener('click', function () { stepSiteScale(-1); });
+    document.getElementById('guideScaleInc')?.addEventListener('click', function () { stepSiteScale(1); });
 
     applySiteTheme(getStoredTheme());
+    applySiteScale(getStoredScale());
 
     window.addEventListener('storage', function (e) {
       if (e.key === THEME_KEY && (e.newValue === 'dark' || e.newValue === 'light')) {
         applySiteTheme(e.newValue);
+      } else if (e.key === SCALE_KEY && e.newValue) {
+        applySiteScale(parseFloat(e.newValue));
       }
     });
 
