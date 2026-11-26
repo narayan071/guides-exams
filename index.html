@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IBPS RRB Study Guides</title>
+  <link rel="stylesheet" href="sidebar.css">
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --border: #e2e8f0;
+      --accent: #0f766e;
+      --accent-soft: #f0fdfa;
+      color-scheme: light;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0b1120;
+        --surface: #111827;
+        --text: #f1f5f9;
+        --muted: #94a3b8;
+        --border: #273449;
+        --accent: #2dd4bf;
+        --accent-soft: #042f2e;
+        color-scheme: dark;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      font-size: 15px;
+    }
+    main {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 28px 20px 60px;
+    }
+    .kicker {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 0 0 6px;
+    }
+    h1 {
+      font-size: 28px;
+      line-height: 1.2;
+      margin: 0 0 10px;
+    }
+    .lede {
+      color: var(--muted);
+      max-width: 62ch;
+      margin: 0 0 24px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+    }
+    .guide-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+      text-decoration: none;
+      color: var(--text);
+      transition: border-color 0.15s ease, transform 0.15s ease;
+    }
+    .guide-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .guide-card h2 {
+      font-size: 18px;
+      margin: 0 0 6px;
+    }
+    .guide-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .guide-card .cta {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body data-sidebar-pad="flush">
+  <main>
+    <p class="kicker">Exam Preparation</p>
+    <h1>IBPS RRB Study Guides</h1>
+    <p class="lede">Select a guide from the sidebar (tap <strong>Guides</strong> on mobile) or pick one below. Each HTML page is a standalone study guide.</p>
+
+    <div class="grid">
+      <a class="guide-card" href="Financial%20Awareness%20Gap%20Guide.html">
+        <div>
+          <h2>Financial Awareness Gap Guide</h2>
+          <p>Built from the 2025 IBPS RRB GBO Scale II paper (Section V) with 2026 facts, chapters from scratch, and glossary.</p>
+        </div>
+        <span class="cta">Open guide &rarr;</span>
+      </a>
+
+      <a class="guide-card" href="computer_knowledge_guide.html">
+        <div>
+          <h2>Computer Knowledge Master Guide</h2>
+          <p>IBPS RRB Scale 2 (IT) master reference with quick search, dark mode, and topic-by-topic breakdowns.</p>
+        </div>
+        <span class="cta">Open guide &rarr;</span>
+      </a>
+    </div>
+  </main>
+  <script src="sidebar.js" defer></script>
+</body>
+</html>

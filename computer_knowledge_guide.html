@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Computer Knowledge Master Guide — IBPS RRB Scale 2 (IT)</title>
+<link rel="stylesheet" href="sidebar.css">
+<style>
+  :root {
+    --bg: #f8fafc;
+    --surface: #ffffff;
+    --surface-2: #f1f5f9;
+    --text: #0f172a;
+    --muted: #475569;
+    --border: #e2e8f0;
+    --accent: #0f766e;
+    --accent-soft: #f0fdfa;
+    --green-bg: #dcfce7;
+    --green-text: #166534;
+    --green-border: #86efac;
+    --red-bg: #fee2e2;
+    --red-text: #991b1b;
+    --red-border: #fca5a5;
+    --yellow-bg: #fef9c3;
+    --yellow-text: #854d0e;
+    --yellow-border: #fde047;
+    --trap-bg: #fff7ed;
+    --trap-border: #fb923c;
+    --trap-text: #9a3412;
+    --code-bg: #f1f5f9;
+    --shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  [data-theme="dark"] {
+    --bg: #0b1120;
+    --surface: #111827;
+    --surface-2: #1e293b;
+    --text: #f1f5f9;
+    --muted: #94a3b8;
+    --border: #273449;
+    --accent: #2dd4bf;
+    --accent-soft: #042f2e;
+    --green-bg: #052e16;
+    --green-text: #86efac;
+    --green-border: #166534;
+    --red-bg: #450a0a;
+    --red-text: #fca5a5;
+    --red-border: #991b1b;
+    --yellow-bg: #422006;
+    --yellow-text: #fde047;
+    --yellow-border: #854d0e;
+    --trap-bg: #2c1608;
+    --trap-border: #ea580c;
+    --trap-text: #fdba74;
+    --code-bg: #1e293b;
+    --shadow: 0 1px 3px rgba(0,0,0,0.4);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.55;
+    font-size: 15px;
+    overflow-x: hidden;
+  }
+  .sticky-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    padding: 8px 16px;
+  }
+  .nav-inner {
+    max-width: 980px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .chips {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    flex: 1;
+    padding: 2px 0;
+  }
+  .chips::-webkit-scrollbar { display: none; }
+  .chip {
+    white-space: nowrap;
+    text-decoration: none;
+    color: var(--text);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 4px 11px;
+    font-size: 12.5px;
+    font-weight: 500;
+  }
+  .chip:hover { border-color: var(--accent); color: var(--accent); }
+  .theme-btn {
+    flex-shrink: 0;
+    background: var(--surface-2);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 5px 10px;
+    font-size: 12.5px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  main { max-width: 980px; margin: 0 auto; padding: 20px 16px 60px; }
+  header.hero {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 18px;
+  }
+  header.hero h1 { margin: 0 0 6px; font-size: 22px; }
+  header.hero p { margin: 0; color: var(--muted); font-size: 14px; }
+  .search-box {
+    margin-top: 12px;
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--text);
+    font-size: 14px;
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 10px;
+    margin-top: 12px;
+  }
+  .stat {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 9px 12px;
+  }
+  .stat .val { font-size: 18px; font-weight: 700; display: block; color: var(--accent); }
+  .stat .lbl { font-size: 12px; color: var(--muted); }
+  section.card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 18px;
+    box-shadow: var(--shadow);
+  }
+  section.card h2 {
+    margin: 0 0 10px;
+    font-size: 18px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+  section.card h3 { margin: 14px 0 6px; font-size: 15px; }
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 11.5px;
+    font-weight: 700;
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--muted);
+  }
+  .badge-exam { background: var(--green-bg); color: var(--green-text); border-color: var(--green-border); }
+  .start-box {
+    background: var(--accent-soft);
+    border-left: 4px solid var(--accent);
+    border-radius: 6px;
+    padding: 11px 14px;
+    margin: 10px 0 14px;
+    font-size: 14px;
+  }
+  .start-box strong { color: var(--accent); display: block; margin-bottom: 3px; font-size: 12.5px; text-transform: uppercase; letter-spacing: 0.4px; }
+  .trap-box {
+    background: var(--trap-bg);
+    border-left: 4px solid var(--trap-border);
+    border-radius: 6px;
+    padding: 11px 14px;
+    margin: 14px 0;
+    font-size: 13.8px;
+  }
+  .trap-box strong.trap-title { color: var(--trap-text); display: block; margin-bottom: 4px; font-size: 12.5px; text-transform: uppercase; letter-spacing: 0.4px; }
+  .table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 10px 0;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 480px; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { background: var(--surface-2); font-weight: 600; white-space: nowrap; }
+  tr:last-child td { border-bottom: none; }
+  ul { margin: 6px 0 10px; padding-left: 18px; }
+  li { margin-bottom: 4px; }
+  code {
+    background: var(--code-bg);
+    padding: 1px 5px;
+    border-radius: 4px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 13px;
+  }
+  details {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-bottom: 7px;
+    background: var(--surface-2);
+  }
+  summary { cursor: pointer; font-weight: 600; font-size: 13.8px; }
+  details[open] summary { margin-bottom: 6px; color: var(--accent); }
+  .hidden-card { display: none; }
+</style>
+</head>
+<body data-sidebar-pad="flush">
+<nav class="sticky-nav" aria-label="Chapter Navigation">
+  <div class="nav-inner">
+    <div class="chips">
+      <a class="chip" href="#ch1">1. Fundamentals &amp; Gen</a>
+      <a class="chip" href="#ch2">2. Hardware &amp; Ports</a>
+      <a class="chip" href="#ch3">3. Memory &amp; Units</a>
+      <a class="chip" href="#ch4">4. OS &amp; Linux</a>
+      <a class="chip" href="#ch5">5. MS Office &amp; Keys</a>
+      <a class="chip" href="#ch6">6. Networking &amp; IEEE</a>
+      <a class="chip" href="#ch7">7. Security &amp; Malware</a>
+      <a class="chip" href="#ch8">8. Software &amp; DBMS</a>
+      <a class="chip" href="#latest">Latest Facts</a>
+      <a class="chip" href="#glossary">Glossary</a>
+      <a class="chip" href="#tracker">Mock Tracker</a>
+    </div>
+    <button class="theme-btn" id="themeToggle" type="button">Theme</button>
+  </div>
+</nav>
+
+<main>
+  <header class="hero">
+    <h1>Computer Knowledge Master Guide — IBPS RRB Scale 2 (IT)</h1>
+    <p>Living Revision Guide • Deduplicated from Handwritten Notes (Pages 1–17) + High-Yield Exam Siblings</p>
+    <div class="stats-grid">
+      <div class="stat"><span class="val">Pages 1–17</span><span class="lbl">Notes Integrated</span></div>
+      <div class="stat"><span class="val">8 Chapters</span><span class="lbl">Deduplicated Topics</span></div>
+      <div class="stat"><span class="val">40 Qs / 20 M</span><span class="lbl">RRB Scale 2 CK Weight</span></div>
+      <div class="stat"><span class="val">Nov 2026</span><span class="lbl">Verified Latest Facts</span></div>
+    </div>
+    <input class="search-box" id="quickSearch" type="search" placeholder="Instant filter chapters (e.g. Aptos, Creeper, 802.15, DIMM, EDSAC, Yottabyte, Simula)...">
+  </header>
+
+  <!-- CH 1 -->
+  <section class="card" id="ch1">
+    <h2>Ch 1: Fundamentals, Generations, Pioneers, Supercomputers &amp; AI <span class="badge badge-exam">High-Yield</span></h2>
+    <div class="start-box">
+      <strong>Start Here</strong>
+      Banking exams frequently test computer generations, founding pioneers (von Neumann, Dennard, McCarthy), firsts (EDSAC, VisiCalc, ELIZA), reliability types, and emerging tech (AI, Blockchain, UPI, 5G).
+    </div>
+
+    <h3>5 Computer Generations</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Gen</th><th>Core Technology</th><th>Key Fact / Example</th></tr></thead>
+        <tbody>
+          <tr><td><strong>1st</strong></td><td><strong>Vacuum Tubes</strong></td><td>Machine language, huge heat/power (ENIAC, UNIVAC, <strong>EDSAC</strong> — 1st stored-program computer)</td></tr>
+          <tr><td><strong>2nd</strong></td><td><strong>Transistors</strong></td><td>Assembly &amp; early high-level languages (COBOL, FORTRAN)</td></tr>
+          <tr><td><strong>3rd</strong></td><td><strong>Integrated Circuits (IC)</strong></td><td>Smaller, faster, OS introduced</td></tr>
+          <tr><td><strong>4th</strong></td><td><strong>Microprocessors (VLSI)</strong></td><td>Very Large Scale Integration; PCs, GUI, <strong>Cray-1</strong></td></tr>
+          <tr><td><strong>5th</strong></td><td><strong>ULSI &amp; Artificial Intelligence (AI)</strong></td><td>Ultra Large Scale Integration, parallel processing, ML/NLP</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>History, Pioneers &amp; Supercomputers</h3>
+    <ul>
+      <li><strong>Abacus:</strong> Earliest known calculating device (ancient China, ~4,000+ years ago).</li>
+      <li><strong>Key Pioneers:</strong> <strong>John von Neumann</strong> (Father of modern computer architecture) | <strong>Robert Heath Dennard</strong> (Inventor of DRAM/RAM) | <strong>John McCarthy</strong> (Father of AI).</li>
+      <li><strong>Key Firsts:</strong> 1st Stored-Program Computer = <strong>EDSAC</strong> | 1st Electronic Spreadsheet = <strong>VisiCalc</strong> | 1st Chatbot = <strong>ELIZA</strong>.</li>
+      <li><strong>Speed Units:</strong> CPU = <strong>MIPS</strong> (Million Instructions/sec); Supercomputer = <strong>FLOPS</strong> (Floating-Point Ops/sec; 1 ExaFLOP = 10<sup>18</sup> FLOPS).</li>
+      <li><strong>India's Supercomputers:</strong> First = <strong>PARAM 8000</strong> (1991, C-DAC); Top = <strong>Shakti Cloud</strong> (#35 Nov 2026 TOP500) &amp; <strong>AIRAWAT</strong> (C-DAC Pune, #75 in 2023).</li>
+      <li><strong>Digital Divide:</strong> Gap between populations with access to modern ICT / e-governance services and those without.</li>
+    </ul>
+
+    <h3>4 Types of System Reliability</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Reliability Type</th><th>What It Measures</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Hardware / Software</strong></td><td>Physical components functioning / Code performance &amp; correctness.</td></tr>
+          <tr><td><strong>System / Operational</strong></td><td>Overall combined reliability / Human operators &amp; procedural dependability.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>AI, Blockchain, Payments &amp; Graphics</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Topic</th><th>Key Exam Facts</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Artificial Intelligence (AI)</strong></td><td>First AI language: <strong>LISP</strong> (LISt Processing). ChatGPT built using <strong>Python</strong>. <em>Exam Trap:</em> <strong>Perl</strong> is NOT used in AI.</td></tr>
+          <tr><td><strong>Cryptocurrency / Blockchain</strong></td><td>Underlying technology: <strong>Blockchain</strong>. Smallest unit of Bitcoin: <strong>Satoshi</strong> (<code>1 BTC = 10<sup>8</sup> Satoshis</code>).</td></tr>
+          <tr><td><strong>UPI &amp; OTT</strong></td><td><strong>UPI</strong> is built on top of <strong>IMPS</strong> (Immediate Payment Service). <strong>OTT</strong> = <strong>Over-The-Top</strong> (direct internet media).</td></tr>
+          <tr><td><strong>Image Warping vs Morphing</strong></td><td><strong>Warping:</strong> geometric distortion of <em>1 image</em> without color change (types: <strong>mesh warping</strong>, <strong>feature-based warping</strong>). <strong>Morphing:</strong> blends <em>2 images</em> (warping + color).</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Quick Check</h3>
+    <details><summary>1. Who is the founder of modern computer architecture and who invented RAM (DRAM)?</summary>John von Neumann (architecture); Robert Heath Dennard (RAM/DRAM).</details>
+    <details><summary>2. Which was the first computer to provide stored-program storage?</summary>EDSAC.</details>
+    <details><summary>3. Which payment rail is UPI built on top of?</summary>IMPS (Immediate Payment Service).</details>
+    <details><summary>4. Which language is commonly tested as NOT used in AI?</summary>Perl (LISP, Prolog, Python are used in AI).</details>
+  </section>
+
+  <!-- CH 2 -->
+  <section class="card" id="ch2">
+    <h2>Ch 2: Hardware, CPU, Ports, Audio Jacks &amp; Keyboard Keys</h2>
+    <div class="start-box">
+      <strong>Start Here</strong>
+      A CPU executes Fetch–Decode–Execute inside its Core(s), storing ALU results in the Accumulator. Know all legacy &amp; modern ports (SATA, PATA, AGP, Parallel, HDMI, USB), 3.5mm audio jack colors, and keyboard key categories (Toggle, Modifier, Sticky).
+    </div>
+
+    <h3>CPU, Power &amp; Logic Gates</h3>
+    <ul>
+      <li><strong>CPU Core &amp; Cycle:</strong> Basic computation unit = <strong>Core</strong>. Cycle: <code>Fetch → Decode → Execute</code>.</li>
+      <li><strong>Registers &amp; ALU:</strong> Register = group of <strong>flip-flops</strong>. <strong>ALU</strong> output is stored in the <strong>Accumulator</strong>.</li>
+      <li><strong>Universal Logic Gates:</strong> <strong>NAND</strong> and <strong>NOR</strong>.</li>
+      <li><strong>Firmware &amp; SMPS:</strong> Firmware = hardware + software in ROM (e.g., <strong>BIOS</strong> — runs hardware check during booting). <strong>SMPS</strong> = Switch Mode Power Supply.</li>
+      <li><strong>Peripheral Card:</strong> Hardware that puts info in and out of a computer (input/output devices).</li>
+      <li><strong>Dumb Terminal:</strong> Only a <strong>keyboard and screen</strong> (no local processing).</li>
+    </ul>
+
+    <h3>Ports, Cables, Slots &amp; Color Codes</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Port / Slot</th><th>Full Form / Inventor</th><th>Key Specs &amp; Use</th></tr></thead>
+        <tbody>
+          <tr><td><strong>DIMM</strong></td><td>Dual In-line Memory Module</td><td>Standard <strong>RAM memory slot</strong> on desktop motherboards.</td></tr>
+          <tr><td><strong>SATA / PATA</strong></td><td>Serial / Parallel ATA</td><td><strong>SATA</strong> (2001–03): HDD to motherboard, <strong>7-pin data / 15-pin power</strong>, 150 MBps–6 Gbps. <strong>PATA</strong> (1986): 40-pin/80-wire ribbon, 133 MBps.</td></tr>
+          <tr><td><strong>AGP Slot</strong></td><td>Accelerated Graphics Port</td><td>Dedicated slot for <strong>graphics card</strong> (succeeded by PCIe).</td></tr>
+          <tr><td><strong>Parallel Port</strong></td><td>Legacy LPT Port</td><td>Historically used to connect <strong>Printers</strong>.</td></tr>
+          <tr><td><strong>USB</strong></td><td>Universal Serial Bus (<strong>Ajay Bhatt</strong>)</td><td><strong>Internet / USB</strong> (2.0) = <strong>Half-duplex</strong> (USB 3.0+ = Full-duplex).</td></tr>
+          <tr><td><strong>HDMI / RJ-45</strong></td><td>High-Def Multimedia / Registered Jack 45</td><td>HDMI = <strong>19 pins</strong> (HD video + audio); RJ-45 = 8-pin Ethernet.</td></tr>
+          <tr><td><strong>SCSI / PS/2</strong></td><td>Small Computer System Interface / Personal System/2 (IBM)</td><td>SCSI = connects printers, scanners, drives, and monitor to CPU; PS/2 = Purple (Keyboard), Green (Mouse).</td></tr>
+          <tr><td><strong>3.5mm Audio Ports</strong></td><td>Color-Coded Sound Jacks</td><td><strong>Pink</strong> = Mic Input | <strong>Green</strong> = Headphone/Speaker Out | <strong>Blue</strong> = Analog Line-In.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Input, Output &amp; Keyboard Key Categories</h3>
+    <ul>
+      <li><strong>Dual I/O &amp; Readers:</strong> <strong>Modem</strong> = Input + Output | <strong>OMR</strong> = bubble sheets | <strong>MICR</strong> = bank cheques | <strong>OCR</strong> = printed text.</li>
+      <li><strong>Laser Printer:</strong> Uses dry <strong>toner powder</strong>. Speed = <strong>PPM</strong> (Pages/Min); Quality = <strong>DPI</strong> (Dots/Inch).</li>
+      <li><strong>Toggle Keys (3):</strong> <strong>Caps Lock, Num Lock, Scroll Lock</strong> (give sound/LED cues).</li>
+      <li><strong>Modifier Keys:</strong> <strong>Ctrl, Shift, Alt</strong> (never perform an action alone).</li>
+      <li><strong>Sticky Keys:</strong> Accessibility feature letting you press combination keys (e.g., Ctrl+Alt+Del) <strong>one by one</strong>; enable by pressing <strong>Shift 5 times</strong>.</li>
+    </ul>
+
+    <h3>Quick Check</h3>
+    <details><summary>1. What is the standard slot for desktop RAM modules?</summary>DIMM (Dual In-line Memory Module).</details>
+    <details><summary>2. What are the 3.5mm audio jack colors for Mic, Speaker, and Line-In?</summary>Pink = Mic, Green = Headphone/Speaker, Blue = Analog Line-In.</details>
+    <details><summary>3. Name the 3 Toggle Keys and how to enable Sticky Keys.</summary>Caps Lock, Num Lock, Scroll Lock. Press Shift 5 times to enable Sticky Keys.</details>
+    <details><summary>4. Which port was traditionally used to connect printers?</summary>Parallel Port.</details>
+  </section>
+
+  <!-- CH 3 -->
+  <section class="card" id="ch3">
+    <h2>Ch 3: Memory Hierarchy, Storage Units, Timing &amp; Number Systems</h2>
+    <div class="start-box">
+      <strong>Start Here</strong>
+      Primary Memory (RAM/ROM) sits closest to the CPU; Virtual Memory extends RAM using the Hard Disk. Memorize SRAM vs DRAM, HDD timing (Access time vs Latency), the full Byte-to-Yottabyte ladder, and number conversions.
+    </div>
+
+    <h3>Primary (Semiconductor: RAM &amp; ROM) &amp; Virtual Memory</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Memory</th><th>Built From / Mechanism</th><th>Key Exam Facts</th></tr></thead>
+        <tbody>
+          <tr><td><strong>SRAM (Static RAM)</strong></td><td><strong>Flip-flops (transistors)</strong></td><td>Faster, <strong>less power</strong>, expensive; used for <strong>Cache &amp; Registers</strong>.</td></tr>
+          <tr><td><strong>DRAM (Dynamic RAM)</strong></td><td><strong>Transistors &amp; Capacitors</strong></td><td>Slower, <strong>more power</strong> (needs refresh); Main RAM (speed in <strong>MHz</strong>, <strong>DDR</strong> = Double Data Rate).</td></tr>
+          <tr><td><strong>Cache Memory</strong></td><td>SRAM, 2nd fastest, Random Access</td><td><strong>Locality of Reference</strong>. CPU↔Cache = <strong>Word transfer</strong>; Cache↔RAM = <strong>Block (cache line)</strong>.</td></tr>
+          <tr><td><strong>CMOS (NVRAM)</strong></td><td>Non-Volatile RAM (battery-backed)</td><td>Stores BIOS settings &amp; system clock.</td></tr>
+          <tr><td><strong>ROM &amp; Flash</strong></td><td>Mask ROM / PROM / EPROM / EEPROM</td><td>Mask ROM = factory-set, unalterable. <strong>Flash Memory</strong> (SSD, Pen Drive, Memory Card) = advanced <strong>EEPROM</strong> (a form of ROM).</td></tr>
+          <tr><td><strong>Virtual Memory</strong></td><td>Part of <strong>Hard Disk</strong></td><td>Used by OS as an extension of RAM when physical RAM fills up.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Secondary Storage (Auxiliary Memory) &amp; HDD Timing</h3>
+    <ul>
+      <li><strong>Disk Formatting:</strong> Dividing a disk into <strong>Tracks &amp; Sectors</strong>.</li>
+      <li><strong>HDD Timing:</strong> <strong>Seek Time</strong> = time taken to move read/write head to the track on hard disk; <strong>Latency</strong> = time taken for request/response to hard disk.</li>
+      <li><strong>Optical Discs (CD/DVD):</strong> Store data as <strong>Pits and Lands</strong>. CD-ROM (Read-only), CD-R (Write once), CD-RW (Rewritable).</li>
+      <li><strong>Floppy Disks (IBM):</strong> <strong>3.5" = 1.44 MB</strong> | 5.25" = 360 KB–1.2 MB | 8" = 80 KB–1.2 MB.</li>
+    </ul>
+
+    <h3>Memory Units Ladder (Decimal vs Binary)</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Unit</th><th>Decimal</th><th>Binary</th><th>Unit</th><th>Decimal</th><th>Binary</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Kilobyte (KB)</strong></td><td>10<sup>3</sup></td><td>2<sup>10</sup></td><td><strong>Petabyte (PB)</strong></td><td>10<sup>15</sup></td><td>2<sup>50</sup></td></tr>
+          <tr><td><strong>Megabyte (MB)</strong></td><td>10<sup>6</sup></td><td>2<sup>20</sup></td><td><strong>Exabyte (EB)</strong></td><td>10<sup>18</sup></td><td>2<sup>60</sup></td></tr>
+          <tr><td><strong>Gigabyte (GB)</strong></td><td>10<sup>9</sup></td><td>2<sup>30</sup></td><td><strong>Zettabyte (ZB)</strong></td><td>10<sup>21</sup></td><td>2<sup>70</sup></td></tr>
+          <tr><td><strong>Terabyte (TB)</strong></td><td>10<sup>12</sup></td><td>2<sup>40</sup></td><td><strong>Yottabyte (YB)</strong></td><td>10<sup>24</sup></td><td>2<sup>80</sup></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Number Systems, ASCII &amp; Complements</h3>
+    <ul>
+      <li><strong>Character Codes:</strong> <strong>ASCII</strong> = <strong>7-bit</strong> (128 chars); <strong>Extended ASCII (EASCII)</strong> = <strong>8-bit</strong> (256 chars).</li>
+      <li><strong>Conversions:</strong> Any base → Decimal (positional powers: <code>(1101)₂ = 13</code>, <code>(1F)₁₆ = 31</code>); Dec → Bin (divide by 2, bottom-up: <code>(45)₁₀ = 101101</code>); Bin ↔ Oct/Hex (group by 3 / 4: <code>110101 → (65)₈ / (35)₁₆</code>); Dec Fraction → Bin (multiply by 2, top-down: <code>0.625 → .101</code>); Bin Fraction → Dec (left-to-right <code>2⁻¹, 2⁻²...</code>: <code>(101.101)₂ = 5.625</code>).</li>
+      <li><strong>Complements &amp; BCD:</strong> 1's = flip bits; 2's = scan <strong>right-to-left</strong>, keep up to first <code>1</code>, flip left bits (<code>11001100 → 00110100</code>). BCD = 4-bit per decimal digit (<code>94 → 1001 0100</code>).</li>
+      <li><strong>8-Bit Ranges:</strong> Unsigned = <code>[0, 255]</code>; Signed = <code>[-128, +127]</code>.</li>
+    </ul>
+
+    <h3>Quick Check</h3>
+    <details><summary>1. How many bits are in standard ASCII vs Extended ASCII (EASCII)?</summary>ASCII = 7 bits; Extended ASCII = 8 bits.</details>
+    <details><summary>2. Which binary power equals 1 Zettabyte (ZB) and 1 Yottabyte (YB)?</summary>ZB = 2⁷⁰ (10²¹); YB = 2⁸⁰ (10²⁴).</details>
+    <details><summary>3. Where does Virtual Memory physically reside?</summary>On the Hard Disk (secondary storage).</details>
+    <details><summary>4. What is CMOS also known as?</summary>NVRAM (Non-Volatile RAM).</details>
+  </section>
+
+  <!-- CH 4 -->
+  <section class="card" id="ch4">
+    <h2>Ch 4: Operating Systems, Booting, File Systems &amp; Linux Commands</h2>
+    <div class="start-box">
+      <strong>Start Here</strong>
+      On booting, the OS is loaded into <strong>RAM</strong>. Know the Windows version sequence, open-source OS families, device drivers, NTFS vs FAT, and Linux CLI commands.
+    </div>
+
+    <h3>OS Basics, Windows Sequence &amp; Booting</h3>
+    <ul>
+      <li><strong>OS Structure:</strong> <code>Hardware → Kernel → Shell → Applications</code>. On booting, OS loads into <strong>RAM</strong>.</li>
+      <li><strong>Open-Source OS:</strong> <strong>GNU/Linux, FreeBSD, Android, Chromium OS, OpenSolaris</strong>. <strong>Kali Linux</strong> = security/pen-testing; Linux default browser = <strong>Mozilla Firefox</strong>.</li>
+      <li><strong>MS Windows Sequence:</strong> <code>ME → XP → Vista → 7 → 8 / 8.1 → 10 → 11</code>. (<strong>Windows 2000</strong> = business/client-server focused; <strong>Windows 8</strong> had no Start button).</li>
+      <li><strong>Drivers &amp; Utilities:</strong> <strong>Device Driver</strong> = software controlling a hardware device. <strong>Disk Defragmentation</strong> = consolidates fragmented HDD files.</li>
+      <li><strong>Booting &amp; Power:</strong> <strong>Cold Boot (Hard Boot)</strong> = from power-off | <strong>Warm Boot (Soft Boot)</strong> = restart while powered on | <strong>Random Rebooting</strong> (rebooting on crash) | Sleep (RAM, fast) | Hibernate (Disk, least power).</li>
+    </ul>
+
+    <h3>File Systems &amp; Linux Commands</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>File System</th><th>Key Facts</th></tr></thead>
+        <tbody>
+          <tr><td><strong>NTFS</strong></td><td>New Technology File System (Microsoft, <strong>1993</strong>) — modern Windows; encryption, permissions, journaling.</td></tr>
+          <tr><td><strong>FAT / FAT32 / exFAT</strong></td><td>File Allocation Table — older Windows &amp; USBs (FAT32 max file = 4 GB).</td></tr>
+          <tr><td><strong>ext4 / APFS</strong></td><td>Standard Linux / Apple (macOS/iOS) file systems.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Command</th><th>Function</th><th>Command</th><th>Function</th></tr></thead>
+        <tbody>
+          <tr><td><code>chmod</code></td><td>Change permissions (<code>chmod 755</code>: each digit = 3 binary bits <code>rwx</code>, e.g., <code>7 = 111 = rwx</code>; <code>x</code> on file = execute, <code>x</code> on directory = traverse)</td><td><code>ps</code> / <code>top</code></td><td>List processes / Live process monitor</td></tr>
+          <tr><td><code>chown</code></td><td>Change file owner / group</td><td><code>kill</code></td><td>Terminate process by PID</td></tr>
+          <tr><td><code>grep</code></td><td>Search text inside files</td><td><code>df</code> / <code>du</code></td><td>Disk Free space / Disk Usage</td></tr>
+          <tr><td><code>find</code></td><td>Search files by name/size</td><td><code>man</code> / <code>sudo</code></td><td>Manual pages / Run as superuser</td></tr>
+          <tr><td><code>wget / curl</code></td><td>Download from URL</td><td><code>tar</code></td><td>Archive / extract files</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Quick Check</h3>
+    <details><summary>1. Where is the Operating System loaded during booting?</summary>Into RAM (Main Memory).</details>
+    <details><summary>2. What is the chronological sequence of Windows from ME to 11?</summary>ME → XP → Vista → 7 → 8/8.1 → 10 → 11.</details>
+    <details><summary>3. What is the default browser on most Linux distributions?</summary>Mozilla Firefox.</details>
+    <details><summary>4. What software program controls a specific hardware device?</summary>Device Driver.</details>
+  </section>
+
+  <!-- CH 5 -->
+  <section class="card" id="ch5">
+    <h2>Ch 5: MS Office (Word, Excel, PowerPoint), Suites &amp; Shortcuts <span class="badge badge-exam">Highest Weight</span></h2>
+    <div class="start-box">
+      <strong>Start Here</strong>
+      MS Office tabs, default fonts, margins, paper sizes, Excel alignment/formulas, and keyboard shortcuts are the highest-scoring part of IBPS RRB Computer Knowledge.
+    </div>
+
+    <h3>MS Office Core Specs, Tabs &amp; Limits</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Feature</th><th>MS Word</th><th>MS Excel</th><th>MS PowerPoint</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Default Name &amp; Font</strong></td><td><code>Document1</code> • MS 365 Font: <strong>Aptos (12pt)</strong> (2007–21: Calibri 11pt; 97–03: Times New Roman)</td><td><code>Book1</code> (Default: <strong>1 sheet</strong>, prev 3; max: 255 or RAM-limited)</td><td><code>Presentation1</code></td></tr>
+          <tr><td><strong>Extensions (2007+)</strong></td><td><code>.docx</code>, <code>.docm</code> (macro), <code>.dotm</code> (macro template)</td><td><code>.xlsx</code>, <code>.xlsm</code></td><td><code>.pptx</code>, <code>.pptm</code></td></tr>
+          <tr><td><strong>Font Dropdown / Max</strong></td><td><strong>8–72</strong> / Max <strong>1638</strong></td><td>8–72 / Max 409</td><td><strong>8–96</strong> / Max 4000</td></tr>
+          <tr><td><strong>Zoom (Min/Def/Max)</strong></td><td>10% / 100% / <strong>500%</strong></td><td>10% / 100% / <strong>400%</strong></td><td>10% / 100% / <strong>400%</strong></td></tr>
+          <tr><td><strong>Apple / Open-Source</strong></td><td>Apple <strong>Pages</strong> / LibreOffice Writer (WordPad: <code>.rtf</code>)</td><td>Apple <strong>Numbers</strong> / Google Sheets / LibreOffice <strong>Calc</strong></td><td>Apple <strong>Keynote</strong> / LibreOffice <strong>Impress</strong></td></tr>
+          <tr><td><strong>Tabs &amp; Key Features</strong></td><td><strong>11 Tabs:</strong> File, Home, Insert, Draw, Design, Layout, References, Mailings, Review, View, Help.<br>• <strong>References:</strong> Footnote<br>• <strong>Design:</strong> Watermark<br>• <strong>View:</strong> New Window, Arrange All, Split<br>• <strong>Review → Proofing:</strong> Spelling, Thesaurus, Word Count<br>• <strong>5 Margins:</strong> Top, Left, Right, Bottom, <strong>Gutter</strong> (binding: Top or Left)<br>• <strong>10 Paper Sizes:</strong> Letter, Tabloid, Legal, Statement, Executive, A3, A4, A5, B4, B5<br>• Table max: <strong>63 cols</strong>, <strong>32,767 rows</strong>; <strong>Drop Cap</strong> (enlarges 1st letter of a text block): Min 1 / Default <strong>3</strong> / Max 10 lines; Font Effects: Strikethrough, Small Caps, Sub/Superscript; <strong>Change Case (5 types):</strong> Sentence case, lowercase, UPPERCASE, Capitalize Each Word, tOGGLE cASE; <strong>Underlines:</strong> Red = Spelling, Green = Grammar, Blue = Contextual spelling; <strong>Mail Merge:</strong> creates multiple personalized letters using a common document + names/addresses list.</td><td><code>Workbook &gt; Worksheet &gt; Range &gt; Cell</code>.<br>• <strong>Name Box:</strong> displays <em>address</em> of active cell<br>• <strong>Formula Bar:</strong> displays <em>content</em> of active cell<br>• <strong>Grid:</strong> Rows = Numbers, Columns = Letters (e.g., cell <code>D8</code>)<br>• <strong>Alignment:</strong> Numbers &amp; Date/Time = <strong>Right-aligned</strong>; Text = Left-aligned<br>• Max chars/cell: <strong>32,767</strong><br>• Protect Workbook = <strong>Review</strong> tab<br>• Macros = <strong>View</strong> tab (<code>Alt+F8</code>, <strong>VBA</strong>).</td><td><strong>3 Ways to Start Slideshow:</strong> From Beginning (<code>F5</code>), From Current (<code>Shift+F5</code>), Custom; End = <code>Esc</code>.<br>• <strong>5 Views:</strong> Normal, Outline, <strong>Slide Sorter</strong> (all slides at once), Notes Page, Reading.<br>• <strong>Slide Master</strong>; Slide Show → Rehearse Timings; <strong>Quick Access Toolbar</strong> (top: Save, Undo, Redo — customizable), Status Bar (bottom).</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>MS Excel Functions &amp; Symbols</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Function / Symbol</th><th>Meaning &amp; Example</th></tr></thead>
+        <tbody>
+          <tr><td><code>=SUM(A1:A10)</code> / <code>Alt + =</code></td><td>Adds range (NO <code>=ADD()</code> or <code>=TOTAL()</code>); <code>Alt + =</code> inserts AutoSum.</td></tr>
+          <tr><td><code>=TODAY()</code> / <code>=NOW()</code></td><td><code>TODAY()</code> = current date; <code>NOW()</code> = current date &amp; time.</td></tr>
+          <tr><td><code>=CEILING(n, sig)</code> / <code>=FLOOR(n, sig)</code></td><td>Result is always a <strong>multiple of the 2nd number</strong>.<br><code>CEILING</code> rounds <strong>UP (≥)</strong>: <code>(48,12)=48</code>, <code>(23,5)=25</code>, <code>(19,4)=20</code>, <code>(10,3)=12</code>, <code>(9,3)=9</code>.<br><code>FLOOR</code> rounds <strong>DOWN (≤)</strong>: <code>(23,5)=20</code>, <code>(19,4)=16</code>, <code>(10,3)=9</code>, <code>(9,3)=9</code>.</td></tr>
+          <tr><td><code>= : $ &amp; *? # {}</code></td><td><code>=</code> Formula | <code>:</code> Range (<code>A9:A99</code>) | <code>$</code> Cell referencing: <strong>Relative</strong> (<code>A1</code>), <strong>Absolute</strong> (<code>$A$1</code>), <strong>Mixed</strong> (<code>$A1</code> / <code>A$1</code>) | <code>&amp;</code> Concat | <code>*,?</code> Wildcards | <code>#</code> Error | <code>{}</code> Array.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Deduplicated Master Shortcut Keys</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Category</th><th>Shortcut</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td rowspan="10"><strong>MS Word / Office</strong></td><td><code>Ctrl + O</code> / <code>Ctrl + H</code> / <code>Ctrl + F2</code></td><td>Open / Find &amp; Replace / <strong>Print Preview</strong></td></tr>
+          <tr><td><code>Ctrl + B / I / U</code></td><td>Bold / Italic / Underline</td></tr>
+          <tr><td><code>Ctrl + L / R / E / J</code></td><td>Left / Right / Center / Justify alignment</td></tr>
+          <tr><td><code>Ctrl + D</code> / <code>Ctrl + Shift + F</code></td><td>Font dialog box (Regular, Bold, Italic, Bold Italic) / Change Font directly</td></tr>
+          <tr><td><code>Ctrl + K</code> / <code>Ctrl + T</code></td><td>Insert Hyperlink / Hanging Indent (from 2nd line)</td></tr>
+          <tr><td><code>Ctrl + Shift + +</code> / <code>Ctrl + =</code></td><td><strong>Superscript</strong> (x²) / Subscript (x₂)</td></tr>
+          <tr><td><code>Ctrl + Enter</code> / <code>Shift + Enter</code> / <code>Enter</code></td><td><strong>Page Break</strong> / <strong>Line Break</strong> / <strong>Paragraph Break</strong></td></tr>
+          <tr><td><code>Shift + Alt + D</code> / <code>Shift + Alt + T</code></td><td>Insert current <strong>Date</strong> / current <strong>Time</strong> in MS Word</td></tr>
+          <tr><td><code>Ctrl + Shift + G</code> / <code>Shift + F3</code> / <code>Shift + F7</code></td><td><strong>Word Count</strong> / Change Case (5 types) / <strong>Thesaurus</strong> (Synonyms &amp; Antonyms)</td></tr>
+          <tr><td><code>Alt + Ctrl + C</code> / <code>Alt + F8</code></td><td>Copyright symbol (<code>©</code>) / Open <strong>Macro</strong> dialog box</td></tr>
+          <tr><td rowspan="3"><strong>Excel Specific</strong></td><td><code>Ctrl + ;</code> / <code>Ctrl + Shift + ;</code></td><td>Insert current <strong>Date</strong> / current <strong>Time</strong></td></tr>
+          <tr><td><code>Ctrl + 0</code> / <code>Ctrl + 9</code></td><td><strong>Hide Column</strong> / <strong>Hide Row</strong></td></tr>
+          <tr><td><code>Alt + F1</code> / <code>F11</code> / <code>Alt + =</code></td><td>Insert Chart (same sheet) / Chart (new sheet) / AutoSum</td></tr>
+          <tr><td rowspan="3"><strong>PowerPoint Specific</strong></td><td><code>Ctrl + M</code> / <code>Ctrl + N</code></td><td>Insert <strong>New Slide</strong> after current / Create <strong>Blank Presentation</strong></td></tr>
+          <tr><td><code>F5</code> / <code>Shift + F5</code> / <code>Alt + F5</code> / <code>Esc</code></td><td>From Start / From Current / <strong>Presenter View</strong> / End Slideshow</td></tr>
+          <tr><td><code>Shift + F9</code></td><td>Show / Hide <strong>Gridlines</strong></td></tr>
+          <tr><td rowspan="5"><strong>Windows &amp; Browser</strong></td><td><code>Ctrl + Shift + Esc</code> / <code>Ctrl + Alt + Del</code></td><td>Task Manager directly / Security Screen (Lock, Switch User, Task Manager)</td></tr>
+          <tr><td><code>Ctrl + Esc</code> / <code>Ctrl + U</code> (Browser)</td><td>Start Menu / <strong>View Webpage Source Code</strong></td></tr>
+          <tr><td><code>Win + D / M / E / R / L / I / S</code></td><td>Desktop / Min all / Explorer / Run / Lock / Settings / Search</td></tr>
+          <tr><td><code>Win + X / Tab / Shift+S / PrtScn</code></td><td>Power User / Task View / Snipping Tool / Screenshot</td></tr>
+          <tr><td><code>Alt + Enter</code> / <code>Alt + Space</code> / <code>Ctrl + Alt + Tab</code></td><td>Properties / Window Menu / Switch Windows</td></tr>
+          <tr><td rowspan="6"><strong>Function Keys (F1–F12)</strong></td><td><code>F1</code> / <code>F2</code> / <code>F3</code></td><td>Help / Rename (Edit cell) / Search in Explorer</td></tr>
+          <tr><td><code>F4</code> / <code>F5</code></td><td>Address dropdown (Repeat in Office) / Refresh (Find&amp;Replace Word)</td></tr>
+          <tr><td><code>F6</code> / <code>F7</code></td><td>Focus address bar / Spelling &amp; Grammar (Office)</td></tr>
+          <tr><td><code>F8</code></td><td>Safe Mode (boot) / Extend selection (<code>F8 × 3</code> = sentence)</td></tr>
+          <tr><td><code>F10</code> / <code>F11</code> / <code>F12</code></td><td>Menu Bar / Full Screen (Chart in Excel) / <strong>Save As</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Quick Check</h3>
+    <details><summary>1. What is the default font and size in MS Word 365?</summary>Aptos, 12 pt (previously Calibri 11 pt in 2007–2021).</details>
+    <details><summary>2. Which Excel shortcut hides a column and which hides a row?</summary>Hide column = Ctrl + 0; Hide row = Ctrl + 9.</details>
+    <details><summary>3. Where are Footnote and Watermark located in MS Word tabs?</summary>Footnote = References tab; Watermark = Design tab.</details>
+    <details><summary>4. What is the difference between Name Box and Formula Bar in Excel?</summary>Name Box shows the address of the active cell; Formula Bar shows the content/formula of the active cell.</details>
+    <details><summary>5. What does <code>Ctrl + M</code> vs <code>Ctrl + N</code> do in PowerPoint?</summary>Ctrl + M inserts a new slide; Ctrl + N creates a new blank presentation.</details>
+  </section>
+
+  <!-- CH 6 -->
+  <section class="card" id="ch6">
+    <h2>Ch 6: Networking, OSI/TCP-IP, IEEE 802, Browsers &amp; Email</h2>
+    <div class="start-box">
+      <strong>Start Here</strong>
+      Master the OSI 7-layer delivery scopes, IEEE 802 standards, Intranet vs Extranet, IP/MAC structure, email protocols (SMTP + MIME), and browser engines.
+    </div>
+
+    <h3>OSI Model vs TCP/IP Model &amp; PDUs</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>OSI Layer</th><th>TCP/IP (4 / 5 Layer)</th><th>PDU</th><th>Responsibility &amp; Protocols/Standards</th></tr></thead>
+        <tbody>
+          <tr><td><strong>7. Application</strong></td><td rowspan="3">Application</td><td>Data</td><td>HTTP/HTTPS (<strong>TLS/SSL</strong>), SMTP, MIME, SNMP, DNS, DHCP, PGP, <strong>Gmail</strong></td></tr>
+          <tr><td><strong>6. Presentation</strong></td><td>Data</td><td>Syntax/semantics, Encryption, Translation, Compression: <strong>ASCII, BCD, EBCDIC, JPEG, MPEG, GIF, PNG</strong></td></tr>
+          <tr><td><strong>5. Session</strong></td><td>Data</td><td>Dialog control, synchronization, checkpoints</td></tr>
+          <tr><td><strong>4. Transport</strong></td><td>Transport</td><td><strong>Segment</strong></td><td><strong>End-to-End / Process-to-Process / Port-to-Port</strong> (TCP, UDP)</td></tr>
+          <tr><td><strong>3. Network</strong></td><td>Internet</td><td><strong>Packet</strong></td><td><strong>Host-to-Host</strong> routing across networks (IP, ARP, RARP, Router)</td></tr>
+          <tr><td><strong>2. Data Link</strong></td><td>Network Access (Data Link)</td><td><strong>Frame</strong></td><td>In charge of <strong>error-free frame transport</strong> (<strong>Node-to-Node</strong>); sublayers: <strong>LLC</strong> &amp; <strong>MAC</strong>; <strong>Switch / Bridge</strong> (stores MAC table)</td></tr>
+          <tr><td><strong>1. Physical</strong></td><td>Network Access (Physical)</td><td>Bits</td><td>Signals, cables, <strong>Hub</strong> (multi-port), Repeater, <strong>Dial-up Modem</strong> (uses telephone lines, slow)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>IEEE 802 Standards &amp; Addressing</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Standard</th><th>Technology</th><th>Address / Spec</th></tr></thead>
+        <tbody>
+          <tr><td><strong>IEEE 802.3</strong></td><td><strong>Ethernet</strong> (Wired LAN)</td><td><strong>MAC:</strong> <strong>Globally unique</strong>, 48 bits (6 bytes, <strong>6 groups of 2 hex digits, colon-separated</strong>): First 6 = <strong>OUI</strong>; Last 6 = <strong>NIC</strong></td></tr>
+          <tr><td><strong>IEEE 802.4 / 802.5</strong></td><td><strong>Token Bus</strong> / <strong>Token Ring</strong></td><td><strong>IPv4:</strong> 32 bits (<strong>dotted decimal</strong>, DARPA); A (large), B (medium), C (small) = Unicast; D = <strong>Multicast (one-to-many)</strong>; E = <strong>Experimental / Broadcast</strong> (D/E have no default mask)</td></tr>
+          <tr><td><strong>IEEE 802.11</strong></td><td><strong>Wi-Fi</strong> (Wireless LAN)</td><td><strong>IPv6:</strong> 128 bits (<strong>8 groups of 4 hex digits</strong>, IETF); <code>::</code> compresses 0s; eliminates <strong>NAT</strong></td></tr>
+          <tr><td><strong>IEEE 802.15</strong></td><td><strong>WPAN</strong> (Bluetooth / Hotspot)</td><td><strong>5G Peak Data Rate:</strong> <strong>20 Gbps</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul>
+      <li><strong>TCP/IP:</strong> Foundation of the Internet and most home/business networks.</li>
+      <li><strong>Network Scope:</strong> <strong>Intranet</strong> = private network within an organization | <strong>Extranet</strong> = private network granting controlled access to external 3rd parties/partners.</li>
+      <li><strong>Internet Milestones:</strong> Father = <strong>Vint Cerf</strong>; Mother = <strong>Radia Perlman</strong>. World launch = <strong>Jan 1, 1983</strong>; India = <strong>Aug 15, 1995</strong>. IP blocks assigned by <strong>IANA</strong> to RIRs. <strong>APIPA</strong> (<code>169.254.x.x</code>) when DHCP fails.</li>
+      <li><strong>Topologies &amp; Devices:</strong> <strong>Tree</strong> = Hierarchical; <strong>Bus</strong> = most data collisions. <strong>Router</strong> (connects LANs/subnets) | <strong>Gateway</strong> (dissimilar networks; also called Proxy server, NOT Firewall) | <strong>Bridge</strong> (2 ports, same network) | <strong>Repeater</strong> (fixes signal attenuation).</li>
+    </ul>
+
+    <h3>Protocols, Email, Cookies &amp; Browsers</h3>
+    <ul>
+      <li><strong>SMTP &amp; MIME:</strong> SMTP sends <strong>text only</strong>; <strong>MIME</strong> (Multipurpose Internet Mail Extensions) enables attachments.</li>
+      <li><strong>Gmail &amp; Email Clients:</strong> Gmail (Application layer webmail, NOT desktop client): <strong>25 MB</strong> max attachment, <strong>500 emails/day</strong> free send limit, <strong>15 GB</strong> free inbox, <strong>5s</strong> Undo Send. Blacklisted emails → <strong>Spam</strong>. Desktop clients = Outlook, Thunderbird, Apple Mail.</li>
+      <li><strong>Web &amp; Protocols:</strong> <strong>Cookies</strong> = originally designed for <strong>server-side programming</strong> (state management). <strong>Spider (Web Crawler)</strong> = program used by search engines to index websites. <strong>SNMP</strong> (UDP 161) | <strong>ARP</strong> (IP→MAC) / <strong>RARP</strong> (MAC→IP) | <strong>PGP</strong> (Port 11371).</li>
+      <li><strong>Browsers &amp; Social:</strong> Engines: <strong>Chrome/Opera → Blink</strong> | <strong>Firefox (open-source) → Gecko</strong> | <strong>Safari → WebKit</strong> | <strong>IE → Trident</strong>. <strong>Tor</strong> (The Onion Router — dark web) | <strong>Epic</strong> (Indian Chromium-based browser by Hidden Reflex) | <strong>Qmamu</strong> (Indian privacy-focused search engine) | <strong>AltaVista</strong> (Yahoo) | <strong>LinkedIn</strong> (May 5, 2003, Reid Hoffman &amp; Eric Ly; owned by Microsoft).</li>
+    </ul>
+
+    <h3>Quick Check</h3>
+    <details><summary>1. Match IEEE 802.3, 802.4, 802.5, 802.11, and 802.15.</summary>802.3 Ethernet, 802.4 Token Bus, 802.5 Token Ring, 802.11 Wi-Fi, 802.15 WPAN (Bluetooth).</details>
+    <details><summary>2. What is the difference between an Intranet and an Extranet?</summary>Intranet is internal to an organization; Extranet extends private network access to authorized external partners/3rd parties.</details>
+    <details><summary>3. What is Gmail's free daily send limit and free storage limit?</summary>500 emails/day (free account) and 15 GB storage.</details>
+    <details><summary>4. What is the peak data rate of 5G?</summary>20 Gbps.</details>
+  </section>
+
+  <!-- CH 7 -->
+  <section class="card" id="ch7">
+    <h2>Ch 7: Cybersecurity, Malware History, Attacks &amp; CERT</h2>
+    <div class="start-box">
+      <strong>Start Here</strong>
+      Memorize the three famous "firsts" (Creeper, Morris Worm, Brain) alongside each malware family's target and evasion technique.
+    </div>
+
+    <h3>Malware &amp; Security Threats Comparison</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Threat / Milestone</th><th>Target / Mechanism</th><th>Key Exam Cue</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Creeper (1971)</strong></td><td><strong>First Computer Virus</strong> (by <strong>Bob Thomas</strong>)</td><td>Displayed <em>"I'm the creeper, catch me if you can"</em></td></tr>
+          <tr><td><strong>Morris Worm (1988)</strong></td><td><strong>First Computer Worm</strong></td><td>Standalone self-replicating across networks</td></tr>
+          <tr><td><strong>Brain (1986)</strong></td><td><strong>First Boot Sector Virus</strong></td><td>Boot sector virus infects <strong>MBR/VBR</strong>, runs <strong>before OS loads</strong></td></tr>
+          <tr><td><strong>Retrovirus</strong></td><td>Attacks/disables <strong>antivirus software</strong></td><td>Evades detection by killing antivirus</td></tr>
+          <tr><td><strong>Parasitic / Macro / Polymorphic</strong></td><td><code>.exe</code> files / Office docs (VBA) / <strong>Changes signature</strong></td><td>Polymorphic evades signature-based scanners</td></tr>
+          <tr><td><strong>Rootkit / Trojan Horse</strong></td><td>Hides deep in <strong>OS</strong> / Disguised legitimate app</td><td>Trojan does <strong>NOT</strong> self-replicate</td></tr>
+          <tr><td><strong>Spoofing &amp; CERT</strong></td><td>Forging <strong>IP or DNS address</strong> / Incident response team</td><td><strong>CERT</strong> = Computer Emergency Response Team</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Quick Check</h3>
+    <details><summary>1. Name the first computer virus, first worm, and first boot sector virus.</summary>Creeper (1971, Bob Thomas), Morris Worm, Brain.</details>
+    <details><summary>2. Which virus changes its signature on every infection?</summary>Polymorphic Virus.</details>
+    <details><summary>3. Which malware hides deep inside the OS with root privileges?</summary>Rootkit.</details>
+  </section>
+
+  <!-- CH 8 -->
+  <section class="card" id="ch8">
+    <h2>Ch 8: Programming Languages, Software Types, Extensions &amp; DBMS</h2>
+    <div class="start-box">
+      <strong>Start Here</strong>
+      Know the first high-level and OOP languages, how compilers work, vendor patches, software licensing models, file extensions, and the DBMS data hierarchy.
+    </div>
+
+    <h3>Languages, Compilers &amp; Software</h3>
+    <ul>
+      <li><strong>Language Firsts:</strong> First High-Level Language = <strong>FORTRAN</strong> (Formula Translation) | First Object-Oriented (OOP) Language = <strong>Simula</strong> | First AI Language = <strong>LISP</strong>.</li>
+      <li><strong>Compiler:</strong> System software that converts entire <strong>source code to object code</strong> (machine code).</li>
+      <li><strong>Patches:</strong> Vendor-created program modifications released to fix bugs or security vulnerabilities.</li>
+      <li><strong>Licensing/Types:</strong> <strong>Shareware (Trialware)</strong> = free trial then paid | <strong>Bloatware</strong> = pre-installed unwanted resource-heavy software.</li>
+      <li><strong>Extensions:</strong> <strong>PDF</strong> = Portable Document Format (non-editable by default) | WordPad = <code>.rtf</code> | MS Paint Bitmap = <code>.bmp</code>.</li>
+    </ul>
+
+    <h3>DBMS Basics</h3>
+    <ul>
+      <li><strong>Database Hierarchy (Smallest → Largest):</strong> <code>Bit &lt; Byte &lt; Field &lt; Record &lt; Table &lt; Database (DB) &lt; DBMS</code>.</li>
+      <li><strong>5 SQL Sub-Languages:</strong> <strong>DDL</strong> (Definition), <strong>DML</strong> (Manipulation), <strong>DCL</strong> (Control), <strong>TCL</strong> (Transaction), <strong>DQL</strong> (Query).</li>
+    </ul>
+
+    <h3>Quick Check</h3>
+    <details><summary>1. What were the first High-Level Language and the first OOP Language?</summary>FORTRAN (High-Level) and Simula (OOP).</details>
+    <details><summary>2. What are vendor-created software modifications called?</summary>Patches.</details>
+    <details><summary>3. What does a Compiler convert source code into?</summary>Object code (machine code).</details>
+  </section>
+
+  <!-- LATEST FACTS -->
+  <section class="card" id="latest">
+    <h2>Latest Facts &amp; OS Releases (as of November 2026)</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Topic</th><th>Current Fact (2026)</th><th>Source / Note</th></tr></thead>
+        <tbody>
+          <tr><td><strong>World's Top 5 Supercomputers (68th TOP500)</strong></td><td>1. <strong>LineShine</strong> (China) • 2. <strong>El Capitan</strong> (USA) • 3. <strong>Frontier</strong> (USA) • 4. <strong>Aurora</strong> (USA) • 5. <strong>JUPITER Booster</strong> (Germany).</td><td>top500.org (Nov 2026)</td></tr>
+          <tr><td><strong>India's Top Supercomputer</strong></td><td><strong>Shakti Cloud</strong> (#35 Nov 2026 TOP500); static Qs also ask <strong>AIRAWAT</strong> (C-DAC, #75 in 2023) &amp; <strong>PARAM 8000</strong> (1st).</td><td>Drishti IAS / C-DAC</td></tr>
+          <tr><td><strong>Android &amp; macOS (from Notes)</strong></td><td><strong>Android 17</strong> (Cinnamon Bun, June 16, 2026); Android 16 (Baklava). <strong>macOS 27</strong> (Golden Gate, Sept 14, 2026 — drops Intel Mac support).</td><td>From notes</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- GLOSSARY -->
+  <section class="card" id="glossary">
+    <h2>Alphabetical Glossary of Abbreviations (Pages 1–17)</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Abbr.</th><th>Full Form</th><th>Abbr.</th><th>Full Form</th></tr></thead>
+        <tbody>
+          <tr><td><strong>AGP / AI / ALU</strong></td><td>Accelerated Graphics Port / Artificial Intelligence / Arithmetic Logic Unit</td><td><strong>MICR / MIME</strong></td><td>Magnetic Ink Character Rec. / Multipurpose Internet Mail Extensions</td></tr>
+          <tr><td><strong>APIPA / ARP</strong></td><td>Automatic Private IP Addressing / Address Resolution Protocol</td><td><strong>MIPS / NAT</strong></td><td>Million Instructions Per Sec / Network Address Translation</td></tr>
+          <tr><td><strong>ASCII / EASCII</strong></td><td>American Standard Code for Info Interchange (7-bit) / Extended (8-bit)</td><td><strong>NIC / NVRAM</strong></td><td>Network Interface Controller / Non-Volatile RAM (CMOS)</td></tr>
+          <tr><td><strong>BCD / BIOS</strong></td><td>Binary Coded Decimal / Basic Input Output System</td><td><strong>NTFS / OMR</strong></td><td>New Technology File System / Optical Mark Recognition</td></tr>
+          <tr><td><strong>C-DAC / CERT</strong></td><td>Centre for Dev. of Advanced Computing / Computer Emergency Response Team</td><td><strong>OOP / OSI / OTT</strong></td><td>Object-Oriented Programming / Open Systems Interconnect / Over-The-Top</td></tr>
+          <tr><td><strong>CMOS / DARPA</strong></td><td>Complementary Metal-Oxide-Semiconductor / Defense Adv. Research Projects Agency</td><td><strong>OUI / PATA</strong></td><td>Organizationally Unique Identifier / Parallel ATA</td></tr>
+          <tr><td><strong>DDR / DIMM</strong></td><td>Double Data Rate / Dual In-line Memory Module</td><td><strong>PDF / PDU / PGP</strong></td><td>Portable Document Format / Protocol Data Unit / Pretty Good Privacy</td></tr>
+          <tr><td><strong>DHCP / EBCDIC</strong></td><td>Dynamic Host Config Protocol / Extended BCD Interchange Code</td><td><strong>PPM / DPI</strong></td><td>Pages Per Minute / Dots Per Inch</td></tr>
+          <tr><td><strong>EDSAC / FORTRAN</strong></td><td>Electronic Delay Storage Automatic Calculator / Formula Translation</td><td><strong>PS/2 / RJ-45</strong></td><td>Personal System/2 / Registered Jack 45</td></tr>
+          <tr><td><strong>FAT / FLOPS</strong></td><td>File Allocation Table / Floating-Point Ops Per Second</td><td><strong>SATA / SCSI</strong></td><td>Serial ATA / Small Computer System Interface</td></tr>
+          <tr><td><strong>HDMI / IANA</strong></td><td>High-Def Multimedia Interface / Internet Assigned Numbers Authority</td><td><strong>SMPS / SMTP</strong></td><td>Switch Mode Power Supply / Simple Mail Transfer Protocol</td></tr>
+          <tr><td><strong>IEEE / IETF</strong></td><td>Inst. of Electrical &amp; Electronics Eng. / Internet Engineering Task Force</td><td><strong>SNMP / SSL / TLS</strong></td><td>Simple Network Mgmt Protocol / Secure Sockets Layer / Transport Layer Security</td></tr>
+          <tr><td><strong>IMPS / UPI</strong></td><td>Immediate Payment Service / Unified Payments Interface</td><td><strong>Tor / USB / VBA</strong></td><td>The Onion Router / Universal Serial Bus / Visual Basic for Applications</td></tr>
+          <tr><td><strong>LISP / LLC</strong></td><td>LISt Processing / Logical Link Control</td><td><strong>VLSI / ULSI</strong></td><td>Very / Ultra Large Scale Integration</td></tr>
+          <tr><td><strong>MAC / MBR / VBR</strong></td><td>Media Access Control / Master &amp; Volume Boot Record</td><td><strong>WPAN</strong></td><td>Wireless Personal Area Network (IEEE 802.15)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- MOCK TRACKER -->
+  <section class="card" id="tracker">
+    <h2>Mock Test Mistake Tracker</h2>
+    <p style="color:var(--muted);font-size:14px;">No mock tests logged yet. Share your Computer Knowledge mock test results later, and every missed/skipped topic will be patched into the chapters above and logged here.</p>
+  </section>
+</main>
+
+<script>
+  (function() {
+    const root = document.documentElement;
+    const btn = document.getElementById('themeToggle');
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const saved = localStorage.getItem('ck_theme');
+    let theme = saved || (prefersDark ? 'dark' : 'light');
+    function applyTheme(t) {
+      root.setAttribute('data-theme', t);
+      btn.textContent = t === 'dark' ? 'Light' : 'Dark';
+      localStorage.setItem('ck_theme', t);
+    }
+    applyTheme(theme);
+    btn.addEventListener('click', () => {
+      theme = theme === 'dark' ? 'light' : 'dark';
+      applyTheme(theme);
+    });
+
+    const searchInput = document.getElementById('quickSearch');
+    const cards = document.querySelectorAll('main section.card');
+    searchInput.addEventListener('input', () => {
+      const q = searchInput.value.trim().toLowerCase();
+      cards.forEach(c => {
+        if (!q || c.textContent.toLowerCase().includes(q)) c.classList.remove('hidden-card');
+        else c.classList.add('hidden-card');
+      });
+    });
+  })();
+</script>
+<script src="sidebar.js" defer></script>
+</body>
+</html>
