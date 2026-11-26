@@ -3,10 +3,13 @@
 
   const API_KEY_STORAGE = 'gemini_byok_key';
   const MODEL_STORAGE = 'gemini_model';
-  const AVAILABLE_MODELS = [
-    { id: 'gemini-2.5-flash', label: 'Gemini 2.5 Flash (Recommended)' },
-    { id: 'gemini-2.5-flash-lite', label: 'Gemini 2.5 Flash-Lite (Fastest)' },
-    { id: 'gemini-2.5-pro', label: 'Gemini 2.5 Pro (Deepest)' },
+  const CUSTOM_MODEL_STORAGE = 'gemini_custom_model';
+  const DEFAULT_MODEL = 'gemini-3.5-flash-lite';
+  let availableModels = [
+    { id: 'gemini-3.5-flash-lite', label: 'Gemini 3.5 Flash-Lite (Recommended)' },
+    { id: 'gemini-3.8-flash', label: 'Gemini 3.8 Flash' },
+    { id: 'gemini-3.6-flash', label: 'Gemini 3.6 Flash' },
+    { id: 'gemini-3.5-pro', label: 'Gemini 3.5 Pro' },
   ];
 
   function getSlug() {
@@ -162,6 +165,12 @@
 
     // State
     const defaultChapterIds = chapters.slice(0, Math.min(3, chapters.length)).map((c) => c.id);
+    let savedModel = localStorage.getItem(MODEL_STORAGE) || DEFAULT_MODEL;
+    if (savedModel.startsWith('gemini-2.')) {
+      savedModel = DEFAULT_MODEL;
+      try { localStorage.setItem(MODEL_STORAGE, savedModel); } catch {}
+    }
+
     const config = {
       sourceMode: 'chapters', // 'chapters' | 'hl-red' | 'hl-yellow' | 'hl-all'
       selectedChapters: new Set(defaultChapterIds),
@@ -176,7 +185,9 @@
       instantFeedback: false,
       prioritizeMistakes: true,
       customFocus: '',
-      model: localStorage.getItem(MODEL_STORAGE) || 'gemini-2.5-flash',
+      model: savedModel,
+      customModel: localStorage.getItem(CUSTOM_MODEL_STORAGE) || '',
+      useCustomModel: false,
       showKeyForm: !loadApiKey(),
     };
 
@@ -364,17 +375,32 @@
         '<div style="margin-top:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;">' +
         '<label for="qzModelSelect" class="qz-muted" style="font-weight:600;">Model:</label>' +
         '<select class="qz-select" id="qzModelSelect">';
-      AVAILABLE_MODELS.forEach((m) => {
+      const hasCurrentInList = !config.useCustomModel && availableModels.some((m) => m.id === config.model);
+      availableModels.forEach((m) => {
         html +=
           '<option value="' +
-          m.id +
+          escapeHtml(m.id) +
           '"' +
           (config.model === m.id ? ' selected' : '') +
           '>' +
           escapeHtml(m.label) +
           '</option>';
       });
-      html += '</select></div></div>';
+      html +=
+        '<option value="__custom__"' +
+        (!hasCurrentInList ? ' selected' : '') +
+        '>Custom model ID...</option>';
+      html += '</select>';
+      if (apiKey) {
+        html += '<button type="button" class="qz-btn qz-btn-sm" id="qzSyncModelsBtn" title="Fetch models available to your key">Sync Models</button>';
+      }
+      if (!hasCurrentInList) {
+        html +=
+          '<input type="text" class="qz-input" id="qzCustomModelInput" placeholder="e.g. gemini-3.5-flash-lite" value="' +
+          escapeHtml(config.customModel || config.model) +
+          '">';
+      }
+      html += '</div></div>';
 
       // 2. Content Source & Granular Scope
       html += '<div class="qz-card">';
@@ -566,8 +592,68 @@
       });
 
       document.getElementById('qzModelSelect')?.addEventListener('change', (e) => {
+        if (e.target.value === '__custom__') {
+          config.useCustomModel = true;
+          config.model = config.customModel || DEFAULT_MODEL;
+          renderConfigView();
+          return;
+        }
+        config.useCustomModel = false;
         config.model = e.target.value;
         try { localStorage.setItem(MODEL_STORAGE, config.model); } catch {}
+        renderConfigView();
+      });
+
+      document.getElementById('qzCustomModelInput')?.addEventListener('input', (e) => {
+        const val = e.target.value.trim().replace(/^models\//, '');
+        config.customModel = val;
+        if (val) {
+          config.model = val;
+          try {
+            localStorage.setItem(CUSTOM_MODEL_STORAGE, val);
+            localStorage.setItem(MODEL_STORAGE, val);
+          } catch {}
+        }
+      });
+
+      document.getElementById('qzSyncModelsBtn')?.addEventListener('click', async () => {
+        const key = loadApiKey();
+        if (!key) return;
+        const btn = document.getElementById('qzSyncModelsBtn');
+        if (btn) {
+          btn.disabled = true;
+          btn.textContent = 'Syncing...';
+        }
+        try {
+          const r = await fetch('https://generativelanguage.googleapis.com/v1beta/models', {
+            headers: { 'x-goog-api-key': key },
+          });
+          if (!r.ok) throw new Error('Failed to list models (' + r.status + ')');
+          const d = await r.json();
+          const list = (d.models || [])
+            .filter(
+              (m) =>
+                Array.isArray(m.supportedGenerationMethods) &&
+                m.supportedGenerationMethods.includes('generateContent') &&
+                /gemini/i.test(m.name || '')
+            )
+            .map((m) => {
+              const id = String(m.name).replace(/^models\//, '');
+              return { id, label: m.displayName ? m.displayName + ' (' + id + ')' : id };
+            });
+          if (list.length > 0) {
+            availableModels = list;
+            if (!list.some((m) => m.id === config.model)) {
+              const preferred = list.find((m) => m.id === DEFAULT_MODEL) || list[0];
+              config.model = preferred.id;
+              try { localStorage.setItem(MODEL_STORAGE, config.model); } catch {}
+            }
+          }
+          quizState.errorMsg = '';
+        } catch (err) {
+          quizState.errorMsg = err.message || 'Could not fetch model list.';
+        }
+        renderConfigView();
       });
 
       document.getElementById('qzSourcePills')?.addEventListener('click', (e) => {
