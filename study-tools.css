@@ -225,6 +225,11 @@ span.st-hl-fallback.hl-green {
     left: calc(var(--sb-width, 260px) + 16px);
     right: 16px;
   }
+
+  body.guide-sidebar-collapsed .st-search-controls.st-controls-floating {
+    left: 16px;
+    right: 16px;
+  }
 }
 
 /* Focus Mode hiding */

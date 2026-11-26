@@ -24,6 +24,7 @@
 
   const THEME_KEY = 'site_theme';
   const SCALE_KEY = 'site_scale';
+  const SIDEBAR_COLLAPSED_KEY = 'site_sidebar_collapsed';
   const SCALE_STEPS = [0.8, 0.9, 1, 1.1, 1.2, 1.3];
 
   function getStoredScale() {
@@ -59,7 +60,6 @@
     applySiteScale(SCALE_STEPS[nextIdx]);
   }
 
-  // Apply stored scale immediately to minimize layout shift
   applySiteScale(getStoredScale());
 
   function getStoredTheme() {
@@ -99,6 +99,14 @@
     applySiteTheme(current === 'dark' ? 'light' : 'dark');
   }
 
+  function getStoredCollapsed() {
+    try {
+      return localStorage.getItem(SIDEBAR_COLLAPSED_KEY) === 'true';
+    } catch {
+      return false;
+    }
+  }
+
   function currentFile() {
     const raw = window.location.pathname.split('/').pop() || 'index.html';
     try {
@@ -112,11 +120,12 @@
     if (document.getElementById('guideSidebar')) return;
 
     const current = currentFile();
-    const activeGuide = GUIDES.find((g) => g.href === current) || GUIDES[0];
-
     document.body.classList.add('has-guide-sidebar');
     if (document.body.dataset.sidebarPad === 'flush') {
       document.body.classList.add('guide-no-extra-pad');
+    }
+    if (!document.querySelector('.sticky-nav')) {
+      document.body.classList.add('guide-no-sticky-nav');
     }
 
     const existingThemeBtn = document.getElementById('themeToggle');
@@ -125,19 +134,16 @@
       existingThemeBtn.addEventListener('click', toggleSiteTheme);
     }
 
-    // Mobile top bar with drawer toggle button (and theme toggle on pages without sticky-nav)
-    const mobileBar = document.createElement('div');
-    mobileBar.className = 'guide-mobile-bar';
-    mobileBar.innerHTML =
-      '<button type="button" class="guide-menu-btn" id="guideMenuBtn" aria-label="Open guides menu" aria-expanded="false" aria-controls="guideSidebar">' +
-      '<span aria-hidden="true">&#9776;</span><span>Guides</span>' +
-      '</button>' +
-      '<img class="guide-mobile-logo" src="favicon.svg" alt="" width="20" height="20">' +
-      '<span class="guide-mobile-title"></span>' +
-      (existingThemeBtn
-        ? ''
-        : '<button type="button" class="guide-theme-toggle" id="guideMobileThemeBtn" data-site-theme-btn="true"></button>');
-    mobileBar.querySelector('.guide-mobile-title').textContent = activeGuide.title;
+    // Floating top-left representational icon (visible when sidebar is hidden/collapsed)
+    const expandFab = document.createElement('button');
+    expandFab.type = 'button';
+    expandFab.className = 'guide-expand-fab';
+    expandFab.id = 'guideExpandFab';
+    expandFab.setAttribute('aria-label', 'Open guides sidebar');
+    expandFab.setAttribute('aria-expanded', 'false');
+    expandFab.setAttribute('aria-controls', 'guideSidebar');
+    expandFab.title = 'Open guides sidebar';
+    expandFab.innerHTML = '<img src="favicon.svg" alt="Guides">';
 
     // Backdrop for mobile drawer
     const backdrop = document.createElement('div');
@@ -180,7 +186,7 @@
       '<span class="guide-sidebar-title">IBPS RRB Guides</span>' +
       '</span>' +
       '</a>' +
-      '<button type="button" class="guide-sidebar-close" id="guideSidebarClose" aria-label="Close guides menu">&times;</button>' +
+      '<button type="button" class="guide-sidebar-close" id="guideSidebarClose" aria-label="Collapse sidebar" title="Collapse sidebar">&laquo;</button>' +
       '</div>' +
       '<nav class="guide-sidebar-nav" aria-label="Guide pages">' +
       '<div class="guide-sidebar-label">Guides</div>' +
@@ -201,58 +207,93 @@
       '</div>' +
       '</div>';
 
-    document.body.prepend(mobileBar);
+    document.body.prepend(expandFab);
     document.body.prepend(backdrop);
     document.body.prepend(sidebar);
 
     document.getElementById('guideSidebarThemeBtn')?.addEventListener('click', toggleSiteTheme);
-    document.getElementById('guideMobileThemeBtn')?.addEventListener('click', toggleSiteTheme);
-    document.getElementById('guideScaleDec')?.addEventListener('click', function () { stepSiteScale(-1); });
-    document.getElementById('guideScaleInc')?.addEventListener('click', function () { stepSiteScale(1); });
+    document.getElementById('guideScaleDec')?.addEventListener('click', function () {
+      stepSiteScale(-1);
+    });
+    document.getElementById('guideScaleInc')?.addEventListener('click', function () {
+      stepSiteScale(1);
+    });
 
     applySiteTheme(getStoredTheme());
     applySiteScale(getStoredScale());
+
+    const closeBtn = document.getElementById('guideSidebarClose');
+    const desktopMq = window.matchMedia('(min-width: 860px)');
+
+    function applyDesktopCollapseState(collapsed) {
+      document.body.classList.toggle('guide-sidebar-collapsed', collapsed);
+      expandFab.classList.toggle('hidden', !collapsed);
+      expandFab.setAttribute('aria-expanded', String(!collapsed));
+      try {
+        localStorage.setItem(SIDEBAR_COLLAPSED_KEY, String(collapsed));
+      } catch {
+        // ignore
+      }
+    }
+
+    if (desktopMq.matches) {
+      applyDesktopCollapseState(getStoredCollapsed());
+    }
+
+    function openSidebar() {
+      if (desktopMq.matches) {
+        applyDesktopCollapseState(false);
+      } else {
+        sidebar.classList.add('open');
+        backdrop.classList.add('open');
+        expandFab.classList.add('hidden');
+        expandFab.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeSidebar() {
+      if (desktopMq.matches) {
+        applyDesktopCollapseState(true);
+      } else {
+        sidebar.classList.remove('open');
+        backdrop.classList.remove('open');
+        expandFab.classList.remove('hidden');
+        expandFab.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
+    }
+
+    expandFab.addEventListener('click', openSidebar);
+    closeBtn.addEventListener('click', closeSidebar);
+    backdrop.addEventListener('click', closeSidebar);
+
+    desktopMq.addEventListener('change', function (e) {
+      sidebar.classList.remove('open');
+      backdrop.classList.remove('open');
+      document.body.style.overflow = '';
+      if (e.matches) {
+        applyDesktopCollapseState(getStoredCollapsed());
+      } else {
+        document.body.classList.remove('guide-sidebar-collapsed');
+        expandFab.classList.remove('hidden');
+        expandFab.setAttribute('aria-expanded', 'false');
+      }
+    });
 
     window.addEventListener('storage', function (e) {
       if (e.key === THEME_KEY && (e.newValue === 'dark' || e.newValue === 'light')) {
         applySiteTheme(e.newValue);
       } else if (e.key === SCALE_KEY && e.newValue) {
         applySiteScale(parseFloat(e.newValue));
+      } else if (e.key === SIDEBAR_COLLAPSED_KEY && desktopMq.matches) {
+        applyDesktopCollapseState(e.newValue === 'true');
       }
     });
 
-    function syncMobileBarHeight() {
-      const h = mobileBar.offsetHeight;
-      if (h > 0) {
-        document.documentElement.style.setProperty('--guide-mobile-bar-h', h + 'px');
-      }
-    }
-    syncMobileBarHeight();
-    window.addEventListener('resize', syncMobileBarHeight);
-
-    const menuBtn = document.getElementById('guideMenuBtn');
-    const closeBtn = document.getElementById('guideSidebarClose');
-
-    function openDrawer() {
-      sidebar.classList.add('open');
-      backdrop.classList.add('open');
-      menuBtn.setAttribute('aria-expanded', 'true');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeDrawer() {
-      sidebar.classList.remove('open');
-      backdrop.classList.remove('open');
-      menuBtn.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
-    }
-
-    menuBtn.addEventListener('click', openDrawer);
-    closeBtn.addEventListener('click', closeDrawer);
-    backdrop.addEventListener('click', closeDrawer);
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && sidebar.classList.contains('open')) {
-        closeDrawer();
+      if (e.key === 'Escape' && !desktopMq.matches && sidebar.classList.contains('open')) {
+        closeSidebar();
       }
     });
   }
