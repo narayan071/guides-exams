@@ -178,6 +178,26 @@ span.st-hl-fallback.hl-green {
   color: var(--muted);
 }
 
+.st-search-controls.st-controls-floating {
+  position: fixed;
+  bottom: max(12px, env(safe-area-inset-bottom, 0px));
+  left: 10px;
+  right: 10px;
+  max-width: 600px;
+  margin: 0 auto;
+  z-index: 1100;
+  background: var(--surface);
+  border-color: var(--accent);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.24);
+}
+
+@media (min-width: 860px) {
+  .st-search-controls.st-controls-floating {
+    left: calc(var(--sb-width, 260px) + 16px);
+    right: 16px;
+  }
+}
+
 /* Focus Mode hiding */
 .st-focus-hidden {
   display: none !important;

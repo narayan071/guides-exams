@@ -720,6 +720,40 @@
       const clearBtn = document.getElementById('stClearBtn');
       const focusBtn = document.getElementById('stFocusBtn');
 
+      let searchWrapInView = true;
+
+      function syncFloatingControls() {
+        const shouldFloat = Boolean(searchState.query) && !searchWrapInView;
+        if (shouldFloat && !controls.classList.contains('st-controls-floating')) {
+          wrap.style.minHeight = wrap.offsetHeight + 'px';
+          controls.classList.add('st-controls-floating');
+        } else if (!shouldFloat && controls.classList.contains('st-controls-floating')) {
+          controls.classList.remove('st-controls-floating');
+          wrap.style.minHeight = '';
+        }
+      }
+
+      if ('IntersectionObserver' in window) {
+        const obs = new IntersectionObserver(
+          (entries) => {
+            searchWrapInView = entries[0] ? entries[0].isIntersecting : true;
+            syncFloatingControls();
+          },
+          { threshold: 0 }
+        );
+        obs.observe(searchInput);
+      } else {
+        window.addEventListener(
+          'scroll',
+          () => {
+            const r = searchInput.getBoundingClientRect();
+            searchWrapInView = r.bottom > 0 && r.top < window.innerHeight;
+            syncFloatingControls();
+          },
+          { passive: true }
+        );
+      }
+
       function clearSearchHighlights() {
         if (SUPPORTS_CUSTOM_HL) {
           CSS.highlights.delete('search-all');
@@ -862,6 +896,7 @@
         resetCardAndFocusVisibility();
 
         if (!query) {
+          syncFloatingControls();
           updateControlsUI();
           return;
         }
@@ -947,6 +982,7 @@
         } else {
           updateControlsUI();
         }
+        syncFloatingControls();
       }
 
       function stepMatch(delta) {
