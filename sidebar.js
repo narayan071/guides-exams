@@ -97,6 +97,15 @@
     document.body.prepend(backdrop);
     document.body.prepend(sidebar);
 
+    function syncMobileBarHeight() {
+      const h = mobileBar.offsetHeight;
+      if (h > 0) {
+        document.documentElement.style.setProperty('--guide-mobile-bar-h', h + 'px');
+      }
+    }
+    syncMobileBarHeight();
+    window.addEventListener('resize', syncMobileBarHeight);
+
     const menuBtn = document.getElementById('guideMenuBtn');
     const closeBtn = document.getElementById('guideSidebarClose');
 

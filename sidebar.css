@@ -169,9 +169,29 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px 14px;
+  padding: max(10px, env(safe-area-inset-top, 0px)) 14px 10px;
   background: var(--sb-bg);
   border-bottom: 1px solid var(--sb-border);
+}
+
+body:not(.guide-no-extra-pad) .guide-mobile-bar {
+  margin-left: calc(-1 * max(16px, env(safe-area-inset-left, 0px)));
+  margin-right: calc(-1 * max(16px, env(safe-area-inset-right, 0px)));
+}
+
+@media (max-width: 859.98px) {
+  html {
+    scroll-padding-top: calc(var(--guide-mobile-bar-h, 53px) + 56px) !important;
+  }
+
+  nav[aria-label="Sections"],
+  .sticky-nav {
+    top: var(--guide-mobile-bar-h, 53px) !important;
+  }
+
+  h2 {
+    scroll-margin-top: calc(var(--guide-mobile-bar-h, 53px) + 56px) !important;
+  }
 }
 
 .guide-menu-btn {
