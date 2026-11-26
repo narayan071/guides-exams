@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Computer Knowledge Master Guide — IBPS RRB Scale 2 (IT)</title>
 <link rel="stylesheet" href="sidebar.css">
+<link rel="stylesheet" href="study-tools.css">
 <style>
   :root {
     --bg: #f8fafc;
@@ -805,18 +806,9 @@
       theme = theme === 'dark' ? 'light' : 'dark';
       applyTheme(theme);
     });
-
-    const searchInput = document.getElementById('quickSearch');
-    const cards = document.querySelectorAll('main section.card');
-    searchInput.addEventListener('input', () => {
-      const q = searchInput.value.trim().toLowerCase();
-      cards.forEach(c => {
-        if (!q || c.textContent.toLowerCase().includes(q)) c.classList.remove('hidden-card');
-        else c.classList.add('hidden-card');
-      });
-    });
   })();
 </script>
+<script src="study-tools.js" defer></script>
 <script src="sidebar.js" defer></script>
 </body>
 </html>
