@@ -257,6 +257,48 @@
   }
   .info-card li { margin-bottom: 5px; }
   .info-card li:last-child { margin-bottom: 0; }
+  .fact-label {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 10px 0 4px;
+  }
+  .fact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 205px), 1fr));
+    gap: 6px 8px;
+    list-style: none;
+    padding: 0;
+    margin: 6px 0 12px;
+  }
+  .fact-grid.compact {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 155px), 1fr));
+  }
+  .fact-grid > li {
+    margin: 0;
+    padding: 6px 9px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    font-size: 13px;
+    line-height: 1.4;
+  }
+  .info-card .fact-grid {
+    padding-left: 0;
+    margin: 6px 0 8px;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 165px), 1fr));
+  }
+  .info-card .fact-grid > li {
+    background: var(--surface);
+    padding: 5px 8px;
+    font-size: 12.8px;
+  }
+  .fact-grid > li > strong:first-child {
+    display: block;
+    color: var(--accent);
+    font-size: 12.8px;
+    margin-bottom: 1px;
+  }
 </style>
 </head>
 <body data-sidebar-pad="flush">
@@ -407,11 +449,18 @@
         </tbody>
       </table>
     </div>
+    <h3>Historic Firsts &amp; RBI Regulatory Norms</h3>
+    <ul class="fact-grid compact">
+      <li><strong>Bank of Hindustan (1770)</strong>1st Bank established in India.</li>
+      <li><strong>Allahabad Bank (1865)</strong>1st Joint Stock Bank / Oldest PSB (nationalized 1969).</li>
+      <li><strong>Oudh Commercial Bank (1881)</strong>1st predominantly Indian-owned bank (Faizabad, closed 1958).</li>
+      <li><strong>PNB (1894)</strong>1st wholly Indian-managed Swadeshi bank.</li>
+      <li><strong>Major Shareholding</strong><strong>≥ 5%</strong> capital/voting rights (prior RBI approval); <strong>5-yr lock-in</strong> for 10% to &lt;40% (and 40% if ≥40%).</li>
+      <li><strong>PCA Framework</strong>Monitors weak banks on <strong>CRAR, Net NPA, Leverage Ratio</strong>.</li>
+      <li><strong>UCB 4-Tier &amp; FSWM</strong><strong>CCO</strong> mandatory for Tier 3 &amp; 4 UCBs; FSWM needs CRAR ≥ min+1%, Net NPA ≤ 3%, CBS, profit 3/4 yrs.</li>
+      <li><strong>Centres &amp; Dormant A/c</strong>Rural &lt;10K, <strong>Semi-urban 10K–&lt;1L</strong>, Urban 1L–10L, Metro ≥10L. Dormant = &gt;24 mos inactive → <strong>DEA Fund</strong> after 10 yrs.</li>
+    </ul>
     <ul>
-      <li><strong>Historic Firsts:</strong> 1st Bank of India = <strong>Bank of Hindustan (1770)</strong> | 1st Joint Stock / Oldest PSB = <strong>Allahabad Bank (1865)</strong> | 1st Indian-owned = <strong>Oudh Commercial Bank (1881)</strong> | <strong>PNB (1894)</strong> = 1st wholly Indian-managed Swadeshi bank.</li>
-      <li><strong>RBI Shareholding &amp; PCA:</strong> <strong>Major shareholding</strong> = <strong>≥ 5%</strong> capital/voting rights (prior RBI approval); <strong>5-year lock-in</strong> if stake is 10% to &lt;40% (and on 40% if ≥40%). <strong>PCA Framework</strong> monitors weak banks on <strong>CRAR, Net NPA, Leverage Ratio</strong>.</li>
-      <li><strong>UCB Governance (4-Tier):</strong> <strong>CCO (Chief Compliance Officer)</strong> mandatory for <strong>Tier 3 &amp; Tier 4 UCBs</strong>. <strong>FSWM</strong> (Financially Sound &amp; Well Managed) UCB requires CRAR ≥ min+1%, Net NPA ≤ <strong>3%</strong>, profit 3 of 4 yrs, CBS, no CRR/SLR default.</li>
-      <li><strong>Population &amp; Account Rules:</strong> RBI centres: Rural (&lt;10K), <strong>Semi-urban (10K to &lt;1 Lakh)</strong>, Urban (1L–10L), Metro (≥10L). <strong>Dormant / Inoperative Account:</strong> no customer txn for <strong>&gt; 2 years (24 mos)</strong> → Unclaimed balances move to <strong>DEA Fund</strong> after <strong>10 years</strong>.</li>
       <li><strong>PSL (Priority Sector Lending):</strong> Requires banks to allocate credit to priority sectors (Agriculture, MSME, etc.).</li>
     </ul>
 
@@ -551,10 +600,13 @@
     </div>
 
     <h3>Foreign Exchange, LRS &amp; Investment Flows</h3>
-    <ul>
-      <li><strong>LRS, Forex Cards &amp; Accounts:</strong> <strong>LRS</strong> (FEMA 1999): Resident individuals up to <strong>USD 250,000/FY</strong>. <strong>EEFC</strong> (Exchange Earners' Foreign Currency) = non-interest (0%) foreign currency account in India. <strong>FFMC</strong> = Full-Fledged Money Changer (FEMA Sec 10). <strong>Forex Prepaid / Travel Cards:</strong> charges payable in India must be denominated &amp; cleared in <strong>INR (Rupees)</strong>. <strong>IFSCA</strong> HQ: <strong>GIFT City, Gandhinagar</strong>.</li>
-      <li><strong>FDI vs FPI vs ECB:</strong> <strong>FDI</strong> = lasting stake/control directly into an Indian firm | <strong>FPI</strong> = Foreign Portfolio Investment (shares/bonds without control) | <strong>ECB</strong> = External Commercial Borrowing (foreign loan raised by Indian firm).</li>
-      <li><strong>Indirect / Downstream / Upstream:</strong> <strong>Indirect</strong> = foreign money via another foreign-owned Indian entity | <strong>Downstream</strong> = Indian company investing in another Indian company | <strong>Upstream</strong> = subsidiary investing back into its parent.</li>
+    <ul class="fact-grid compact">
+      <li><strong>LRS (FEMA 1999)</strong>Resident individuals up to <strong>USD 250,000/FY</strong> (education, travel, medical, gifts, inv; no lottery).</li>
+      <li><strong>EEFC Account</strong>Exchange Earners' Foreign Currency — <strong>0% interest</strong> non-interest bearing current a/c in India.</li>
+      <li><strong>FFMC &amp; IFSCA</strong><strong>FFMC</strong> = Full-Fledged Money Changer (FEMA Sec 10). <strong>IFSCA</strong> HQ = GIFT City, Gandhinagar.</li>
+      <li><strong>Forex Prepaid Cards</strong>Charges payable in India must be denominated &amp; cleared in <strong>INR (Rupees)</strong>.</li>
+      <li><strong>FDI vs FPI vs ECB</strong><strong>FDI</strong> = lasting stake/control | <strong>FPI</strong> = shares/bonds without control | <strong>ECB</strong> = foreign loan by Indian firm.</li>
+      <li><strong>Indirect / Downstream / Upstream</strong><strong>Indirect</strong> = via foreign-owned Indian firm | <strong>Downstream</strong> = Indian → Indian | <strong>Upstream</strong> = subsidiary → parent.</li>
     </ul>
 
     <h3>Companies Act, 2013 &amp; LLP Act, 2008</h3>
@@ -622,11 +674,14 @@
         </ul>
       </div>
     </div>
-    <ul>
-      <li><strong>MICR Code (9 digits at bottom of cheque):</strong> First 3 = <strong>City</strong> | Middle 3 = <strong>Bank Code</strong> | Last 3 = <strong>Branch Code</strong>.</li>
-      <li><strong>Demand Draft (DD):</strong> Prepaid bank order; valid <strong>3 months</strong>; cash limit <strong>&lt; ₹50,000</strong> (≥ ₹50,000 via cheque + PAN).</li>
-      <li><strong>Cards &amp; Terms:</strong> Debit Card = <strong>16 digits</strong> | <strong>CVV</strong> = Card Verification Value (proves physical possession) | <strong>EMV</strong> = <strong>Europay, Mastercard, Visa</strong> | <strong>MDR</strong> = Merchant Discount Rate | <strong>Charge Card</strong> (pay in full or pay fees).</li>
-      <li><strong>Loans, Gold LTV (Eff. 1 Apr 2026) &amp; Sec 80C:</strong> <strong>Mortgage</strong> = loan against immovable property (flat/house). <strong>FITL</strong> = Funded Interest Term Loan. <strong>RBI Gold Loan Tiered LTV:</strong> <strong>85%</strong> (≤ ₹2.5L), <strong>80%</strong> (&gt; ₹2.5L–₹5L), <strong>75%</strong> (&gt; ₹5L). <strong>Sec 80C</strong> max deduction = <strong>₹1.5 Lakh/FY</strong> (PPF, SSY, ELSS, NSC, 5-yr FD, SCSS — <em>excludes KVP</em>).</li>
+    <div class="fact-label">MICR, Demand Draft, Cards, Loans &amp; Sec 80C</div>
+    <ul class="fact-grid compact">
+      <li><strong>MICR Code (9 digits)</strong>First 3 = <strong>City</strong> • Middle 3 = <strong>Bank</strong> • Last 3 = <strong>Branch</strong>.</li>
+      <li><strong>Demand Draft (DD)</strong>Prepaid bank order, valid <strong>3 months</strong>; cash limit <strong>&lt; ₹50,000</strong> (≥₹50K via cheque + PAN).</li>
+      <li><strong>Cards &amp; Terms</strong>Debit Card = <strong>16 digits</strong> • <strong>CVV</strong> = physical check • <strong>EMV</strong> = Europay, Mastercard, Visa • <strong>MDR</strong> = Merchant Discount Rate • <strong>Charge Card</strong>.</li>
+      <li><strong>Mortgage &amp; FITL</strong><strong>Mortgage</strong> = loan against immovable property. <strong>FITL</strong> = Funded Interest Term Loan.</li>
+      <li><strong>Gold Loan LTV (1 Apr 2026)</strong><strong>85%</strong> (≤ ₹2.5L) • <strong>80%</strong> (&gt; ₹2.5L–₹5L) • <strong>75%</strong> (&gt; ₹5L).</li>
+      <li><strong>Section 80C (₹1.5L/FY)</strong>Covers PPF, SSY, ELSS, NSC, 5-yr Tax-Saver FD, SCSS — <em>excludes KVP</em>.</li>
     </ul>
 
     <div class="trap-box">
@@ -664,11 +719,24 @@
     </div>
 
     <h3>NPCI Products vs RBI Systems</h3>
-    <ul>
-      <li><strong>Managed by NPCI:</strong> <strong>UPI</strong> (launched <strong>11 Apr 2016</strong>; standard P2P limit <strong>₹1L/day</strong>, verified high-value <strong>P2M</strong> categories [capital markets, insurance, taxes, hospitals, education, govt] allow up to <strong>₹5 Lakh/txn</strong> &amp; <strong>₹10 Lakh/24 hrs</strong>; uses VPA <code>name@bank</code>), <strong>AePS</strong> (Aadhaar + fingerprint/iris), <strong>BHIM</strong> (launched <strong>30 Dec 2016</strong> by NPCI; 20 languages), <strong>IMPS</strong> (7-digit <strong>MMID</strong>), <strong><code>*99#</code></strong> (USSD offline), <strong>RuPay</strong> (launched <strong>26 Mar 2012</strong>; India's domestic network vs Visa/Mastercard), <strong>NFS</strong>, <strong>NETC / FASTag</strong>, <strong>BBPS / Bharat Connect</strong>, <strong>NACH</strong> (replaced ECS), <strong>CTS</strong> (2008 pilot), <strong>e-RUPI</strong>.</li>
-      <li><strong>UPI Apps &amp; Partnerships:</strong> GPay, PhonePe, Paytm = <strong>TPAPs</strong> (Third-Party Application Providers) partnering with a <strong>PSP Bank</strong>. <strong>UPI AutoPay</strong> = recurring e-mandates. <strong>Flex by Google Pay:</strong> UPI RuPay credit card launched <strong>Dec 2025</strong> with <strong>Axis Bank</strong>.</li>
-      <li><strong>Managed directly by RBI (NOT NPCI):</strong> <strong>NEFT</strong>, <strong>RTGS</strong>, <strong>CBDC (e₹)</strong> (pilots: wholesale <strong>1 Nov 2022</strong>, retail <strong>1 Dec 2022</strong>), <strong>ADF</strong> (Automated Data Flow), <strong>MANI</strong> (Mobile Aided Note Identifier, Jan 2020 — note identifier app for visually impaired users).</li>
-      <li><strong>Other Rails, Labs &amp; Limits:</strong> <strong>CBS</strong> (Core Banking Solution) | <strong>IDRBT</strong> (Hyderabad, 1996 — built <strong>NFS</strong> before NPCI) | <strong>PPIs</strong> (Closed, Semi-Closed, Open) | <strong>Micro ATM</strong> (BC handheld) | <strong>SWIFT</strong> (global messaging) | <strong>CNAPS</strong> (China National <strong>Advanced</strong> Payment System).</li>
+    <div class="fact-label">Managed by NPCI</div>
+    <ul class="fact-grid compact">
+      <li><strong>UPI (11 Apr 2016)</strong>P2P <strong>₹1L/day</strong>; high-value P2M (markets, insurance, tax, hospital, edu, govt) up to <strong>₹5L/txn</strong> &amp; <strong>₹10L/24h</strong>; VPA <code>name@bank</code>.</li>
+      <li><strong>TPAPs &amp; AutoPay</strong>GPay/PhonePe/Paytm = <strong>TPAPs</strong> + PSP Bank. <strong>UPI AutoPay</strong> = mandates. <strong>Flex by GPay:</strong> Axis Bank (Dec 2025).</li>
+      <li><strong>BHIM &amp; AePS</strong><strong>BHIM</strong> (30 Dec 2016, 20 languages); <strong>AePS</strong> = Aadhaar + fingerprint/iris.</li>
+      <li><strong>IMPS &amp; *99#</strong><strong>IMPS</strong> uses 7-digit <strong>MMID</strong>; <strong><code>*99#</code></strong> = USSD offline mobile banking.</li>
+      <li><strong>RuPay (26 Mar 2012)</strong>India's domestic card network (vs Visa/Mastercard).</li>
+      <li><strong>NFS, NETC &amp; BBPS</strong><strong>NFS</strong> (ATM switch) • <strong>NETC / FASTag</strong> (tolls) • <strong>BBPS / Bharat Connect</strong>.</li>
+      <li><strong>NACH, CTS &amp; e-RUPI</strong><strong>NACH</strong> (replaced ECS) • <strong>CTS</strong> (2008 pilot) • <strong>e-RUPI</strong> (vouchers).</li>
+    </ul>
+    <div class="fact-label">Managed by RBI (NOT NPCI) &amp; Global Rails</div>
+    <ul class="fact-grid compact">
+      <li><strong>NEFT &amp; RTGS</strong>Operated directly by RBI (24×7×365); NOT NPCI.</li>
+      <li><strong>CBDC (e₹)</strong>Pilots: wholesale <strong>1 Nov 2022</strong>, retail <strong>1 Dec 2022</strong>.</li>
+      <li><strong>MANI &amp; ADF</strong><strong>MANI</strong> (Jan 2020, note ID app for visually impaired); <strong>ADF</strong> = Automated Data Flow.</li>
+      <li><strong>IDRBT &amp; CBS</strong><strong>IDRBT</strong> (Hyderabad 1996, built NFS); <strong>CBS</strong> = Core Banking Solution.</li>
+      <li><strong>PPIs &amp; Micro ATM</strong>Closed / Semi-Closed / Open wallets; <strong>Micro ATM</strong> = BC handheld.</li>
+      <li><strong>SWIFT &amp; CNAPS</strong><strong>SWIFT</strong> = global messaging; <strong>CNAPS</strong> = China National <strong>Advanced</strong> Payment Sys.</li>
     </ul>
 
     <h3>NEFT vs RTGS vs IMPS</h3>
@@ -765,12 +833,15 @@
       </table>
     </div>
 
-    <h3>NPA, Banking Risks, Narasimham Committee &amp; Frauds</h3>
-    <ul>
-      <li><strong>NPA (Non-Performing Asset):</strong> Loan/advance for which principal or interest payment is overdue for <strong>90+ days</strong>.</li>
-      <li><strong>Banking Risk Types &amp; FWTW:</strong> <strong>Credit, Market, Operational, Liquidity, Systematic, Reputational Risk</strong>. <strong>FWTW</strong> = <em>From-Whom-to-Whom</em> (RBI Flow of Funds matrix).</li>
-      <li><strong>Key Banking Committees:</strong> <strong>Narasimham I (1991) &amp; II (1998)</strong> = Banking Sector Reforms | <strong>B. Sivaraman</strong> = NABARD | <strong>Gadgil (1969)</strong> = Lead Bank Scheme | <strong>U.K. Sinha</strong> = MSME Reforms | <strong>R.V. Gupta</strong> = KCC.</li>
-      <li><strong>Banking Cyber Frauds:</strong> <strong>Skimming</strong> (hardware skimmer on ATMs/pumps) | <strong>Phishing</strong> (fake emails/sites) | <strong>Smishing</strong> (SMS phishing) | <strong>Spoofing</strong> (forging Caller ID/IP/email) | <strong>SIM Swap</strong> (cloning SIM to hijack OTPs).</li>
+    <h3>NPA, Committees &amp; Banking Cyber Frauds</h3>
+    <ul class="fact-grid compact">
+      <li><strong>NPA Rule</strong>Overdue principal or interest for <strong>90+ days</strong>.</li>
+      <li><strong>Banking Risks &amp; FWTW</strong>Credit, Market, Operational, Liquidity, Systematic, Reputational; <strong>FWTW</strong> = From-Whom-to-Whom.</li>
+      <li><strong>Narasimham I &amp; II</strong>1991 &amp; 1998 — Banking Sector Reforms.</li>
+      <li><strong>Sivaraman / R.V. Gupta</strong><strong>Sivaraman</strong> = NABARD • <strong>R.V. Gupta</strong> = KCC.</li>
+      <li><strong>Gadgil / U.K. Sinha</strong><strong>Gadgil (1969)</strong> = Lead Bank Scheme • <strong>U.K. Sinha</strong> = MSME Reforms.</li>
+      <li><strong>Skimming &amp; SIM Swap</strong>Hardware skimmer on ATMs vs cloning SIM to hijack OTPs.</li>
+      <li><strong>Phishing / Smishing / Spoofing</strong>Fake emails vs SMS phishing vs forging Caller ID/IP.</li>
     </ul>
 
     <h3>Quick Check</h3>

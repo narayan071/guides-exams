@@ -284,6 +284,48 @@
   }
   .info-card li { margin-bottom: 5px; }
   .info-card li:last-child { margin-bottom: 0; }
+  .fact-label {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 10px 0 4px;
+  }
+  .fact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 205px), 1fr));
+    gap: 6px 8px;
+    list-style: none;
+    padding: 0;
+    margin: 6px 0 12px;
+  }
+  .fact-grid.compact {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 155px), 1fr));
+  }
+  .fact-grid > li {
+    margin: 0;
+    padding: 6px 9px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    font-size: 13px;
+    line-height: 1.4;
+  }
+  .info-card .fact-grid {
+    padding-left: 0;
+    margin: 6px 0 8px;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 165px), 1fr));
+  }
+  .info-card .fact-grid > li {
+    background: var(--surface);
+    padding: 5px 8px;
+    font-size: 12.8px;
+  }
+  .fact-grid > li > strong:first-child {
+    display: block;
+    color: var(--accent);
+    font-size: 12.8px;
+    margin-bottom: 1px;
+  }
 </style>
 </head>
 <body data-sidebar-pad="flush">
@@ -344,12 +386,33 @@
     </div>
 
     <h3>History, Pioneers, Classification &amp; Supercomputers</h3>
+    <div class="fact-label">Key Pioneers &amp; Computing Milestones</div>
+    <ul class="fact-grid">
+      <li><strong>Abacus &amp; Slide Rule</strong>Abacus (~4,000+ yrs ago); Slide Rule invented by <strong>William Oughtred</strong>.</li>
+      <li><strong>Charles Babbage</strong>Father of Computer — Difference Engine (1822), Analytical Engine (1837, Punch Cards).</li>
+      <li><strong>Ada Lovelace</strong>World's 1st Computer Programmer.</li>
+      <li><strong>Alan Turing</strong>Father of Modern Computer Science.</li>
+      <li><strong>John von Neumann</strong>Stored-program computer architecture.</li>
+      <li><strong>Robert Heath Dennard</strong>Inventor of RAM (DRAM).</li>
+      <li><strong>John McCarthy</strong>Father of Artificial Intelligence (AI).</li>
+      <li><strong>Tim Berners-Lee</strong>World Wide Web (1989), HTML &amp; HTTP.</li>
+      <li><strong>Douglas Engelbart</strong>Inventor of the Computer Mouse.</li>
+      <li><strong>Seymour Cray</strong>Father of Supercomputing (Cray-1).</li>
+      <li><strong>Vijay Bhatkar</strong>Father of Indian Supercomputing (PARAM).</li>
+    </ul>
+
+    <div class="fact-label">Famous Firsts &amp; Core Concepts</div>
+    <ul class="fact-grid compact">
+      <li><strong>Colossus</strong>1st electronic programmable device (WWII).</li>
+      <li><strong>EDSAC (May 1949)</strong>1st practical stored-program computer (Manchester Baby ran 1st test in 1948; Univ. of Manchester built 1st transistorized).</li>
+      <li><strong>Intel 4004 (1971)</strong>1st commercial single-chip microprocessor.</li>
+      <li><strong>VisiCalc &amp; ELIZA</strong>1st Spreadsheet &amp; 1st Chatbot.</li>
+      <li><strong>Analog / Digital / Hybrid</strong>Continuous vs binary vs ICU/ECG; Micro &lt; Mini &lt; Mainframe &lt; Supercomputer (Client PCs = Microcomputers).</li>
+      <li><strong>System Unit vs Motherboard</strong>Chassis/tower housing parts vs main PCB (System/Planar Board).</li>
+      <li><strong>Computing Triad &amp; Loops</strong>Hardware + Software + <strong>Humanware/Liveware</strong>; Process control = <strong>Feedback Loop</strong>; Voice = <strong>VUI</strong>.</li>
+      <li><strong>RISC vs CISC &amp; Speed</strong>RISC (fixed-length, ARM) vs CISC (x86); CPU = <strong>MIPS</strong>, Supercomputer = <strong>FLOPS</strong> (1 ExaFLOP = 10<sup>18</sup>).</li>
+    </ul>
     <ul>
-      <li><strong>Abacus &amp; Slide Rule:</strong> Abacus = earliest calculating device (~4,000+ yrs ago). <strong>William Oughtred</strong> invented the <strong>Slide Rule</strong>.</li>
-      <li><strong>Key Pioneers:</strong> <strong>Charles Babbage</strong> (Father of Computer — Difference Engine 1822, Analytical Engine 1837 using Punch Cards) | <strong>Ada Lovelace</strong> (1st Programmer) | <strong>Alan Turing</strong> (Father of Modern CS) | <strong>John von Neumann</strong> (Stored-program architecture) | <strong>Robert Heath Dennard</strong> (DRAM/RAM) | <strong>John McCarthy</strong> (Father of AI) | <strong>Tim Berners-Lee</strong> (WWW 1989, HTML, HTTP) | <strong>Douglas Engelbart</strong> (Mouse) | <strong>Seymour Cray</strong> (Father of Supercomputing) | <strong>Vijay Bhatkar</strong> (Father of Indian Supercomputing).</li>
-      <li><strong>Key Firsts:</strong> 1st Electronic Programmable Device = <strong>Colossus</strong> | 1st Practical Stored-Program = <strong>EDSAC (May 1949)</strong> (<em>Manchester Baby [June 1948]</em> ran the first test stored program; <strong>Univ. of Manchester</strong> built 1st transistorized computer) | 1st Microprocessor = <strong>Intel 4004 (1971)</strong> | 1st Spreadsheet = <strong>VisiCalc</strong> | 1st Chatbot = <strong>ELIZA</strong>.</li>
-      <li><strong>Computer Types, Units &amp; Computing Triad:</strong> <strong>Analog</strong> vs <strong>Digital</strong> vs <strong>Hybrid</strong>. Size: Micro &lt; Mini &lt; Mainframe &lt; Supercomputer (Client PCs = <strong>Microcomputers</strong>). <strong>System Unit</strong> (chassis/tower holding Motherboard, CPU, RAM) vs <strong>Motherboard</strong> (System/Planar Board). Triad = Hardware + Software + <strong>Humanware/Liveware</strong>. Process-control input = <strong>Feedback Loop</strong>; Accessibility = <strong>Voice Recognition / VUI</strong> (Voice-User Interface).</li>
-      <li><strong>ISA &amp; Speed Units:</strong> <strong>RISC</strong> (fixed-length, pipelining, ARM) vs <strong>CISC</strong> (x86). CPU speed = <strong>MIPS</strong>; Supercomputer = <strong>FLOPS</strong> (1 ExaFLOP = 10<sup>18</sup>).</li>
       <li><strong>India's Supercomputers:</strong> First = <strong>PARAM 8000</strong> (1991, C-DAC); Top = <strong>Shakti Cloud</strong> (#35 Nov 2026 TOP500) &amp; <strong>AIRAWAT</strong> (C-DAC Pune, #75 in 2023).</li>
       <li><strong>Digital Divide:</strong> Gap between populations with access to modern ICT / e-governance services and those without.</li>
     </ul>
@@ -394,13 +457,17 @@
     </div>
 
     <h3>CPU, Registers, Buses &amp; Logic Gates</h3>
-    <ul>
-      <li><strong>CPU Core &amp; Cycle:</strong> Basic computation unit = <strong>Core</strong> (contains <strong>ALU</strong> + <strong>Control Unit [CU]</strong> + Registers). Instruction Cycle: <code>Fetch → Decode → Execute → Store</code>.</li>
-      <li><strong>Key CPU Registers (Fastest Memory):</strong> Register = group of <strong>flip-flops</strong>. <strong>Accumulator (AC)</strong> stores ALU results | <strong>PC</strong> (Program Counter — next instruction address) | <strong>IR</strong> (Instruction Register — current instruction) | <strong>MAR / MDR</strong> (Memory Address / Data Register).</li>
-      <li><strong>System Buses:</strong> <strong>Data Bus</strong> (bidirectional) | <strong>Address Bus</strong> (unidirectional, determines max addressable RAM) | <strong>Control Bus</strong> (bidirectional timing/control signals).</li>
-      <li><strong>Universal Logic Gates:</strong> <strong>NAND</strong> and <strong>NOR</strong> (can build any Boolean function). Basic gates: AND, OR, NOT; Derived: XOR, XNOR.</li>
-      <li><strong>Firmware, POST &amp; SMPS:</strong> Firmware = hardware + software in ROM (e.g., <strong>BIOS / UEFI</strong> — runs <strong>POST</strong> [Power-On Self-Test] during boot). <strong>SMPS</strong> = Switch Mode Power Supply (AC → DC).</li>
-      <li><strong>Adapters, Encoders &amp; Terminals:</strong> <strong>Adapter</strong> changes a connector configuration / bridges interfaces; Peripheral Card puts info in/out; <strong>Plug &amp; Play (PnP)</strong> auto-detects devices. <strong>Encoder</strong> converts data into another code system; <strong>Bit Manipulation</strong> modifies bits shorter than a word; <strong>Call-Directing Code</strong> = 2–3 char teletypewriter activation code. <strong>Dumb Terminal:</strong> Only keyboard &amp; screen (no local processing).</li>
+    <ul class="fact-grid compact">
+      <li><strong>CPU Core &amp; Cycle</strong>Core = <strong>ALU + CU + Registers</strong>; Cycle: <code>Fetch → Decode → Execute → Store</code>.</li>
+      <li><strong>Accumulator (AC)</strong>Register (flip-flops) holding ALU results.</li>
+      <li><strong>PC &amp; IR</strong><strong>PC</strong> = next instruction addr; <strong>IR</strong> = current instruction.</li>
+      <li><strong>MAR &amp; MDR</strong>Memory Address Register &amp; Memory Data Register.</li>
+      <li><strong>System Buses</strong><strong>Data</strong> (bidirectional), <strong>Address</strong> (unidirectional, max RAM), <strong>Control</strong> (bidirectional).</li>
+      <li><strong>Logic Gates</strong>Universal: <strong>NAND, NOR</strong>. Basic: AND, OR, NOT; Derived: XOR, XNOR.</li>
+      <li><strong>Firmware, POST &amp; SMPS</strong>BIOS/UEFI in ROM runs <strong>POST</strong>; <strong>SMPS</strong> converts AC → DC.</li>
+      <li><strong>Adapter &amp; PnP</strong>Adapter converts connector/interface; <strong>Plug &amp; Play</strong> auto-detects devices.</li>
+      <li><strong>Encoder &amp; Bits</strong>Encoder converts code systems; <strong>Bit Manipulation</strong> alters sub-word bits; <strong>Call-Directing Code</strong> activates teletypewriters.</li>
+      <li><strong>Dumb Terminal</strong>Keyboard + screen only (no local CPU).</li>
     </ul>
 
     <h3>Ports, Cables, Slots &amp; Color Codes</h3>
@@ -466,13 +533,14 @@
     <p style="font-size:13.5px;color:var(--muted);"><strong>Speed Hierarchy (Fastest → Slowest):</strong> <code>Registers &gt; L1/L2/L3 Cache &gt; Main RAM &gt; SSD &gt; HDD &gt; Optical &gt; Magnetic Tape</code>.</p>
 
     <h3>Secondary Storage (Auxiliary Memory), Optical, RAID &amp; HDD Timing</h3>
-    <ul>
-      <li><strong>Disk Formatting:</strong> Dividing a magnetic disk into concentric <strong>Tracks</strong> &amp; pie-slice <strong>Sectors</strong> (cluster = group of sectors).</li>
-      <li><strong>HDD Access Time Formula:</strong> <code>Access Time = Seek Time + Rotational Latency + Transfer Time</code>. (<strong>Seek Time</strong> = move head to track; <strong>Rotational Latency</strong> = wait for sector to spin under head).</li>
-      <li><strong>Optical Discs (Pits &amp; Lands, 12 cm):</strong> <strong>CD</strong> = <strong>700 MB</strong> (<strong>CD-ROM</strong> = Read-Only; <strong>WORM</strong> = <em>Write Once, Read Many</em> [CD-R]; <strong>CD-RW</strong> = ReWritable) | <strong>DVD</strong> = <strong>4.7 GB</strong> (single) / <strong>8.5 GB</strong> (dual) | <strong>Blu-ray</strong> = <strong>25 GB / 50 GB</strong>.</li>
-      <li><strong>Backup Types (2025 PYQ):</strong> <strong>Full</strong> (entire dataset) | <strong>Differential</strong> (changes since last <em>Full</em> backup) | <strong>Incremental</strong> (changes since the <strong>most recent backup of ANY type</strong> — fastest backup, slowest restore).</li>
-      <li><strong>RAID Levels:</strong> <strong>RAID 0</strong> (Striping — speed, no redundancy) | <strong>RAID 1</strong> (Mirroring — 100% fault tolerance) | <strong>RAID 5</strong> (Striping with distributed parity, min 3 disks) | <strong>RAID 10</strong> (Mirror + Stripe).</li>
-      <li><strong>Floppy Disks (IBM):</strong> <strong>3.5" = 1.44 MB</strong> | 5.25" = 360 KB–1.2 MB | 8" = 80 KB–1.2 MB.</li>
+    <ul class="fact-grid compact">
+      <li><strong>Disk Formatting</strong>Divides disk into concentric <strong>Tracks</strong> &amp; pie-slice <strong>Sectors</strong> (cluster = group of sectors).</li>
+      <li><strong>HDD Access Time</strong><code>Seek Time + Rotational Latency + Transfer Time</code>.</li>
+      <li><strong>Optical (12 cm Pits/Lands)</strong><strong>CD:</strong> 700 MB (CD-ROM, <strong>WORM</strong>/CD-R, CD-RW) | <strong>DVD:</strong> 4.7 GB / 8.5 GB | <strong>Blu-ray:</strong> 25 GB / 50 GB.</li>
+      <li><strong>Backup Types (2025 PYQ)</strong><strong>Full</strong> (all data) • <strong>Differential</strong> (since last Full) • <strong>Incremental</strong> (since last backup of <strong>any</strong> type).</li>
+      <li><strong>RAID 0 / RAID 1</strong><strong>RAID 0:</strong> Striping (speed, no redundancy) • <strong>RAID 1:</strong> Mirroring (100% fault tolerance).</li>
+      <li><strong>RAID 5 / RAID 10</strong><strong>RAID 5:</strong> Striping + distributed parity (min 3 disks) • <strong>RAID 10:</strong> Mirror + Stripe.</li>
+      <li><strong>Floppy Disks (IBM)</strong>3.5" = <strong>1.44 MB</strong> • 5.25" = 360 KB–1.2 MB • 8" = 80 KB–1.2 MB.</li>
     </ul>
 
     <h3>Complete Memory Units Ladder (Bit to Quettabyte)</h3>
@@ -740,17 +808,19 @@
       </div>
       <div class="info-card">
         <h4>Well-Known Ports, Routing &amp; Switching</h4>
-        <ul>
-          <li><strong>Ports:</strong> <strong>FTP</strong> (20/21) | <strong>SSH</strong> (22) | <strong>Telnet</strong> (23, plain text) | <strong>SMTP</strong> (25) | <strong>DNS</strong> (53) | <strong>DHCP</strong> (67/68) | <strong>HTTP</strong> (80) | <strong>POP3</strong> (110) | <strong>IMAP</strong> (143) | <strong>SNMP</strong> (161) | <strong>HTTPS</strong> (443) | <strong>RDP</strong> (3389).</li>
-          <li><strong>Routing Protocols:</strong> <strong>RIP</strong> (Distance Vector, max 15 hops) | <strong>OSPF</strong> (Link State, Dijkstra) | <strong>BGP</strong> (Path Vector, Internet EGP).</li>
-          <li><strong>Switching:</strong> <strong>Circuit</strong> (dedicated path, PSTN) vs <strong>Packet</strong> (Internet) vs <strong>Message</strong> (store-and-forward). <strong>VLAN</strong> = Layer 2 broadcast segmentation.</li>
-          <li><strong>Media &amp; Topologies:</strong> <strong>UTP</strong> (Unshielded Twisted Pair) cancels <strong>EMI &amp; crosstalk</strong>; <strong>Fiber Optic</strong> = total internal reflection, EMI-immune. <strong>Mesh</strong> = <code>n(n−1)/2</code> links (most reliable); <strong>Star</strong> (central switch); <strong>Tree</strong> (hierarchical); <strong>Bus</strong> (most collisions).</li>
+        <ul class="fact-grid">
+          <li><strong>Ports (TCP/UDP)</strong><strong>20/21</strong> FTP • <strong>22</strong> SSH • <strong>23</strong> Telnet • <strong>25</strong> SMTP • <strong>53</strong> DNS • <strong>67/68</strong> DHCP • <strong>80</strong> HTTP • <strong>110</strong> POP3 • <strong>143</strong> IMAP • <strong>161</strong> SNMP • <strong>443</strong> HTTPS • <strong>3389</strong> RDP.</li>
+          <li><strong>Routing Protocols</strong><strong>RIP</strong> (Distance Vector, 15 hops) • <strong>OSPF</strong> (Link State, Dijkstra) • <strong>BGP</strong> (Path Vector, Internet).</li>
+          <li><strong>Switching &amp; VLAN</strong><strong>Circuit</strong> (PSTN) vs <strong>Packet</strong> (Internet) vs <strong>Message</strong> (store-and-forward). <strong>VLAN</strong> = L2 segmentation.</li>
+          <li><strong>Media &amp; Topologies</strong><strong>UTP</strong> (cancels EMI/crosstalk); <strong>Fiber</strong> (EMI-immune). <strong>Mesh</strong> <code>n(n−1)/2</code>; <strong>Star</strong>; <strong>Tree</strong>; <strong>Bus</strong> (collisions).</li>
         </ul>
       </div>
     </div>
-    <ul>
-      <li><strong>Network Scope, Security &amp; IBM Endpoints:</strong> <strong>Intranet</strong> vs <strong>Extranet</strong>; <strong>Peer-to-Peer (P2P)</strong> uses <strong>Share-level Security</strong> (Client-Server uses User-level/ACLs). <strong>DTE</strong> (Data Terminal Equipment — generates/receives data) vs <strong>DCE</strong> (Data Circuit-Terminating Equipment — modem/line). Internet launch: World <strong>Jan 1, 1983</strong>; India <strong>Aug 15, 1995</strong>; Vint Cerf &amp; Radia Perlman; <strong>IANA → RIRs</strong>; <strong>ICMP</strong> powers <code>ping</code> &amp; <code>traceroute</code>.</li>
-      <li><strong>Devices (InterWorking Units / IWU):</strong> <strong>Router</strong> (L3) | <strong>Gateway</strong> (dissimilar protocols; Proxy, NOT Firewall) | <strong>Switch</strong> (L2, MAC table) | <strong>Bridge</strong> (L2, 2 ports) | <strong>Hub / Repeater</strong> (L1, fixes attenuation).</li>
+    <ul class="fact-grid compact">
+      <li><strong>Scope &amp; Security</strong><strong>Intranet</strong> (internal) vs <strong>Extranet</strong> (3rd-party). <strong>P2P</strong> = Share-level Security; Client-Server = User-level/ACLs.</li>
+      <li><strong>IBM DTE vs DCE</strong><strong>DTE</strong> (Data Terminal Equip. — generates/receives data) vs <strong>DCE</strong> (modem/line).</li>
+      <li><strong>Internet Milestones</strong>World <strong>Jan 1, 1983</strong>; India <strong>Aug 15, 1995</strong>. Vint Cerf &amp; Radia Perlman; <strong>IANA → RIRs</strong>; <strong>ICMP</strong> (ping/traceroute).</li>
+      <li><strong>Devices (IWU)</strong><strong>Router</strong> (L3) • <strong>Gateway</strong> (Proxy, NOT Firewall) • <strong>Switch</strong> (L2 MAC) • <strong>Bridge</strong> (L2) • <strong>Hub/Repeater</strong> (L1).</li>
     </ul>
 
     <h3>Protocols, Email, Cookies &amp; Browsers</h3>
@@ -805,11 +875,17 @@
     <h3>Cyber Laws, Privacy &amp; Security Standards (IT Officer / GRC)</h3>
     <div class="info-grid">
       <div class="info-card">
-        <h4>Indian Cyber Laws: IT Act 2000 &amp; DPDP Act 2023</h4>
+        <h4>IT Act 2000 Key Sections</h4>
+        <ul class="fact-grid">
+          <li><strong>Sec 43 &amp; 43A</strong>Sec 43 = hacking/damage compensation; Sec 43A = corporate negligence on sensitive personal data.</li>
+          <li><strong>Sec 65 &amp; 66</strong>Sec 65 = tampering with source documents; Sec 66 = computer-related offences.</li>
+          <li><strong>Sec 66C &amp; 66D</strong><strong>Sec 66C</strong> = Identity Theft (password/signature); Sec 66D = cheating by personation.</li>
+          <li><strong>Sec 66F / 67 / 70B</strong>66F = Cyber Terrorism; 67 = obscene content; <strong>70B = CERT-In</strong>.</li>
+        </ul>
+        <h4>DPDP Act 2023 &amp; Rules 2025</h4>
         <ul>
-          <li><strong>IT Act, 2000 Key Sections:</strong> <strong>Sec 43</strong> (compensation for hacking/damage) | <strong>Sec 43A</strong> (corporate negligence in protecting sensitive personal data) | <strong>Sec 65</strong> (tampering with source code/documents) | <strong>Sec 66</strong> (computer-related offences) | <strong>Sec 66C</strong> (<strong>Identity Theft</strong> — password/digital signature misuse) | <strong>Sec 66D</strong> (cheating by personation) | <strong>Sec 66F</strong> (Cyber Terrorism) | <strong>Sec 67</strong> (obscene electronic content) | <strong>Sec 70B</strong> (CERT-In).</li>
-          <li><strong>DPDP Act 2023 &amp; Rules 2025:</strong> Governs digital personal data in India. <strong>Data Principal</strong> = individual | <strong>Data Fiduciary</strong> = entity deciding purpose/means (e.g., banks) | <strong>Significant Data Fiduciary (SDF)</strong> | <strong>Consent Manager</strong>.</li>
-          <li><strong>DPBI &amp; Penalties:</strong> Enforced by <strong>Data Protection Board of India (DPBI)</strong>. Caps: up to <strong>₹250 crore</strong> (no reasonable security safeguards, Sec 8(5)), <strong>₹200 crore</strong> (breach non-reporting / children's data), <strong>₹150 crore</strong> (SDF non-compliance), <strong>₹50 crore</strong> (general), <strong>₹10,000</strong> (Data Principal breach).</li>
+          <li><strong>Roles:</strong> <strong>Data Principal</strong> (individual), <strong>Data Fiduciary</strong> (banks/entities), <strong>Significant Data Fiduciary (SDF)</strong>, <strong>Consent Manager</strong>.</li>
+          <li><strong>DPBI &amp; Penalties:</strong> Enforced by <strong>DPBI</strong> — up to <strong>₹250 Cr</strong> (no security safeguards, Sec 8(5)), <strong>₹200 Cr</strong> (breach non-reporting / children), <strong>₹150 Cr</strong> (SDF), <strong>₹50 Cr</strong> (general), <strong>₹10,000</strong> (Data Principal).</li>
         </ul>
       </div>
       <div class="info-card">
@@ -1058,10 +1134,11 @@
       </div>
       <div class="info-card">
         <h4>Language Firsts, Software &amp; Extensions</h4>
-        <ul>
-          <li><strong>Famous Firsts:</strong> 1st High-Level = <strong>FORTRAN</strong> (Formula Translation) | 1st Business = <strong>COBOL</strong> | 1st OOP = <strong>Simula</strong> | 1st AI = <strong>LISP</strong> | <strong>C</strong> = Dennis Ritchie | <strong>Python</strong> = Guido van Rossum.</li>
-          <li><strong>Software, Manuals &amp; Licensing:</strong> <strong>Patches</strong> = vendor fixes | <strong>Firmware</strong> = ROM code | <strong>DTP</strong> (Desktop Publishing) = brochures, flyers, newsletters | <strong>CAD / CAM / CAE / CASE</strong> = Aided Design / Manufacturing / Engineering / Software Eng. | <strong>User Manual</strong> (how-to guide) vs Technical Manual | Open Source vs Freeware vs Shareware/Trialware vs Bloatware.</li>
-          <li><strong>Exam File Extensions:</strong> Word <code>.docx</code> | Excel <code>.xlsx</code> | PowerPoint <code>.pptx</code> | Access <code>.accdb</code> | WordPad <strong><code>.rtf</code></strong> | Paint Bitmap <strong><code>.bmp</code></strong> | Non-editable Doc <strong><code>.pdf</code></strong> | Executable Program <strong><code>.exe</code></strong>.</li>
+        <ul class="fact-grid">
+          <li><strong>Famous Firsts</strong>1st HLL = <strong>FORTRAN</strong> • 1st Business = <strong>COBOL</strong> • 1st OOP = <strong>Simula</strong> • 1st AI = <strong>LISP</strong> • <strong>C</strong> (Ritchie) • <strong>Python</strong> (van Rossum).</li>
+          <li><strong>Software &amp; CAD/CAM</strong><strong>Patches</strong> (fixes) • <strong>Firmware</strong> (ROM) • <strong>DTP</strong> (brochures/flyers) • <strong>CAD/CAM/CAE/CASE</strong> (Design/Mfg/Eng/SE) • <strong>User Manual</strong>.</li>
+          <li><strong>Licensing</strong><strong>Open Source</strong> (editable) vs <strong>Freeware</strong> (free, closed) vs <strong>Shareware/Trialware</strong> vs <strong>Bloatware</strong>.</li>
+          <li><strong>File Extensions</strong>Word <code>.docx</code> • Excel <code>.xlsx</code> • PPT <code>.pptx</code> • Access <code>.accdb</code> • WordPad <code>.rtf</code> • Paint <code>.bmp</code> • <code>.pdf</code> • <code>.exe</code>.</li>
         </ul>
       </div>
     </div>
