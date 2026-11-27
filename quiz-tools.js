@@ -2,6 +2,8 @@
   'use strict';
 
   const API_KEY_STORAGE = 'gemini_byok_key';
+  const API_KEYS_LIST_STORAGE = 'gemini_byok_keys';
+  const ACTIVE_KEY_ID_STORAGE = 'gemini_byok_active_id';
   const MODEL_STORAGE = 'gemini_model';
   const CUSTOM_MODEL_STORAGE = 'gemini_custom_model';
   const DEFAULT_MODEL = 'gemini-3.5-flash-lite';
@@ -52,21 +54,118 @@
     }
   }
 
-  function loadApiKey() {
-    try {
-      return localStorage.getItem(API_KEY_STORAGE) || '';
-    } catch {
-      return '';
+  function loadApiKeys() {
+    let list = loadJson(API_KEYS_LIST_STORAGE, []);
+    if (!Array.isArray(list)) list = [];
+    // Migrate legacy single key if list is empty
+    if (list.length === 0) {
+      try {
+        const legacy = localStorage.getItem(API_KEY_STORAGE);
+        if (legacy && legacy.trim()) {
+          list = [
+            {
+              id: 'key_default',
+              label: 'Primary Key',
+              key: legacy.trim(),
+              requests: 0,
+              inputTokens: 0,
+              outputTokens: 0,
+            },
+          ];
+          saveJson(API_KEYS_LIST_STORAGE, list);
+          localStorage.setItem(ACTIVE_KEY_ID_STORAGE, 'key_default');
+        }
+      } catch {
+        // ignore
+      }
     }
+    return list;
   }
 
-  function saveApiKey(key) {
+  function saveApiKeys(list) {
+    saveJson(API_KEYS_LIST_STORAGE, list);
+    const active = getActiveKeyEntry(list);
     try {
-      if (key) localStorage.setItem(API_KEY_STORAGE, key.trim());
+      if (active) localStorage.setItem(API_KEY_STORAGE, active.key);
       else localStorage.removeItem(API_KEY_STORAGE);
     } catch {
       // ignore
     }
+  }
+
+  function getActiveKeyEntry(listOpt) {
+    const list = listOpt || loadApiKeys();
+    if (list.length === 0) return null;
+    let activeId = '';
+    try {
+      activeId = localStorage.getItem(ACTIVE_KEY_ID_STORAGE) || '';
+    } catch {
+      // ignore
+    }
+    return list.find((k) => k.id === activeId) || list[0];
+  }
+
+  function setActiveKeyId(id) {
+    try {
+      if (id) localStorage.setItem(ACTIVE_KEY_ID_STORAGE, id);
+      else localStorage.removeItem(ACTIVE_KEY_ID_STORAGE);
+      const list = loadApiKeys();
+      const active = list.find((k) => k.id === id) || list[0];
+      if (active) localStorage.setItem(API_KEY_STORAGE, active.key);
+      else localStorage.removeItem(API_KEY_STORAGE);
+    } catch {
+      // ignore
+    }
+  }
+
+  function addKeyEntry(label, key) {
+    const list = loadApiKeys();
+    const cleanKey = key.trim();
+    const cleanLabel = (label || '').trim() || 'Key ' + (list.length + 1);
+    const existing = list.find((k) => k.key === cleanKey);
+    if (existing) {
+      existing.label = cleanLabel;
+      saveApiKeys(list);
+      setActiveKeyId(existing.id);
+      return existing;
+    }
+    const entry = {
+      id: 'key_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 5),
+      label: cleanLabel,
+      key: cleanKey,
+      requests: 0,
+      inputTokens: 0,
+      outputTokens: 0,
+    };
+    list.push(entry);
+    saveApiKeys(list);
+    setActiveKeyId(entry.id);
+    return entry;
+  }
+
+  function deleteKeyEntry(id) {
+    const list = loadApiKeys().filter((k) => k.id !== id);
+    saveApiKeys(list);
+    if (list.length > 0) setActiveKeyId(list[0].id);
+    else setActiveKeyId('');
+  }
+
+  function recordKeyUsage(keyId, usageMetadata) {
+    if (!keyId) return;
+    const list = loadApiKeys();
+    const entry = list.find((k) => k.id === keyId);
+    if (!entry) return;
+    entry.requests = (entry.requests || 0) + 1;
+    if (usageMetadata) {
+      entry.inputTokens = (entry.inputTokens || 0) + (Number(usageMetadata.promptTokenCount) || 0);
+      entry.outputTokens = (entry.outputTokens || 0) + (Number(usageMetadata.candidatesTokenCount) || 0);
+    }
+    saveApiKeys(list);
+  }
+
+  function loadApiKey() {
+    const active = getActiveKeyEntry();
+    return active ? active.key : '';
   }
 
   function maskKey(key) {
@@ -330,7 +429,9 @@
       stopTimer();
       modalTitleEl.textContent = 'AI Mock Test Generator';
 
-      const apiKey = loadApiKey();
+      const apiKeys = loadApiKeys();
+      const activeKeyObj = getActiveKeyEntry(apiKeys);
+      const apiKey = activeKeyObj ? activeKeyObj.key : '';
       const highlights = loadJson(getHighlightsStorageKey(), []);
       const hlCounts = {
         all: highlights.length,
@@ -344,31 +445,63 @@
 
       let html = '';
 
-      // 1. BYOK API Key & Model Card
+      // 1. BYOK API Keys & Model Card
       html += '<div class="qz-card">';
-      html += '<div class="qz-card-head"><h3 class="qz-card-title">1. Gemini API Key (Local Browser Only)</h3>';
-      if (apiKey && !config.showKeyForm) {
+      html += '<div class="qz-card-head"><h3 class="qz-card-title">1. Gemini API Keys (' + apiKeys.length + ' Saved Locally)</h3>';
+      if (apiKeys.length > 0 && !config.showKeyForm) {
         html +=
-          '<div style="display:flex;gap:6px;align-items:center;">' +
-          '<span class="qz-muted">Saved: <code>' +
-          escapeHtml(maskKey(apiKey)) +
-          '</code></span>' +
-          '<button type="button" class="qz-btn qz-btn-sm" id="qzEditKeyBtn">Change</button>' +
-          '<button type="button" class="qz-btn qz-btn-sm" id="qzForgetKeyBtn">Clear</button>' +
+          '<div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">' +
+          '<button type="button" class="qz-btn qz-btn-sm" id="qzAddKeyBtn">+ Add Key</button>' +
+          '<button type="button" class="qz-btn qz-btn-sm" id="qzDeleteKeyBtn">Delete</button>' +
           '</div>';
       }
       html += '</div>';
 
-      if (!apiKey || config.showKeyForm) {
+      if (apiKeys.length > 0 && !config.showKeyForm) {
+        html += '<div class="qz-key-row">';
+        html += '<select class="qz-select" id="qzActiveKeySelect" style="flex:1;min-width:200px;">';
+        apiKeys.forEach((k) => {
+          const reqs = k.requests || 0;
+          const toks = (k.inputTokens || 0) + (k.outputTokens || 0);
+          html +=
+            '<option value="' +
+            escapeHtml(k.id) +
+            '"' +
+            (activeKeyObj && activeKeyObj.id === k.id ? ' selected' : '') +
+            '>' +
+            escapeHtml(k.label) +
+            ' (' +
+            escapeHtml(maskKey(k.key)) +
+            ') &middot; ' +
+            reqs +
+            ' req / ' +
+            toks.toLocaleString() +
+            ' tok</option>';
+        });
+        html += '</select></div>';
+        if (activeKeyObj) {
+          html +=
+            '<div class="qz-muted" style="margin-top:6px;">Local usage for <strong>' +
+            escapeHtml(activeKeyObj.label) +
+            '</strong>: ' +
+            (activeKeyObj.requests || 0) +
+            ' requests &middot; ' +
+            (activeKeyObj.inputTokens || 0).toLocaleString() +
+            ' in / ' +
+            (activeKeyObj.outputTokens || 0).toLocaleString() +
+            ' out tokens</div>';
+        }
+      }
+
+      if (apiKeys.length === 0 || config.showKeyForm) {
         html +=
           '<div class="qz-key-row">' +
-          '<input type="password" class="qz-input" id="qzKeyInput" placeholder="Paste Gemini API key (AIza...)" value="' +
-          escapeHtml(apiKey) +
-          '">' +
+          '<input type="text" class="qz-input" id="qzKeyLabelInput" placeholder="Label (e.g. Project 1, Backup)" style="flex:0 1 170px;min-width:130px;">' +
+          '<input type="password" class="qz-input" id="qzKeyInput" placeholder="Paste Gemini API key (AIza...)">' +
           '<button type="button" class="qz-btn qz-btn-primary qz-btn-sm" id="qzSaveKeyBtn">Save Key</button>' +
-          (apiKey ? '<button type="button" class="qz-btn qz-btn-sm" id="qzCancelKeyBtn">Cancel</button>' : '') +
+          (apiKeys.length > 0 ? '<button type="button" class="qz-btn qz-btn-sm" id="qzCancelKeyBtn">Cancel</button>' : '') +
           '</div>' +
-          '<p class="qz-muted" style="margin:6px 0 0;">Stored only in this browser\'s <code>localStorage</code>. Tip: in Google AI Studio, restrict your key to HTTP referrer <code>https://narayan071.github.io/*</code> and Generative Language API.</p>';
+          '<p class="qz-muted" style="margin:6px 0 0;">Stored only in this browser\'s <code>localStorage</code>. Tip: in Google AI Studio, restrict keys to HTTP referrer <code>https://narayan071.github.io/*</code> and Generative Language API.</p>';
       }
 
       html +=
@@ -565,7 +698,12 @@
         '<button type="button" class="qz-btn qz-btn-primary" id="qzGenerateBtn">Generate &amp; Start Test</button>';
 
       // Wire Config Listeners
-      document.getElementById('qzEditKeyBtn')?.addEventListener('click', () => {
+      document.getElementById('qzActiveKeySelect')?.addEventListener('change', (e) => {
+        setActiveKeyId(e.target.value);
+        quizState.errorMsg = '';
+        renderConfigView();
+      });
+      document.getElementById('qzAddKeyBtn')?.addEventListener('click', () => {
         config.showKeyForm = true;
         renderConfigView();
       });
@@ -573,19 +711,21 @@
         config.showKeyForm = false;
         renderConfigView();
       });
-      document.getElementById('qzForgetKeyBtn')?.addEventListener('click', () => {
-        saveApiKey('');
-        config.showKeyForm = true;
+      document.getElementById('qzDeleteKeyBtn')?.addEventListener('click', () => {
+        if (!activeKeyObj) return;
+        deleteKeyEntry(activeKeyObj.id);
+        if (loadApiKeys().length === 0) config.showKeyForm = true;
         renderConfigView();
       });
       document.getElementById('qzSaveKeyBtn')?.addEventListener('click', () => {
+        const label = (document.getElementById('qzKeyLabelInput')?.value || '').trim();
         const val = (document.getElementById('qzKeyInput')?.value || '').trim();
         if (!val) {
           quizState.errorMsg = 'Please enter a valid Gemini API key.';
           renderConfigView();
           return;
         }
-        saveApiKey(val);
+        addKeyEntry(label, val);
         config.showKeyForm = false;
         quizState.errorMsg = '';
         renderConfigView();
@@ -783,7 +923,8 @@
       return { content: lines.join('\n'), scopeLabel: labelMap[config.sourceMode] };
     }
 
-    async function callGeminiQuizAPI(apiKey, sourceText) {
+    async function callGeminiQuizAPI(keyEntry, sourceText) {
+      const apiKey = keyEntry.key;
       const logs = loadJson(getTrackerStorageKey(), []);
       const pastMistakes = config.prioritizeMistakes
         ? logs
@@ -876,10 +1017,14 @@
           const errJson = await resp.json();
           if (errJson.error?.message) errText = errJson.error.message;
         } catch {}
+        if (resp.status === 429 && loadApiKeys().length > 1) {
+          errText += ' — Tip: switch to another saved key or model above.';
+        }
         throw new Error(errText);
       }
 
       const data = await resp.json();
+      recordKeyUsage(keyEntry.id, data?.usageMetadata);
       const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
       if (!rawText) throw new Error('Gemini returned an empty response. Try again.');
 
@@ -900,8 +1045,8 @@
     }
 
     async function startQuizGeneration() {
-      const apiKey = loadApiKey();
-      if (!apiKey) {
+      const activeKeyObj = getActiveKeyEntry();
+      if (!activeKeyObj) {
         quizState.errorMsg = 'Please save your Gemini API key first.';
         config.showKeyForm = true;
         renderConfigView();
@@ -925,12 +1070,12 @@
         '<div class="qz-loading">' +
         '<div class="qz-spinner"></div>' +
         '<strong>Generating ' + config.numQuestions + ' questions via ' + escapeHtml(config.model) + '...</strong>' +
-        '<p class="qz-muted" style="margin-top:6px;">Scope: ' + escapeHtml(payload.scopeLabel) + '</p>' +
+        '<p class="qz-muted" style="margin-top:6px;">Key: ' + escapeHtml(activeKeyObj.label) + ' &middot; Scope: ' + escapeHtml(payload.scopeLabel) + '</p>' +
         '</div>';
       footerEl.innerHTML = '<span class="qz-muted">Please wait...</span>';
 
       try {
-        const questions = await callGeminiQuizAPI(apiKey, payload.content);
+        const questions = await callGeminiQuizAPI(activeKeyObj, payload.content);
         beginQuizSession(questions, payload.scopeLabel);
       } catch (err) {
         quizState.view = 'config';
