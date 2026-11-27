@@ -180,7 +180,12 @@
       .filter((sec) => sec.id && sec.id !== 'tracker' && sec.id !== 'glossary')
       .map((sec) => {
         const h2 = sec.querySelector('h2');
-        const title = h2 ? h2.textContent.replace(/\s+/g, ' ').trim() : sec.id;
+        let title = sec.id;
+        if (h2) {
+          const clone = h2.cloneNode(true);
+          clone.querySelectorAll('.badge').forEach((b) => b.remove());
+          title = clone.textContent.replace(/\s+/g, ' ').trim();
+        }
         const subtopics = Array.from(sec.querySelectorAll('h3'))
           .filter((h3) => !/quick check/i.test(h3.textContent))
           .map((h3, idx) => ({
@@ -317,6 +322,7 @@
       backdrop.classList.add('open');
       document.body.style.overflow = 'hidden';
       if (quizState.view === 'config') renderConfigView();
+      bodyEl.scrollTop = 0;
     }
 
     function closeQuizModal() {
@@ -639,7 +645,7 @@
 
       html +=
         '<div class="qz-field"><label for="qzOpts">Options</label><select class="qz-select" id="qzOpts">' +
-        '<option value="5"' + (config.numOptions === 5 ? ' selected' : '') + '>5 Options (A–E, IBPS RRB)</option>' +
+        '<option value="5"' + (config.numOptions === 5 ? ' selected' : '') + '>5 Options (A–E · IBPS)</option>' +
         '<option value="4"' + (config.numOptions === 4 ? ' selected' : '') + '>4 Options (A–D)</option>' +
         '</select></div>';
 
@@ -692,6 +698,7 @@
       }
 
       bodyEl.innerHTML = html;
+      bodyEl.scrollTop = 0;
 
       footerEl.innerHTML =
         '<span class="qz-muted">Questions are grounded strictly in this guide.</span>' +
@@ -1181,6 +1188,7 @@
       }
 
       bodyEl.innerHTML = html;
+      bodyEl.scrollTop = 0;
 
       footerEl.innerHTML =
         '<div style="display:flex;gap:8px;">' +
@@ -1347,6 +1355,7 @@
       });
 
       bodyEl.innerHTML = html;
+      bodyEl.scrollTop = 0;
 
       footerEl.innerHTML =
         '<button type="button" class="qz-btn" id="qzNewSetupBtn">New Test Setup</button>' +
