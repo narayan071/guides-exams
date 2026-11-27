@@ -530,7 +530,7 @@
         </tbody>
       </table>
     </div>
-    <p style="font-size:13.5px;color:var(--muted);"><strong>Speed Hierarchy (Fastest → Slowest):</strong> <code>Registers &gt; L1/L2/L3 Cache &gt; Main RAM &gt; SSD &gt; HDD &gt; Optical &gt; Magnetic Tape</code>.</p>
+    <p style="font-size:13.5px;color:var(--muted);"><strong>Speed Hierarchy (Fastest → Slowest):</strong> <code>Registers &gt; L1/L2/L3 Cache &gt; Main RAM &gt; SSD &gt; HDD &gt; Optical &gt; Magnetic Tape</code>. <strong>SSD vs HDD:</strong> SSDs use flash memory with <strong>no moving mechanical parts</strong> (vs HDD's spinning platters &amp; actuator arm).</p>
 
     <h3>Secondary Storage (Auxiliary Memory), Optical, RAID &amp; HDD Timing</h3>
     <ul class="fact-grid compact">
@@ -588,7 +588,7 @@
         <h4>OS Types, Booting &amp; Process/Threads</h4>
         <ul>
           <li><strong>OS Structure:</strong> <code>Hardware → Kernel → Shell → Applications</code>. OS loads into <strong>RAM</strong> on boot.</li>
-          <li><strong>OS Types:</strong> Batch, Multiprogramming, Time-Sharing (Multitasking), Multiprocessing, Real-Time (<strong>Hard RTOS</strong> = strict deadline vs <strong>Soft RTOS</strong>), Distributed.</li>
+          <li><strong>OS Types:</strong> Batch, Multiprogramming, Time-Sharing (Multitasking), Multiprocessing, Real-Time (<strong>Hard RTOS</strong> = strict deadline vs <strong>Soft RTOS</strong>), Distributed, <strong>Network OS (NOS)</strong> (runs on a server to manage &amp; serve connected client PCs).</li>
           <li><strong>Process &amp; PCB:</strong> 5 states: <code>New → Ready → Running → Waiting → Terminated</code>. <strong>PCB</strong> (Process Control Block) holds PID, state, PC, registers. <strong>Threads</strong> share code/data/heap, have own stack &amp; registers (faster context switch).</li>
           <li><strong>Booting, Power &amp; Storage:</strong> Cold vs Warm Boot; Sleep (RAM) vs Hibernate (Disk). <strong>Root Directory</strong> = main/top folder on a drive; <strong>Installation</strong> = copying/configuring software to disk; <strong>CPU Time</strong> = active processor time (excludes I/O wait). <strong>Device Driver</strong> controls hardware; <strong>Data Validation</strong> checks inputs (e.g., PIN) before entry.</li>
         </ul>
@@ -604,7 +604,8 @@
       </div>
     </div>
     <ul>
-      <li><strong>OS Families, PDAs &amp; Windows:</strong> Open-source = <strong>GNU/Linux, FreeBSD, Android, Chromium OS, OpenSolaris</strong> (Linux default browser = <strong>Firefox</strong>). <strong>PDA</strong> = Handheld OS. MS Windows achieved ~<strong>90%+</strong> desktop OS share: <code>ME → XP → Vista → 7 → 8/8.1 → 10 → 11</code> (<strong>Windows 10 reached End of Support on 14 Oct 2025</strong>; Windows 11 is sole supported desktop version in 2026).</li>
+      <li><strong>OS Families, UNIX &amp; Windows:</strong> <strong>UNIX</strong> (multi-user, time-sharing OS; Bell Labs, <strong>1969</strong>). Open-source = <strong>GNU/Linux, FreeBSD, Android, Chromium OS, OpenSolaris</strong> (Linux default browser = <strong>Firefox</strong>). <strong>PDA</strong> = Handheld OS. MS Windows (~<strong>90%+</strong> desktop share): <code>ME → XP → Vista → 7 → 8/8.1 → 10 → 11</code> (<strong>Windows 10 reached End of Support on 14 Oct 2025</strong>; Windows 11 is sole supported desktop version in 2026).</li>
+      <li><strong>Windows File Explorer Views:</strong> Extra Large / Large / Medium / Small Icons, List, Details, Tiles, Content (<em>Slide Sorter</em> is a PowerPoint view, NOT File Explorer).</li>
     </ul>
 
     <h3>File Systems &amp; Essential Linux Commands</h3>
@@ -668,7 +669,7 @@
         <h4>MS Word</h4>
         <ul>
           <li><strong>11 Tabs:</strong> File, Home, Insert, Draw, Design, Layout, References, Mailings, Review, View, Help.</li>
-          <li><strong>Key Tab Tools:</strong> References → <strong>Footnote, Citation, Table of Contents</strong>; Design → <strong>Watermark</strong>; Layout → Orientation (Portrait/Landscape); Review → <strong>Track Changes</strong>, Proofing (Spelling, Thesaurus, Word Count); View → New Window, Arrange All, Split.</li>
+          <li><strong>Key Tab Tools:</strong> Insert → <strong>Cover Page</strong>, Header/Footer, Table; References → <strong>Footnote, Citation, Table of Contents</strong>; Design → <strong>Watermark</strong>; Layout → Orientation (Portrait/Landscape); Review → <strong>Track Changes</strong>, Proofing (Spelling, Thesaurus, Word Count); View → New Window, Arrange All, Split.</li>
           <li><strong>5 Margins:</strong> Top, Left, Right, Bottom, <strong>Gutter</strong> (binding: Top or Left).</li>
           <li><strong>10 Paper Sizes:</strong> Letter, Tabloid, Legal, Statement, Executive, A3, A4, A5, B4, B5.</li>
           <li><strong>Limits &amp; Drop Cap:</strong> Table max <strong>63 cols</strong>, <strong>32,767 rows</strong>; <strong>Drop Cap</strong> (1st letter): Min 1 / Default <strong>3</strong> / Max 10 lines.</li>
@@ -683,12 +684,13 @@
           <li><strong>Grid Size (2007+):</strong> <strong>1,048,576 rows</strong> (2<sup>20</sup>) &times; <strong>16,384 cols</strong> (2<sup>14</sup>, <code>A</code> to <code>XFD</code>); old 97–03: 65,536 &times; 256.</li>
           <li><strong>Sheet Navigation &amp; Terminology:</strong> Click <strong>Worksheet / Sheet Tab</strong> to switch tabs; <strong>Merging Cells</strong> combines ≥2 cells into one. Text = <strong>Labels</strong>; numbers used in formulas = <strong>Values</strong>; pre-recorded formula = <strong>Function</strong>. Name Box = address; Formula Bar (also holds AutoSum) = content.</li>
           <li><strong>Alignment &amp; Charts:</strong> Numbers &amp; Date/Time = <strong>Right-aligned</strong>; Text = Left-aligned. <strong>Pie Chart</strong> plots <strong>only ONE data series</strong> (vs Bar/Line/Stacked); <strong>Embedded Chart</strong> sits directly on the worksheet. <strong>Pivot Table</strong> → <strong>Insert</strong> tab.</li>
-          <li><strong>Cell Limit &amp; Tabs:</strong> Max <strong>32,767</strong> chars/cell. AutoSum = <code>Home &gt; Editing</code> &amp; <code>Formulas</code> (<code>Alt+=</code>); Protect = <strong>Review</strong>; Macros = <strong>View</strong> (<code>Alt+F8</code>, <strong>VBA</strong>); Freeze Panes = <strong>View</strong>; Conditional Formatting = <strong>Home</strong>.</li>
+          <li><strong>Cell Limit &amp; Tabs:</strong> Max <strong>32,767</strong> chars/cell. AutoSum = <code>Home &gt; Editing</code> &amp; <code>Formulas</code> (<code>Alt+=</code>); Protect = <strong>Review</strong>; Macros = <strong>View</strong> (<code>Alt+F8</code>, <strong>VBA</strong>); Freeze Panes = <strong>View</strong>; Conditional Formatting = <strong>Home</strong>. (<strong>Cover Page</strong> is on Word's Insert tab, <strong>NOT</strong> Excel's Insert tab.)</li>
         </ul>
       </div>
       <div class="office-card">
         <h4>MS PowerPoint</h4>
         <ul>
+          <li><strong>Defaults:</strong> Slide orientation = <strong>Landscape</strong> (Word = Portrait); new Title Slide has <strong>2</strong> default placeholder text boxes (Title + Subtitle).</li>
           <li><strong>Slideshow Start / End:</strong> From Beginning (<code>F5</code>), From Current (<code>Shift+F5</code>), Custom; End = <code>Esc</code>.</li>
           <li><strong>5 Views:</strong> Normal, Outline, <strong>Slide Sorter</strong> (all slides at once), Notes Page, Reading.</li>
           <li><strong>Master &amp; Timings:</strong> <strong>Slide Master</strong>; Slide Show → Rehearse Timings.</li>
@@ -702,7 +704,7 @@
       <table>
         <thead><tr><th>Function / Error</th><th>Meaning &amp; Example</th></tr></thead>
         <tbody>
-          <tr><td><code>=SUM / AVERAGE / MAX / MIN</code></td><td><code>=SUM(A1:A10)</code> adds range (NO <code>=ADD()</code>/<code>=TOTAL()</code>; <code>Alt+=</code> AutoSum); <code>AVERAGE</code> = mean; <code>MAX/MIN</code> = extremes.</td></tr>
+          <tr><td><code>=SUM / AVERAGE / MAX / MIN</code></td><td><code>=SUM(A1:A10)</code> adds range (colon <code>:</code> = range vs comma <code>=SUM(A2,A4)</code> = only A2 &amp; A4; NO <code>=ADD()</code>/<code>=TOTAL()</code>; <code>Alt+=</code> AutoSum); <code>AVERAGE</code> = mean; <code>MAX/MIN</code> = extremes.</td></tr>
           <tr><td><code>=COUNT / COUNTA / COUNTBLANK</code></td><td><code>COUNT</code> = numeric cells only; <code>COUNTA</code> = all non-empty cells (text + nums); <code>COUNTBLANK</code> = empty cells.</td></tr>
           <tr><td><code>=IF / VLOOKUP / HLOOKUP</code></td><td><code>=IF(cond, true_val, false_val)</code>; <code>VLOOKUP</code> = vertical (leftmost col lookup); <code>HLOOKUP</code> = horizontal; <code>XLOOKUP</code> = modern bidirectional.</td></tr>
           <tr><td><code>=TODAY() / =NOW() / =LEN / =MOD</code></td><td><code>TODAY()</code> = date; <code>NOW()</code> = date &amp; time; <code>LEN()</code> = char count; <code>TRIM()</code> = strip extra spaces; <code>MOD(10,3)=1</code> (remainder).</td></tr>
@@ -741,7 +743,7 @@
           <tr><td><code>Ctrl + T / Shift+T / W / D / H / J / U</code></td><td>New Tab / Reopen Closed Tab / Close Tab / Bookmark / History / Downloads / <strong>Page Source</strong></td></tr>
           <tr><td><code>Win + D / M / E / R / L / I / S</code></td><td>Desktop / Min all / Explorer / Run / Lock / Settings / Search (<code>Ctrl + Esc</code> = Start)</td></tr>
           <tr><td><code>Win + X / Tab / Shift+S / PrtScn</code></td><td>Power User / Task View / Snipping Tool / Screenshot</td></tr>
-          <tr><td><code>Alt + Enter / Alt + Space / Ctrl + Alt + Tab</code></td><td>Properties / Window Menu / Switch Windows</td></tr>
+          <tr><td><code>Alt + Enter / Alt + Space / Shift + Del</code></td><td>Properties / Window Menu / <strong>Permanent Delete</strong> (skips Recycle Bin; <code>Ctrl+Alt+Tab</code> = Switch Windows)</td></tr>
           <tr><td rowspan="6"><strong>Function Keys (F1–F12)</strong></td><td><code>F1</code> / <code>F2</code> / <code>F3</code></td><td>Help / Rename (Edit cell) / Search in Explorer</td></tr>
           <tr><td><code>F4</code> / <code>F5</code></td><td>Address dropdown (Repeat in Office) / Refresh (Find&amp;Replace Word)</td></tr>
           <tr><td><code>F6</code> / <code>F7</code></td><td>Focus address bar / Spelling &amp; Grammar (Office)</td></tr>
@@ -825,10 +827,18 @@
 
     <h3>Protocols, Email, Cookies &amp; Browsers</h3>
     <ul>
-      <li><strong>Email Protocols:</strong> <strong>SMTP</strong> sends <strong>text only</strong> (Port 25); <strong>MIME</strong> enables attachments; <strong>POP3</strong> (110) downloads &amp; usually deletes from server; <strong>IMAP</strong> (143) syncs folders &amp; keeps mail on server.</li>
+      <li><strong>Email Protocols &amp; Fields:</strong> <strong>SMTP</strong> sends <strong>text only</strong> (Port 25); <strong>MIME</strong> enables attachments; <strong>POP3</strong> (110) downloads &amp; usually deletes from server; <strong>IMAP</strong> (143) syncs folders &amp; keeps mail on server. <strong>CC</strong> (Carbon Copy — visible to all) vs <strong>BCC</strong> (Blind Carbon Copy — hides recipients from each other).</li>
       <li><strong>Gmail &amp; Email Clients:</strong> Gmail (Application layer webmail): <strong>25 MB</strong> max attachment, <strong>500 emails/day</strong> free send limit, <strong>15 GB</strong> free inbox, <strong>5s</strong> Undo Send. Desktop clients = Outlook, Thunderbird, Apple Mail.</li>
-      <li><strong>Web &amp; Protocols:</strong> <strong>HTML</strong> is a <em>markup language</em>, <strong>NOT</strong> a network protocol. Type URLs in the browser <strong>Address / Location Bar</strong>. <strong>Cookies</strong> = state management. <strong>Spider (Crawler)</strong> indexes sites. <strong>ARP</strong> / <strong>RARP</strong> | <strong>PGP</strong> (11371).</li>
-      <li><strong>Browsers &amp; Social:</strong> Engines: <strong>Chrome/Opera → Blink</strong> | <strong>Firefox (open-source) → Gecko</strong> | <strong>Safari → WebKit</strong> | <strong>IE → Trident</strong>. <strong>Tor</strong> (dark web) | <strong>Epic</strong> (Indian Chromium browser) | <strong>Qmamu</strong> (Indian search engine) | <strong>AltaVista</strong> (Yahoo) | <strong>LinkedIn</strong> (May 5, 2003, owned by Microsoft).</li>
+      <li><strong>Web, URL, HTML &amp; Telecom:</strong> <strong>HTML</strong> is a <em>markup language</em>, <strong>NOT</strong> a network protocol; <code>&lt;meta&gt;</code> tag helps search engines index pages. <strong>Static vs Dynamic</strong> websites (DB/server-script generated). <strong>URL parts:</strong> Protocol + Domain + Port + Path + Query (<strong>NOT</strong> MAC address; typed in <strong>Address / Location Bar</strong>). <strong>VoIP</strong> (Voice over IP) &amp; <strong>GPS</strong> (Global Positioning System). <strong>Cookies</strong> = state management; <strong>Spider (Crawler)</strong> indexes sites; <strong>ARP</strong> / <strong>RARP</strong> | <strong>PGP</strong> (11371).</li>
+      <li><strong>Browsers, Search Engines &amp; Social:</strong> Engines: <strong>Chrome/Opera → Blink</strong> | <strong>Firefox (open-source) → Gecko</strong> | <strong>Safari → WebKit</strong> | <strong>IE → Trident</strong>. Search Engines: <strong>Google, Bing (Microsoft), DuckDuckGo, Qmamu</strong> (Indian). <strong>Tor</strong> (dark web) | <strong>Epic</strong> (Indian Chromium browser) | <strong>AltaVista</strong> (Yahoo) | <strong>LinkedIn</strong> (May 5, 2003, Microsoft).</li>
+    </ul>
+
+    <h3>Online Meeting &amp; Video Conferencing Tools (Free Tier Limits)</h3>
+    <ul class="fact-grid compact">
+      <li><strong>Zoom</strong>Up to <strong>100 participants</strong>; <strong>40 min</strong> cap on both group &amp; 1-on-1 meetings.</li>
+      <li><strong>Google Meet</strong>Up to <strong>100 participants</strong>; <strong>60 min</strong> group (3+) / <strong>24 hr</strong> 1-on-1.</li>
+      <li><strong>Microsoft Teams</strong>Up to <strong>100 participants</strong>; <strong>60 min</strong> group / <strong>30 hr</strong> 1-on-1.</li>
+      <li><strong>Cisco Webex</strong>Up to <strong>100 participants</strong>; <strong>40 min</strong> group / <strong>unlimited</strong> 1-on-1.</li>
     </ul>
 
     <h3>Quick Check</h3>
@@ -1203,6 +1213,7 @@
           <tr><td><strong>IWU / PDA / VUI</strong></td><td>InterWorking Unit / Personal Digital Assistant / Voice-User Interface</td><td><strong>UTP / WORM</strong></td><td>Unshielded Twisted Pair / Write Once, Read Many</td></tr>
           <tr><td><strong>DPDP / DPBI / GDPR</strong></td><td>Digital Personal Data Protection / Data Protection Board of India / General Data Protection Regulation</td><td><strong>ISMS / ISO / NIST</strong></td><td>Info Security Mgmt System / Intl Org. for Standardization / National Inst. of Standards &amp; Tech</td></tr>
           <tr><td><strong>PCI-DSS / SOC / TSC</strong></td><td>Payment Card Industry Data Security Standard / Service Org. Control / Trust Services Criteria</td><td><strong>SDF / GRC</strong></td><td>Significant Data Fiduciary / Governance, Risk &amp; Compliance</td></tr>
+          <tr><td><strong>GPS / NOS / VoIP</strong></td><td>Global Positioning System / Network Operating System / Voice over Internet Protocol</td><td><strong>CC / BCC / HTML</strong></td><td>Carbon Copy / Blind Carbon Copy / HyperText Markup Language</td></tr>
         </tbody>
       </table>
     </div>
