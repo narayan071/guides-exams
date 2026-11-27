@@ -465,7 +465,7 @@
 
       if (apiKeys.length > 0 && !config.showKeyForm) {
         html += '<div class="qz-key-row">';
-        html += '<select class="qz-select" id="qzActiveKeySelect" style="flex:1;min-width:200px;">';
+        html += '<select class="qz-select" id="qzActiveKeySelect" style="flex:1;min-width:0;width:100%;">';
         apiKeys.forEach((k) => {
           const reqs = k.requests || 0;
           const toks = (k.inputTokens || 0) + (k.outputTokens || 0);

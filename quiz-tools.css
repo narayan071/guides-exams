@@ -199,10 +199,21 @@
   color: var(--text);
   font-size: 13px;
   font-family: inherit;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 .qz-input {
   flex: 1;
-  min-width: 180px;
+  min-width: 160px;
+}
+
+@media (max-width: 639.98px) {
+  .qz-key-row > .qz-input,
+  .qz-key-row > .qz-select {
+    flex: 1 1 100% !important;
+    width: 100%;
+  }
 }
 
 .qz-btn {

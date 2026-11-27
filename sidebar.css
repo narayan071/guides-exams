@@ -299,7 +299,51 @@ body.has-guide-sidebar > footer {
 }
 
 /* Keep sticky nav & top headers clear of the floating icon when sidebar is hidden */
-@media (max-width: 859.98px) {
+@media (max-width: 639.98px) {
+  html {
+    scroll-padding-top: 98px !important;
+  }
+
+  h2 {
+    scroll-margin-top: 98px !important;
+  }
+
+  .sticky-nav {
+    padding: 8px 12px !important;
+  }
+
+  .sticky-nav .nav-inner {
+    flex-wrap: wrap;
+    row-gap: 7px;
+  }
+
+  .sticky-nav .chips {
+    order: 2;
+    flex: 1 0 100%;
+    width: 100%;
+  }
+
+  .sticky-nav .qz-nav-btn,
+  .sticky-nav .hl-nav-btn,
+  .sticky-nav .theme-btn {
+    order: 1;
+  }
+
+  .sticky-nav .nav-inner > button:first-of-type {
+    margin-left: auto;
+  }
+
+  body.guide-no-sticky-nav > header,
+  body.guide-no-sticky-nav > main > div:first-child {
+    padding-left: 48px;
+  }
+
+  body.guide-no-sticky-nav > header {
+    padding-top: 14px;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 859.98px) {
   .sticky-nav {
     padding-left: 56px !important;
   }
