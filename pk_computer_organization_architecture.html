@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PK - Computer Organization &amp; Architecture — IBPS RRB SO IT Scale 2</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="apple-touch-icon" href="icon-192.png">
+<script>(function(){try{var t=localStorage.getItem('site_theme')||localStorage.getItem('fa_theme')||localStorage.getItem('ck_theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<link rel="stylesheet" href="sidebar.css">
+<link rel="stylesheet" href="study-tools.css">
+<link rel="stylesheet" href="quiz-tools.css">
+<link rel="stylesheet" href="ai-chat.css">
+<style>
+  :root {
+    --bg: #f8fafc;
+    --surface: #ffffff;
+    --surface-2: #f1f5f9;
+    --text: #0f172a;
+    --muted: #475569;
+    --border: #e2e8f0;
+    --accent: #0f766e;
+    --accent-soft: #f0fdfa;
+    --green-bg: #dcfce7;
+    --green-text: #166534;
+    --green-border: #86efac;
+    --red-bg: #fee2e2;
+    --red-text: #991b1b;
+    --red-border: #fca5a5;
+    --yellow-bg: #fef9c3;
+    --yellow-text: #854d0e;
+    --yellow-border: #fde047;
+    --trap-bg: #fff7ed;
+    --trap-border: #fb923c;
+    --trap-text: #9a3412;
+    --code-bg: #f1f5f9;
+    --shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  [data-theme="dark"] {
+    --bg: #0b1120;
+    --surface: #111827;
+    --surface-2: #1e293b;
+    --text: #f1f5f9;
+    --muted: #94a3b8;
+    --border: #273449;
+    --accent: #2dd4bf;
+    --accent-soft: #042f2e;
+    --green-bg: #052e16;
+    --green-text: #86efac;
+    --green-border: #166534;
+    --red-bg: #450a0a;
+    --red-text: #fca5a5;
+    --red-border: #991b1b;
+    --yellow-bg: #422006;
+    --yellow-text: #fde047;
+    --yellow-border: #854d0e;
+    --trap-bg: #2c1608;
+    --trap-border: #ea580c;
+    --trap-text: #fdba74;
+    --code-bg: #1e293b;
+    --shadow: 0 1px 3px rgba(0,0,0,0.4);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.55;
+    font-size: 15px;
+    overflow-x: clip;
+  }
+  .sticky-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    padding: 8px 16px;
+  }
+  .nav-inner {
+    max-width: 980px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .chips {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    flex: 1;
+    padding: 2px 0;
+  }
+  .chips::-webkit-scrollbar { display: none; }
+  .chip {
+    white-space: nowrap;
+    text-decoration: none;
+    color: var(--text);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 4px 11px;
+    font-size: 12.5px;
+    font-weight: 500;
+  }
+  .chip:hover { border-color: var(--accent); color: var(--accent); }
+  .theme-btn {
+    flex-shrink: 0;
+    background: var(--surface-2);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 5px 10px;
+    font-size: 12.5px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  main { max-width: 980px; margin: 0 auto; padding: 20px 16px 60px; }
+  header.hero {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 18px;
+  }
+  .kicker {
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 4px;
+  }
+  header.hero h1 { margin: 0 0 6px; font-size: 22px; }
+  header.hero p.lede { margin: 0; color: var(--muted); font-size: 14px; }
+  .search-box {
+    margin-top: 12px;
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--text);
+    font-size: 14px;
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 10px;
+    margin-top: 12px;
+  }
+  .stat {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 9px 12px;
+  }
+  .stat .val { font-size: 18px; font-weight: 700; display: block; color: var(--accent); }
+  .stat .lbl { font-size: 12px; color: var(--muted); }
+  section.card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 18px;
+    box-shadow: var(--shadow);
+  }
+  section.card h2 {
+    margin: 0 0 10px;
+    font-size: 18px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+  section.card h3 { margin: 14px 0 6px; font-size: 15px; }
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 11.5px;
+    font-weight: 700;
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--muted);
+  }
+  .badge-exam { background: var(--green-bg); color: var(--green-text); border-color: var(--green-border); }
+  .badge-prac { background: var(--yellow-bg); color: var(--yellow-text); border-color: var(--yellow-border); }
+  .start-box {
+    background: var(--accent-soft);
+    border-left: 4px solid var(--accent);
+    border-radius: 6px;
+    padding: 11px 14px;
+    margin: 10px 0 14px;
+    font-size: 14px;
+  }
+  .start-box > strong:first-child { color: var(--accent); display: block; margin-bottom: 3px; font-size: 12.5px; text-transform: uppercase; letter-spacing: 0.4px; }
+  .trap-box {
+    background: var(--trap-bg);
+    border-left: 4px solid var(--trap-border);
+    border-radius: 6px;
+    padding: 11px 14px;
+    margin: 14px 0;
+    font-size: 13.8px;
+  }
+  .trap-box strong.trap-title { color: var(--trap-text); display: block; margin-bottom: 4px; font-size: 12.5px; text-transform: uppercase; letter-spacing: 0.4px; }
+  .table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 10px 0;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 480px; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { background: var(--surface-2); font-weight: 600; white-space: nowrap; }
+  tr:last-child td { border-bottom: none; }
+  ul { margin: 6px 0 10px; padding-left: 18px; }
+  li { margin-bottom: 4px; }
+  code {
+    background: var(--code-bg);
+    padding: 1px 5px;
+    border-radius: 4px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 13px;
+    overflow-wrap: anywhere;
+  }
+  pre.coa-diagram {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    overflow-x: auto;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 12.8px;
+    line-height: 1.5;
+    margin: 8px 0 12px;
+    white-space: pre;
+  }
+  pre.coa-diagram code {
+    background: transparent;
+    padding: 0;
+    font-size: inherit;
+  }
+  details {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 9px 12px;
+    margin-bottom: 8px;
+    background: var(--surface-2);
+  }
+  summary { cursor: pointer; font-weight: 600; font-size: 13.8px; line-height: 1.45; }
+  details[open] summary { margin-bottom: 7px; color: var(--accent); }
+  .q-meta {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 1px 6px;
+    border-radius: 4px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--accent);
+    margin-right: 6px;
+  }
+  .q-ans {
+    font-size: 13.5px;
+    line-height: 1.5;
+    padding-top: 6px;
+    border-top: 1px dashed var(--border);
+  }
+  .hidden-card { display: none; }
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+    gap: 12px;
+    margin: 12px 0;
+  }
+  .info-card {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+  .info-card h4 {
+    margin: 0 0 8px;
+    font-size: 14px;
+    color: var(--accent);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 5px;
+  }
+  .info-card ul {
+    margin: 0;
+    padding-left: 16px;
+    font-size: 13.5px;
+    line-height: 1.5;
+  }
+  .info-card li { margin-bottom: 5px; }
+  .info-card li:last-child { margin-bottom: 0; }
+  .fact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 205px), 1fr));
+    gap: 6px 8px;
+    list-style: none;
+    padding: 0;
+    margin: 6px 0 12px;
+  }
+  .fact-grid.compact {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 155px), 1fr));
+  }
+  .fact-grid > li {
+    margin: 0;
+    padding: 6px 9px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    font-size: 13px;
+    line-height: 1.4;
+  }
+  .fact-grid > li > strong:first-child {
+    display: block;
+    color: var(--accent);
+    font-size: 12.8px;
+    margin-bottom: 1px;
+  }
+</style>
+</head>
+<body data-sidebar-pad="flush">
+<nav class="sticky-nav" aria-label="Chapter Navigation">
+  <div class="nav-inner">
+    <div class="chips">
+      <a class="chip" href="#ch1">1. Architecture &amp; Buses</a>
+      <a class="chip" href="#ch2">2. Data, 2's Comp &amp; IEEE 754</a>
+      <a class="chip" href="#ch3">3. Digital Logic &amp; Flip-Flops</a>
+      <a class="chip" href="#ch4">4. Instructions &amp; Addressing</a>
+      <a class="chip" href="#ch5">5. Pipelining &amp; Hazards</a>
+      <a class="chip" href="#ch6">6. Cache, Mapping &amp; RAM</a>
+      <a class="chip" href="#ch7">7. I/O, DMA &amp; TLB</a>
+      <a class="chip" href="#ch8">8. Practice &amp; Tricks</a>
+      <a class="chip" href="#glossary">Glossary</a>
+      <a class="chip" href="#tracker">Mock Tracker</a>
+    </div>
+    <button class="theme-btn" id="themeToggle" type="button">Theme</button>
+  </div>
+</nav>
+
+<main>
+  <header class="hero">
+    <p class="kicker">Professional Knowledge · IBPS RRB SO IT Officer (Scale 2)</p>
+    <h1>PK - Computer Organization &amp; Architecture</h1>
+    <p class="lede">Exam-oriented Scale 2 guide covering CPU registers &amp; buses, number systems &amp; IEEE 754, digital logic &amp; sequential circuits, addressing modes, pipelining hazards, cache tag/AMAT numericals, DMA vs interrupts, and 32 practice &amp; trick MCQs.</p>
+    <div class="stats-grid">
+      <div class="stat"><span class="val">7 Chapters</span><span class="lbl">Core + Numericals</span></div>
+      <div class="stat"><span class="val">32 Qs</span><span class="lbl">Concept + Numerical + Tricks</span></div>
+      <div class="stat"><span class="val">SO IT Scale 2</span><span class="lbl">Exam Numericals Ready</span></div>
+      <div class="stat"><span class="val">AI + Tools</span><span class="lbl">Select Text → Ask AI</span></div>
+    </div>
+    <input class="search-box" id="quickSearch" type="search" placeholder="Filter COA topics (e.g. AMAT, Tag, IEEE 754, 2's complement, JK flip-flop, RAW, DMA, Little Endian, TLB)...">
+  </header>
+
+  <!-- CH 1 -->
+  <section class="card" id="ch1">
+    <h2>Ch 1: Functional Units, Architecture Models, Buses &amp; CPU Registers <span class="badge badge-exam">High-Yield</span></h2>
+    <div class="start-box">
+      <strong>Start Here</strong>
+      Computer <strong>Architecture</strong> = programmer-visible attributes (ISA, registers, addressing modes, data types); Computer <strong>Organization</strong> = physical hardware implementation (control signals, cache size, bus width, ALU design). Two chips can share the same Architecture (x86-64) with totally different Organization!
+    </div>
+
+    <h3>Von Neumann vs Harvard &amp; Flynn's Classification</h3>
+    <div class="info-grid">
+      <div class="info-card">
+        <h4>Von Neumann vs Harvard Architecture</h4>
+        <ul>
+          <li><strong>Von Neumann (Princeton):</strong> Stored-program concept (1945) — <strong>single shared memory &amp; shared bus</strong> hold both instructions and data. Causes the <strong>Von Neumann Bottleneck</strong> (CPU cannot fetch instruction &amp; read/write data simultaneously).</li>
+          <li><strong>Pure Harvard:</strong> Physically separate Instruction Memory/Bus &amp; Data Memory/Bus → parallel access (fast, deterministic; used in DSPs/embedded MCUs).</li>
+          <li><strong>Modified Harvard (Modern CPUs):</strong> Unified main RAM outside CPU, but <strong>split L1 Instruction Cache (I-Cache) &amp; Data Cache (D-Cache)</strong> inside CPU!</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h4>Flynn's Taxonomy (Instruction × Data Streams)</h4>
+        <ul>
+          <li><strong>SISD:</strong> Classic single-core CPU (1 instruction, 1 data stream).</li>
+          <li><strong>SIMD:</strong> Vector processors, GPUs, CPU AVX extensions (same instruction applied across array of data in parallel).</li>
+          <li><strong>MISD:</strong> Multiple ALUs on 1 data stream (theoretical / specialized fault-tolerant flight controllers).</li>
+          <li><strong>MIMD:</strong> Modern <strong>multicore CPUs</strong>, symmetric multiprocessors (SMP), distributed clusters.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>System Buses, Bus Arbitration &amp; Endianness</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Bus / Concept</th><th>Direction &amp; Size Rule</th><th>Key Exam Facts</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Address Bus</strong></td><td><strong>Unidirectional</strong> (CPU → RAM/I/O)</td><td><code>k</code> address lines directly address <strong><code>2<sup>k</sup></code> memory locations</strong> (e.g. 32-bit addr bus = <code>4 GB</code> byte-addressable RAM; <code>64 KB</code> = 16 lines).</td></tr>
+          <tr><td><strong>Data Bus</strong></td><td><strong>Bidirectional</strong> (CPU ↔ RAM/I/O)</td><td>Determines <strong>word/chunk bits transferred per bus cycle</strong> (32-bit / 64-bit).</td></tr>
+          <tr><td><strong>Control Bus</strong></td><td>Bidirectional / Timing &amp; Command</td><td>Carries <code>MEMR</code>, <code>MEMW</code>, <code>IOR</code>, <code>IOW</code>, Clock, Reset, <code>INTR/INTA</code>, Bus <code>HOLD/HLDA</code>.</td></tr>
+          <tr><td><strong>Bus Arbitration</strong></td><td>Resolves competing bus masters</td><td><strong>Daisy Chaining:</strong> simple/cheap, near devices can starve far devices. <strong>Polling:</strong> controller cycles IDs. <strong>Independent Request:</strong> priority encoder — fastest!</td></tr>
+          <tr><td><strong>Endianness</strong></td><td>Byte order of multi-byte integers</td><td>Value <code>0x12345678</code> at addr <code>100..103</code>: <strong>Big Endian</strong> (Network/TCP-IP) puts MSB <code>12</code> at lowest addr <code>100</code>; <strong>Little Endian</strong> (x86) puts LSB <code>78</code> at <code>100</code>!</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Essential CPU Registers</h3>
+    <ul class="fact-grid compact">
+      <li><strong><code>PC</code> (Program Counter)</strong>Holds memory address of the <strong>next instruction</strong> to be fetched.</li>
+      <li><strong><code>IR</code> (Instruction Register)</strong>Holds the <strong>currently fetched/decoded</strong> instruction opcode &amp; operands.</li>
+      <li><strong><code>MAR</code> (Mem Address Reg)</strong>Receives address from PC/operand unit and drives the <strong>Address Bus</strong>.</li>
+      <li><strong><code>MDR / MBR</code> (Data Reg)</strong>Two-way buffer sitting directly on the <strong>Data Bus</strong> (holds read/written word).</li>
+      <li><strong><code>AC</code> (Accumulator)</strong>Implicit ALU input/output register in 1-address architectures.</li>
+      <li><strong><code>SP</code> &amp; <code>PSW</code> (Flags)</strong><code>SP</code> tracks stack top; <code>PSW</code> stores status flags: Zero (<code>Z</code>), Carry (<code>C</code>), Sign (<code>N/S</code>), Overflow (<code>V/O</code>), Interrupt (<code>I</code>).</li>
+    </ul>
+
+    <div class="trap-box">
+      <strong class="trap-title">Address Width Formula Trap</strong>
+      If a system has <strong>16 GB</strong> RAM that is <strong>word-addressable</strong> (1 word = 4 bytes) instead of byte-addressable, total addressable units = <code>16 GB / 4 B = 4 G = 2<sup>32</sup></code> words → requires <strong>32 address bits</strong>, NOT 34! Always check byte- vs word-addressable!
+    </div>
+  </section>
+
+  <!-- CH 2 -->
+  <section class="card" id="ch2">
+    <h2>Ch 2: Number Systems, 2's Complement, Overflow, IEEE 754 &amp; Codes <span class="badge badge-exam">Numerical Core</span></h2>
+    <div class="start-box">
+      <strong>Start Here</strong>
+      Modern CPUs perform subtraction via <strong>2's complement addition</strong> (<code>A - B = A + (~B + 1)</code>), represent real numbers using <strong>IEEE 754</strong>, and protect memory against bit flips using <strong>Parity / Hamming ECC</strong>.
+    </div>
+
+    <h3>Signed Integer Representations (<code>n</code> bits)</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Representation</th><th>Range (for <code>n</code> bits)</th><th>8-bit Range</th><th>Zeros</th><th>Exam Notes</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Sign-Magnitude</strong></td><td><code>-(2<sup>n-1</sup> - 1)</code> to <code>+(2<sup>n-1</sup> - 1)</code></td><td><code>-127</code> to <code>+127</code></td><td><strong>2</strong> (<code>+0, -0</code>)</td><td>MSB = sign (0 pos, 1 neg); awkward hardware addition.</td></tr>
+          <tr><td><strong>1's Complement</strong></td><td><code>-(2<sup>n-1</sup> - 1)</code> to <code>+(2<sup>n-1</sup> - 1)</code></td><td><code>-127</code> to <code>+127</code></td><td><strong>2</strong> (<code>00000000, 11111111</code>)</td><td>Bitwise NOT; requires end-around carry add!</td></tr>
+          <tr><td><strong>2's Complement</strong></td><td><strong><code>-2<sup>n-1</sup></code> to <code>+(2<sup>n-1</sup> - 1)</code></strong></td><td><strong><code>-128</code> to <code>+127</code></strong></td><td><strong>1</strong> (<code>0</code> unique!)</td><td>Invert bits + add 1. Asymmetric negative limit (<code>-128 = 10000000</code> has no <code>+128</code>!).</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:13.5px;color:var(--muted);"><strong>2's Complement Arithmetic Overflow Rule (CRITICAL!):</strong> Overflow occurs <strong>IF AND ONLY IF</strong> two operands of the <strong>same sign</strong> produce a sum of the <strong>opposite sign</strong> (equivalently: <code>Carry_into_MSB XOR Carry_out_of_MSB == 1</code>). A final Carry-out <code>C_out = 1</code> in 2's complement does <em>NOT</em> imply overflow (e.g. <code>(+5) + (-3) = +2</code> produces <code>C_out = 1</code> with zero overflow!).</p>
+
+    <h3>IEEE 754 Floating-Point Standard</h3>
+    <pre class="coa-diagram"><code>Single Precision (32-bit):  [ S (1 bit) | Exponent E (8 bits, Bias = 127) | Mantissa M (23 bits) ]
+Double Precision (64-bit):  [ S (1 bit) | Exponent E (11 bits, Bias = 1023) | Mantissa M (52 bits) ]
+Normalized Value Formula:   (-1)^S × (1.M)_2 × 2^(E - Bias)</code></pre>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Exponent (<code>E</code>)</th><th>Mantissa (<code>M</code>)</th><th>Special Meaning in IEEE 754</th></tr></thead>
+        <tbody>
+          <tr><td><code>0</code> (all 0s)</td><td><code>0</code></td><td>Exact <strong>Zero</strong> (<code>+0.0</code> or <code>-0.0</code> depending on Sign bit <code>S</code>).</td></tr>
+          <tr><td><code>0</code> (all 0s)</td><td><code>≠ 0</code></td><td><strong>Denormalized / Subnormal</strong> number: <code>0.M × 2<sup>1 - Bias</sup></code> (no implicit leading 1; gradual underflow).</td></tr>
+          <tr><td><code>1..254</code> (32-bit)</td><td>Any</td><td>Standard <strong>Normalized</strong> float (implicit leading <code>1.M</code> gives 24-bit significand in 32-bit!).</td></tr>
+          <tr><td>All 1s (<code>255</code> / <code>2047</code>)</td><td><code>0</code></td><td><strong>Infinity</strong> (<code>+∞</code> or <code>-∞</code>, e.g. <code>1.0 / 0.0</code>).</td></tr>
+          <tr><td>All 1s</td><td><code>≠ 0</code></td><td><strong>NaN</strong> (Not a Number, e.g. <code>0.0 / 0.0</code> or <code>√(-1)</code>).</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Special Binary Codes &amp; Error Correction (Gray, BCD, Excess-3, Hamming)</h3>
+    <ul class="fact-grid">
+      <li><strong>BCD (8421 Code)</strong>Each decimal digit <code>0–9</code> encoded in 4 bits (<code>1010–1111</code> unused/invalid!). Weighted code (<code>8,4,2,1</code>).</li>
+      <li><strong>Excess-3 Code</strong><code>BCD + 3</code> (<code>0011</code>). <strong>Non-weighted</strong> and <strong>self-complementing</strong> (1's comp = 9's comp!).</li>
+      <li><strong>Gray Code</strong>Unit-distance / cyclic code: consecutive numbers differ by <strong>1 bit</strong> (minimizes glitch in K-maps &amp; sensors). <code>G<sub>n</sub> = B<sub>n</sub></code>, <code>G<sub>i</sub> = B<sub>i+1</sub> ⊕ B<sub>i</sub></code>.</li>
+      <li><strong>Hamming ECC (SEC)</strong>Redundant parity bits <code>r</code> at positions <code>2<sup>0</sup>, 2<sup>1</sup>, 2<sup>2</sup>...</code> satisfying <strong><code>2<sup>r</sup> ≥ m + r + 1</code></strong>. E.g. 8 data bits need <strong>4</strong> parity bits (<code>2<sup>4</sup> = 16 ≥ 8+4+1 = 13</code>). Distance <code>d</code>: detects <code>d-1</code>, corrects <code>⌊(d-1)/2⌋</code> errors!</li>
+    </ul>
+  </section>
+
+  <!-- CH 3 -->
+  <section class="card" id="ch3">
+    <h2>Ch 3: Digital Logic Gates, Combinational &amp; Sequential Circuits (Flip-Flops)</h2>
+    <div class="start-box">
+      <strong>Start Here</strong>
+      <strong>Combinational circuits</strong> (Adders, MUX, Decoders) depend ONLY on present inputs; <strong>Sequential circuits</strong> (Flip-Flops, Counters, Shift Registers) contain clock-driven memory elements whose output depends on present input + previous stored state.
+    </div>
+
+    <h3>Logic Gates, De Morgan &amp; Universal Gates</h3>
+    <ul class="fact-grid compact">
+      <li><strong>Universal Gates</strong><strong>NAND</strong> and <strong>NOR</strong> alone can construct ALL gates (NOT, AND, OR, XOR).</li>
+      <li><strong>XOR (<code>A ⊕ B</code>)</strong>Outputs <code>1</code> when inputs differ (Odd-1s parity checker). Needs <strong>4 NAND</strong> or <strong>5 NOR</strong> gates!</li>
+      <li><strong>XNOR (<code>A ⊙ B</code>)</strong>Outputs <code>1</code> when inputs are identical (Equality / Comparator).</li>
+      <li><strong>De Morgan's Laws</strong><code>(A + B)' = A' · B'</code> (NOR = Bubbled AND); <code>(A · B)' = A' + B'</code> (NAND = Bubbled OR).</li>
+      <li><strong>SOP vs POS</strong><strong>SOP</strong> = Sum of Minterms (<code>NAND-NAND</code>); <strong>POS</strong> = Product of Maxterms (<code>NOR-NOR</code>).</li>
+      <li><strong>K-Map Grouping</strong>Adjacent cells grouped in powers of 2 (<code>1, 2, 4, 8</code>); <strong>Don't Care (<code>d/X</code>)</strong> acts as <code>1</code> or <code>0</code> to enlarge groups.</li>
+    </ul>
+
+    <h3>Combinational Building Blocks</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Circuit</th><th>I/O Ratio</th><th>Core Boolean Equations &amp; Use Cases</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Half Adder</strong></td><td>2 inputs → 2 outputs</td><td><code>Sum = A ⊕ B</code>, <code>Carry = A · B</code> (cannot accept prior <code>C_in</code>).</td></tr>
+          <tr><td><strong>Full Adder</strong></td><td>3 inputs → 2 outputs</td><td><code>Sum = A ⊕ B ⊕ C_in</code>, <code>C_out = A·B + C_in·(A ⊕ B)</code>. Built using <strong>2 Half Adders + 1 OR gate</strong>!</td></tr>
+          <tr><td><strong>Multiplexer (MUX)</strong></td><td><code>2<sup>n</sup></code> data + <code>n</code> sel → 1 out</td><td><strong>Universal combinational implementer</strong>: an <code>8:1 MUX</code> implements ANY 3-variable (or 4-variable using D₀..D₃ + 1 inverter!) function.</td></tr>
+          <tr><td><strong>Decoder / Demux</strong></td><td><code>n</code> sel → <code>2<sup>n</sup></code> outputs</td><td>Activates exactly 1 output minterm line; drives <strong>memory chip selection</strong> &amp; 7-segment display drivers.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Sequential Logic: Flip-Flops, Counters &amp; Registers</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Flip-Flop</th><th>Characteristic Equation</th><th>Truth / Special Behavior &amp; Exam Traps</th></tr></thead>
+        <tbody>
+          <tr><td><strong>SR Flip-Flop</strong></td><td><code>Q<sup>+</sup> = S + R'·Q</code> (with <code>S·R = 0</code>)</td><td><code>0,0</code> Hold • <code>1,0</code> Set (1) • <code>0,1</code> Reset (0) • <strong><code>1,1</code> = Invalid / Forbidden!</strong></td></tr>
+          <tr><td><strong>JK Flip-Flop</strong></td><td><code>Q<sup>+</sup> = J·Q' + K'·Q</code></td><td>Fixes SR forbidden state: <strong><code>J=1, K=1</code> Toggles</strong> (<code>Q'</code>). Universal FF! Watch <strong>Race-Around</strong> (when <code>t_p &lt; clock HIGH</code> → solved by <strong>Master-Slave</strong> or edge triggering!).</td></tr>
+          <tr><td><strong>D (Delay/Data)</strong></td><td><code>Q<sup>+</sup> = D</code></td><td>Captures input on clock edge; builds CPU GPRs &amp; <strong>Shift Registers</strong> (SISO, SIPO, PISO, PIPO).</td></tr>
+          <tr><td><strong>T (Toggle)</strong></td><td><code>Q<sup>+</sup> = T ⊕ Q</code></td><td><code>T=0</code> Hold, <code>T=1</code> Toggle (divides clock freq by 2 per stage → binary <strong>Counters</strong>!).</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:13.5px;color:var(--muted);"><strong>Counter Rules:</strong> <code>n</code> Flip-Flops count up to <strong><code>2<sup>n</sup></code> states</strong> (Mod-<code>N</code> requires <code>⌈log<sub>2</sub> N⌉</code> FFs; Decade Mod-10 uses 4 FFs with 6 unused states). Frequency division: Mod-<code>N</code> counter divides input clock by <code>N</code>. <strong>Ring Counter (n FFs):</strong> <code>n</code> states; <strong>Johnson (Twisted Ring, n FFs):</strong> <code>2n</code> states!</p>
+  </section>
+
+  <!-- CH 4 -->
+  <section class="card" id="ch4">
+    <h2>Ch 4: Instruction Formats, Addressing Modes &amp; Control Unit (RISC vs CISC)</h2>
+    <div class="start-box">
+      <strong>Start Here</strong>
+      Expect questions calculating <strong>Effective Address (<code>EA</code>)</strong>, comparing 0/1/2/3-address instructions, solving expanding-opcode problems, and distinguishing <strong>Hardwired</strong> vs <strong>Microprogrammed</strong> Control Units.
+    </div>
+
+    <h3>Instruction Execution Cycle &amp; Format Types</h3>
+    <ul>
+      <li><strong>4 Sub-cycles:</strong> <strong>Fetch</strong> (<code>MAR←PC</code>, load IR, increment PC) → <strong>Decode</strong> (CU decodes opcode/mode) → <strong>Execute</strong> (ALU/Mem/Branch) → <strong>Interrupt</strong> (check pending maskable/NMI requests, save context).</li>
+      <li><strong>3-Address (<code>ADD R1, R2, R3</code>):</strong> Fewest instructions, widest opcode+address word.</li>
+      <li><strong>2-Address (<code>ADD R1, R2</code>):</strong> <code>R1 ← R1 + R2</code> (destroys 1 source operand; x86 style).</li>
+      <li><strong>1-Address (<code>LOAD A; ADD B</code>):</strong> Uses implicit <strong>Accumulator (<code>AC</code>)</strong>; 1 explicit memory/reg field.</li>
+      <li><strong>0-Address (Stack / RPN):</strong> Arithmetic ops (<code>ADD, MUL</code>) pop top 2 items from stack and push result — <strong>zero address fields needed in ALU instructions</strong> (only <code>PUSH addr / POP addr</code> carry addresses).</li>
+    </ul>
+
+    <h3>Addressing Modes (with Effective Address <code>EA</code>)</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Mode</th><th>EA Formula / Meaning</th><th>Memory Refs</th><th>Primary Use Case</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Implied</strong></td><td>Fixed in opcode (e.g. <code>CLC</code>, <code>CMA</code>)</td><td>0 data refs</td><td>Zero-address / accumulator control ops.</td></tr>
+          <tr><td><strong>Immediate</strong></td><td>Operand = literal constant inside instruction (<code>#10</code>)</td><td><strong>0 data refs</strong></td><td>Constants, loop step increments, initialization.</td></tr>
+          <tr><td><strong>Register</strong></td><td>Operand in CPU register (<code>ADD R1, R2</code>)</td><td><strong>0 memory refs</strong></td><td>Fastest arithmetic; short register-ID bits!</td></tr>
+          <tr><td><strong>Direct (Absolute)</strong></td><td><code>EA = Addr</code> field of instruction</td><td>1 memory ref</td><td>Accessing static global variables.</td></tr>
+          <tr><td><strong>Indirect</strong></td><td><code>EA = Memory[Addr]</code></td><td><strong>2 memory refs</strong></td><td>Pointers, dynamic target beyond short addr field.</td></tr>
+          <tr><td><strong>Register Indirect</strong></td><td><code>EA = Reg[R]</code> (register holds pointer)</td><td>1 memory ref</td><td>Dereferencing pointers (<code>*ptr</code>) without big addr field.</td></tr>
+          <tr><td><strong>PC-Relative</strong></td><td><strong><code>EA = PC + Offset</code></strong> (signed)</td><td>0 extra ref</td><td><strong>Position-independent</strong> conditional branches/loops!</td></tr>
+          <tr><td><strong>Indexed / Base-Offset</strong></td><td><code>EA = Index_Reg + Base_Addr</code> (or vice versa)</td><td>1 memory ref</td><td>Iterating arrays (<code>arr[i]</code>) &amp; program relocation.</td></tr>
+          <tr><td><strong>Auto-Inc / Auto-Dec</strong></td><td><code>EA = [R]</code>, then <code>R += size</code> (or pre-dec)</td><td>1 memory ref</td><td>Stack <code>PUSH/POP</code> &amp; sequential buffer loops.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Control Unit Design &amp; RISC vs CISC Comparison</h3>
+    <div class="info-grid">
+      <div class="info-card">
+        <h4>Hardwired CU vs Microprogrammed CU</h4>
+        <ul>
+          <li><strong>Hardwired CU:</strong> Generates control signals via fixed combinational gates/FSM. <strong>Fastest</strong>, minimal chip overhead for small ISAs (<strong>RISC</strong>), hard to patch/extend.</li>
+          <li><strong>Microprogrammed CU:</strong> Stores microinstructions inside fast <strong>Control Memory (ROM)</strong>; flexible to implement complex instructions (<strong>CISC</strong>) &amp; fix microcode bugs!</li>
+          <li><strong>Horizontal vs Vertical Microprogramming:</strong> <strong>Horizontal</strong> = 1 bit per control signal (wide word, parallel, NO external decoder, faster); <strong>Vertical</strong> = encoded fields (narrow word, needs decoder, slower!).</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h4>RISC vs CISC Architecture</h4>
+        <ul>
+          <li><strong>RISC (ARM, RISC-V, MIPS):</strong> <strong>Fixed-length</strong> instructions (32-bit), <strong>Load/Store</strong> architecture (ONLY Load/Store touch memory!), few simple addressing modes, large register file (32+ GPRs), Hardwired CU, deep pipelining (~1 CPI!).</li>
+          <li><strong>CISC (x86 / VAX):</strong> <strong>Variable-length</strong> instructions (1–15 bytes), ALU instructions access memory directly, rich complex addressing modes, smaller register set, Microprogrammed CU, higher CPI.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="trap-box">
+      <strong class="trap-title">PC-Relative Jump Trap during Fetch!</strong>
+      Remember: CPU increments <code>PC ← PC + instr_size</code> <strong>during Instruction Fetch</strong> (BEFORE Execute!). So when calculating <code>Branch Target = PC + Offset</code>, use the <em>updated</em> PC pointing to the instruction immediately AFTER the branch!
+    </div>
+  </section>
+
+  <!-- CH 5 -->
+  <section class="card" id="ch5">
+    <h2>Ch 5: CPU Performance, Pipelining, Hazards &amp; ILP <span class="badge badge-exam">Exam Favorite</span></h2>
+    <div class="start-box">
+      <strong>Start Here</strong>
+      Pipelining overlaps execution of multiple instructions like an assembly line. It boosts <strong>Instruction Throughput</strong> (ideal CPI → 1), while individual instruction latency <strong>never decreases</strong> (actually slightly rises due to inter-stage latch overhead!).
+    </div>
+
+    <h3>CPU Iron Law, Amdahl's Law &amp; Pipeline Speedup</h3>
+    <ul class="fact-grid">
+      <li><strong>CPU Execution Time</strong><code>Time = IC × CPI × T<sub>clk</sub> = (IC × CPI) / Freq</code>. (Instruction Count × Cycles Per Instr × Clock Period).</li>
+      <li><strong>Amdahl's Law</strong><code>S = 1 / ((1 − f) + f / s)</code>. Even if speedup <code>s → ∞</code>, max overall speedup caps at <strong><code>1 / (1 − f)</code></strong> (serial bottleneck!).</li>
+      <li><strong>Pipeline Cycle Time (<code>τ</code>)</strong>In a <code>k</code>-stage pipeline: <strong><code>τ = max(stage_delays) + latch_delay</code></strong> (clock cannot run faster than the slowest stage!).</li>
+      <li><strong>Total Time &amp; Speedup</strong><code>n</code> instructions take <code>(k + n − 1) × τ</code>. Ideal speedup <code>S → k</code> as <code>n → ∞</code>! (Real <code>CPI = 1 + stall_cycles_per_instr</code>).</li>
+    </ul>
+
+    <h3>The 3 Pipeline Hazards &amp; Resolution Techniques</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Hazard Type</th><th>Root Cause</th><th>Hardware / Compiler Fixes</th></tr></thead>
+        <tbody>
+          <tr><td><strong>1. Structural</strong></td><td>Two instructions need the same hardware resource in the same cycle (e.g. unified L1 cache for IF + MEM).</td><td><strong>Split L1 I-Cache &amp; D-Cache</strong> (Harvard L1!), duplicate functional units, or insert stall cycle.</td></tr>
+          <tr><td><strong>2. Data — RAW (True)</strong></td><td><code>Read After Write</code>: Instruction <code>i+1</code> reads register written by in-flight <code>i</code> (e.g. <code>ADD R1,R2,R3; SUB R4,R1,R5</code>).</td><td><strong>Operand Forwarding (Bypassing)</strong> feeds ALU/MEM output directly back to next EX stage. (<strong>Trap:</strong> Load followed immediately by ALU consumer — <em>Load-Use Hazard</em> — STILL requires <strong>1 stall bubble</strong> even with forwarding!).</td></tr>
+          <tr><td><strong>2b. WAR / WAW (Name)</strong></td><td><code>Write After Read</code> (anti) &amp; <code>Write After Write</code> (output) occur in Out-of-Order execution.</td><td>NOT true data dependencies! Solved cleanly by <strong>Register Renaming</strong> (Tomasulo / ROB). (No hazards on strict in-order scalar 5-stage IF-ID-EX-MEM-WB!).</td></tr>
+          <tr><td><strong>3. Control (Branch)</strong></td><td>Next <code>PC</code> unknown until conditional branch outcome/target resolves.</td><td><strong>Branch Prediction</strong> (1-bit/2-bit saturating counter + Branch Target Buffer <strong>BTB</strong>), early branch resolution in ID, <strong>Delayed Branching</strong> (delay slot), or Pipeline <strong>Flush</strong> on mispredict.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="trap-box">
+      <strong class="trap-title">Two Huge Pipelining Exam Traps</strong>
+      1) Comparing <strong>MIPS</strong> across RISC vs CISC is misleading because RISC executes more simple instructions per task (higher <code>IC</code>, higher MIPS, yet may finish slower or faster!). Always compare <strong>Execution Time</strong>!<br>
+      2) In a 5-stage pipeline (<code>IF-ID-EX-MEM-WB</code>), <code>ADD</code>→<code>SUB</code> RAW hazard causes <strong>0 stalls</strong> with forwarding, whereas <strong><code>LW R1, 0(R2)</code> followed by <code>ADD R3, R1, R4</code> causes 1 stall cycle</strong> even with forwarding because RAM read finishes at the end of MEM!
+    </div>
+  </section>
+
+  <!-- CH 6 -->
+  <section class="card" id="ch6">
+    <h2>Ch 6: Memory Hierarchy, Cache Mapping, AMAT, Write Policies &amp; Interleaving <span class="badge badge-prac">Numerical Focus</span></h2>
+    <div class="start-box">
+      <strong>Start Here</strong>
+      Master the <strong>3 address fields</strong> (<code>Tag | Index | Block Offset</code>), <strong>AMAT</strong> formula, <strong>Write-Through vs Write-Back</strong>, and <strong>RAM chip grid calculations</strong> — these are the #1 numerical questions in Scale 2 IT exams!
+    </div>
+
+    <h3>Cache Mapping Techniques (Address Bits Breakdown)</h3>
+    <p>Given Byte-Addressable Main Memory size = <code>2<sup>A</sup></code> bytes (<code>A</code> address bits), Cache Data size = <code>C</code> bytes, Cache Line/Block size = <code>B = 2<sup>b</sup></code> bytes → Total Cache Lines <code>L = C / B</code>:</p>
+    <pre class="coa-diagram"><code>A-bit Physical Addr:  [   Tag Bits (A - s - b)   |   Set/Line Index (s bits)   |   Block Offset (b bits)   ]</code></pre>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Mapping Mode</th><th>Lines / Set (<code>k</code>)</th><th>Sets (<code>S = L/k</code>) &amp; Index (<code>s</code>)</th><th>Comparators &amp; Tradeoff</th></tr></thead>
+        <tbody>
+          <tr><td><strong>1. Direct Mapped</strong></td><td><code>k = 1</code></td><td><code>S = L</code>; <code>s = log<sub>2</sub>(L)</code></td><td><strong>1 comparator</strong> (fastest, lowest cost), but blocks mapping to same <code>line mod L</code> thrash → high <strong>conflict misses</strong>!</td></tr>
+          <tr><td><strong>2. Fully Associative</strong></td><td><code>k = L</code></td><td><code>S = 1</code>; <strong><code>s = 0</code> Index bits!</strong></td><td><strong><code>L</code> comparators</strong> (expensive Content-Addressable Memory / CAM). Zero conflict misses; longest Tag!</td></tr>
+          <tr><td><strong>3. <code>k</code>-Way Set Associative</strong></td><td><code>k</code> (e.g. 2, 4, 8)</td><td><code>S = L / k</code>; <code>s = log<sub>2</sub>(S)</code></td><td><strong><code>k</code> comparators</strong> in parallel. Best real-world balance of hit rate &amp; speed! Increasing <code>k → 2k</code> halves sets (<code>s - 1</code>) and adds <strong>+1 bit to Tag</strong>!</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:13.5px;color:var(--muted);"><strong>Worked Example:</strong> <code>4 GB</code> RAM (<code>32-bit</code> addr), <code>64 KB</code> 4-way set-associative cache, <code>64 B</code> block size → <code>Offset b = log<sub>2</sub>(64) = 6</code> bits; Total lines <code>L = 64 KB / 64 B = 1024</code>; Sets <code>S = 1024 / 4 = 256 = 2<sup>8</sup></code> → <code>Index s = 8</code> bits; <strong><code>Tag = 32 - 8 - 6 = 18</code> bits!</strong></p>
+
+    <h3>AMAT (Average Memory Access Time), Write Policies &amp; 3C Misses</h3>
+    <div class="info-grid">
+      <div class="info-card">
+        <h4>AMAT &amp; Cache Policies</h4>
+        <ul>
+          <li><strong>Hierarchical (Sequential) Access:</strong> CPU always checks Cache (<code>T<sub>c</sub></code>); on miss (<code>1−h</code>), fetches block from RAM (<code>T<sub>m</sub></code>):<br><strong><code>AMAT = T<sub>c</sub> + (1 − h) × T<sub>m</sub></code></strong> (or <code>h·T<sub>c</sub> + (1−h)·(T<sub>c</sub> + T<sub>m</sub>)</code>).</li>
+          <li><strong>Simultaneous Access:</strong> Both queried at t=0: <code>AMAT = h·T<sub>c</sub> + (1−h)·T<sub>m</sub></code> (check question wording: sequential vs simultaneous!).</li>
+          <li><strong>Write-Through:</strong> Writes to Cache AND RAM simultaneously (consistent, high bus traffic; paired with Write Buffer &amp; No-Write-Allocate).</li>
+          <li><strong>Write-Back:</strong> Updates Cache ONLY &amp; sets <strong>Dirty Bit (Modified=1)</strong>; flushes to RAM only when line is evicted (fast writes, low bus traffic; uses Write-Allocate).</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h4>3 C's Cache Misses &amp; RAM Organization</h4>
+        <ul>
+          <li><strong>Compulsory (Cold) Miss:</strong> Very first reference to a block (cannot avoid; larger blocks prefetch neighbors to reduce count).</li>
+          <li><strong>Capacity Miss:</strong> Working set exceeds total cache size (only increasing cache capacity fixes).</li>
+          <li><strong>Conflict (Collision) Miss:</strong> Multiple blocks contend for same set even though cache isn't full (increase associativity <code>k</code> to reduce).</li>
+          <li><strong>RAM Chip Count Formula:</strong> Required <code>M × W</code> using <code>m × w</code> chips = <strong><code>⌈M / m⌉ × ⌈W / w⌉</code></strong> chips! (Add decoder lines for row chip-select).</li>
+          <li><strong>Memory Interleaving:</strong> Low-order interleaving spreads consecutive addresses across <code>k</code> independent banks (uses LSB bits for Bank ID) → parallel burst throughput! High-order puts contiguous ranges per module.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CH 7 -->
+  <section class="card" id="ch7">
+    <h2>Ch 7: I/O Organization (Interrupts &amp; DMA), MMU/TLB &amp; Storage</h2>
+    <div class="start-box">
+      <strong>Start Here</strong>
+      High-speed NVMe SSDs and 10 Gbps NICs cannot waste CPU cycles moving bytes individually. Know why <strong>DMA Cycle Stealing</strong> beats Interrupt-driven &amp; Programmed I/O, how <strong>Memory-Mapped I/O</strong> differs from Port I/O, and how <strong>TLB + MMU</strong> accelerate paging!
+    </div>
+
+    <h3>I/O Data Transfer Modes Comparison</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Mode</th><th>How Data Moves</th><th>CPU Involvement &amp; Use Case</th></tr></thead>
+        <tbody>
+          <tr><td><strong>1. Programmed I/O (Polling)</strong></td><td>CPU executes status-check loop continuously until device ready, then moves word.</td><td><strong>100% CPU wasted busy-waiting</strong>. Simple legacy debug / low-rate sensors only.</td></tr>
+          <tr><td><strong>2. Interrupt-Driven I/O</strong></td><td>Device raises <code>INTR</code> only when ready; CPU pauses current program, runs ISR to move word.</td><td>Zero busy-wait, but <strong>every word/byte still triggers an ISR context switch</strong> through CPU (good for keyboard, mouse, UART).</td></tr>
+          <tr><td><strong>3. DMA (Direct Mem Access)</strong></td><td>CPU configures DMAC (Source, Dest, Count, R/W) once; DMAC moves entire block directly via system bus!</td><td>CPU free during transfer! Interrupted <strong>only twice</strong> (setup + completion interrupt). Essential for Disk/SSD, GPU, Network DMA!</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul class="fact-grid compact">
+      <li><strong>DMA Handshake</strong><code>HOLD</code> (DMAC requests bus) → CPU finishes current bus cycle &amp; asserts <code>HLDA</code> (Hold Acknowledge, tristates CPU bus!).</li>
+      <li><strong>DMA Transfer Modes</strong><strong>Burst Mode</strong> (DMAC holds bus for full block — stalls CPU) • <strong>Cycle Stealing</strong> (steals 1 mem cycle at a time — smooth CPU progress!) • <strong>Transparent</strong> (uses bus only when CPU is idle).</li>
+      <li><strong>Interrupt Types</strong><strong>Vectored</strong> (device puts ISR vector addr on bus — fast!) vs Non-vectored; <strong>Maskable</strong> (<code>INTR</code>, disable via <code>CLI</code>) vs <strong>NMI</strong> (Non-Maskable — power/parity panic!).</li>
+      <li><strong>Memory-Mapped vs Isolated I/O</strong><strong>Memory-Mapped:</strong> I/O shares RAM addr space, uses <code>LOAD/STORE</code> (modern ARM/RISC/PCIe). <strong>Isolated (Port):</strong> Separate I/O space + dedicated <code>IN/OUT</code> instructions (x86 ports).</li>
+    </ul>
+
+    <h3>Hardware Virtual Memory Support: MMU, Page Table &amp; TLB</h3>
+    <pre class="coa-diagram"><code>Virtual Addr:  [ Virtual Page # (VPN)  |  Page Offset (d bits) ]
+                     │                       │ (Copied UNCHANGED!)
+                     ▼                       ▼
+Physical Addr: [ Physical Frame # (PFN)|  Page Offset (d bits) ]</code></pre>
+    <ul>
+      <li><strong>TLB (Translation Lookaside Buffer):</strong> Small fully-associative SRAM cache inside MMU caching recent <code>VPN → PFN</code> mappings!</li>
+      <li><strong>TLB EMAT Formula (1-Level Page Table):</strong> <strong><code>EMAT = h · (T<sub>tlb</sub> + T<sub>mem</sub>) + (1 − h) · (T<sub>tlb</sub> + 2 · T<sub>mem</sub>)</code></strong> (Miss requires 1 RAM access for Page Table + 1 RAM access for actual data byte; Page Fault goes to Disk/SSD = milliseconds!).</li>
+      <li><strong>Hardware RAID Recap:</strong> <code>RAID 0</code> (Striping, 0 parity, max speed) | <code>RAID 1</code> (Mirroring, 50% capacity) | <code>RAID 5</code> (Striping + distributed parity, min 3 disks, <code>N-1</code> usable, survives 1 fail) | <code>RAID 6</code> (Dual parity, min 4 disks, survives 2 fails) | <code>RAID 10</code> (Mirror+Stripe, min 4 disks).</li>
+    </ul>
+  </section>
+
+  <!-- CH 8: PRACTICE & TRICK QUESTIONS -->
+  <section class="card" id="ch8">
+    <h2>Ch 8: Practice Questions, Numericals &amp; Exam Trick Scenarios <span class="badge badge-prac">32 Exam Qs · Concept + Numerical + Tricks</span></h2>
+    <div class="start-box">
+      <strong>Start Here — Test Yourself First</strong>
+      Solve each calculation or scenario mentally before clicking to reveal the answer. Pay special attention to <strong>Part C</strong> traps where intuition (carry-out overflow, MIPS, single-instruction latency, byte vs word addressing, 0-address opcodes) often fools candidates!
+    </div>
+
+    <h3>Part A: Core Architecture, Logic &amp; Data Representation (Q1–Q12)</h3>
+
+    <details><summary><span class="q-meta">Q1</span> Which architecture physically separates instruction and data memory/buses, and how do modern x86/ARM CPUs adopt it at L1?<br>
+    A) Pure Von Neumann everywhere &nbsp; B) Harvard architecture; modern CPUs use Modified Harvard with split L1 I-Cache &amp; D-Cache &nbsp; C) MISD; shared L1 cache &nbsp; D) SISD; dual BIOS &nbsp; E) Ring architecture</summary>
+    <div class="q-ans"><strong>Answer: B) Harvard / Modified Harvard (split L1 I-Cache &amp; D-Cache).</strong><br>Main DRAM stays unified (Von Neumann outward), while splitting L1 cache into I-Cache + D-Cache allows the Fetch and Memory stages of a CPU pipeline to operate simultaneously without structural hazards!</div></details>
+
+    <details><summary><span class="q-meta">Q2</span> Which CPU register directly drives the Memory Address Bus during Instruction Fetch and Data Load?<br>
+    A) <code>IR</code> &nbsp; B) <code>MDR</code> &nbsp; C) <code>MAR</code> &nbsp; D) <code>AC</code> &nbsp; E) <code>PSW</code></summary>
+    <div class="q-ans"><strong>Answer: C) <code>MAR</code> (Memory Address Register).</strong><br><code>PC</code> copies the next address into <code>MAR</code>, which places it onto the unidirectional Address Bus. Returned data arrives on the Data Bus into <code>MDR</code>, then moves to <code>IR</code>!</div></details>
+
+    <details><summary><span class="q-meta">Q3</span> A 32-bit integer <code>0xAABBCCDD</code> is stored starting at byte address <code>0x1000</code> on a <strong>Little-Endian</strong> processor (e.g. x86-64). What byte sits at address <code>0x1000</code>?<br>
+    A) <code>0xAA</code> &nbsp; B) <code>0xBB</code> &nbsp; C) <code>0xCC</code> &nbsp; D) <code>0xDD</code> &nbsp; E) <code>0x00</code></summary>
+    <div class="q-ans"><strong>Answer: D) <code>0xDD</code> (Least Significant Byte at Lowest Address).</strong><br>Little-Endian puts the "little end" (LSB = <code>0xDD</code>) first at <code>0x1000</code>, then <code>0xCC</code>, <code>0xBB</code>, <code>0xAA</code>. Big-Endian (Network byte order) stores MSB <code>0xAA</code> at <code>0x1000</code>.</div></details>
+
+    <details><summary><span class="q-meta">Q4</span> What is the exact signed integer range representable by an <strong>8-bit 2's complement</strong> register, and how many zeros exist?<br>
+    A) <code>-127 to +127</code>, 2 zeros &nbsp; B) <code>-128 to +127</code>, 1 unique zero &nbsp; C) <code>-128 to +128</code>, 1 zero &nbsp; D) <code>0 to 255</code>, 1 zero &nbsp; E) <code>-127 to +128</code>, 2 zeros</summary>
+    <div class="q-ans"><strong>Answer: B) <code>-128 to +127</code> (<code>-2<sup>7</sup> to +(2<sup>7</sup>-1)</code>), 1 unique zero.</strong><br><code>10000000</code> represents <code>-128</code>; <code>00000000</code> is unique <code>0</code>; <code>01111111</code> is <code>+127</code>.</div></details>
+
+    <details><summary><span class="q-meta">Q5</span> In <strong>IEEE 754 Single Precision (32-bit)</strong> floating-point representation, what are the bit widths of Sign, Exponent, Mantissa, and the Exponent Bias?<br>
+    A) 1, 7, 24, Bias 63 &nbsp; B) 1, 8, 23, Bias 127 &nbsp; C) 1, 11, 52, Bias 1023 &nbsp; D) 1, 8, 23, Bias 128 &nbsp; E) 2, 8, 22, Bias 127</summary>
+    <div class="q-ans"><strong>Answer: B) 1 Sign, 8 Exponent, 23 Mantissa, Bias = 127.</strong><br>Option C gives IEEE 754 Double Precision (64-bit: 1 + 11 + 52, Bias 1023).</div></details>
+
+    <details><summary><span class="q-meta">Q6</span> How many Half Adders and extra gates are minimally needed to build a single-bit <strong>Full Adder</strong>?<br>
+    A) 1 Half Adder + 1 AND &nbsp; B) 2 Half Adders + 1 XOR &nbsp; C) 2 Half Adders + 1 OR gate &nbsp; D) 3 Half Adders + 1 NOT &nbsp; E) 1 Full MUX only</summary>
+    <div class="q-ans"><strong>Answer: C) 2 Half Adders + 1 OR gate.</strong><br>HA1 adds <code>A, B</code> → (<code>S1, C1</code>); HA2 adds <code>S1, C_in</code> → (<code>Sum, C2</code>); final <code>C_out = C1 OR C2</code>.</div></details>
+
+    <details><summary><span class="q-meta">Q7</span> How many minimum JK Flip-Flops are required to build a <strong>MOD-20</strong> synchronous binary counter?<br>
+    A) 3 &nbsp; B) 4 &nbsp; C) 5 &nbsp; D) 10 &nbsp; E) 20</summary>
+    <div class="q-ans"><strong>Answer: C) 5 flip-flops.</strong><br>Needs <code>2<sup>n</sup> ≥ 20</code> → <code>n = 4</code> gives only 16 states (<code>0–15</code>), whereas <code>n = 5</code> gives <code>32 ≥ 20</code> states (with 12 unused states).</div></details>
+
+    <details><summary><span class="q-meta">Q8</span> Which Boolean pair acts as <strong>Universal Gates</strong> capable of implementing any combinational logic function alone?<br>
+    A) AND &amp; OR &nbsp; B) XOR &amp; XNOR &nbsp; C) NAND &amp; NOR &nbsp; D) NOT &amp; XOR &nbsp; E) MUX &amp; OR only</summary>
+    <div class="q-ans"><strong>Answer: C) NAND and NOR.</strong><br>Both are functionally complete individually: tying inputs gives NOT, complementing outputs yields AND/OR!</div></details>
+
+    <details><summary><span class="q-meta">Q9</span> How many redundant parity bits (<code>r</code>) are needed by <strong>Hamming SEC</strong> code to protect an <strong>8-bit</strong> data byte against any single-bit error?<br>
+    A) 1 &nbsp; B) 3 &nbsp; C) 4 &nbsp; D) 5 &nbsp; E) 8</summary>
+    <div class="q-ans"><strong>Answer: C) 4 parity bits.</strong><br>Formula: <code>2<sup>r</sup> ≥ m + r + 1</code>. For <code>m = 8</code>: test <code>r=3</code> → <code>8 &lt; 12</code> (fails); test <code>r=4</code> → <code>16 ≥ 8 + 4 + 1 = 13</code> (passes! Total 12-bit codeword).</div></details>
+
+    <details><summary><span class="q-meta">Q10</span> Which addressing mode computes <code>Effective Address = PC + Signed Offset</code>, making loop/branch code independent of where the OS loads it in RAM?<br>
+    A) Direct Absolute &nbsp; B) Immediate &nbsp; C) Register Indirect &nbsp; D) PC-Relative &nbsp; E) Double Indirect</summary>
+    <div class="q-ans"><strong>Answer: D) PC-Relative addressing.</strong><br>Used heavily in conditional branches (<code>BEQ</code>, <code>JNE</code>) to enable Position-Independent Code (PIC) and shared libraries!</div></details>
+
+    <details><summary><span class="q-meta">Q11</span> In a CPU capable of Out-of-Order execution, what hardware mechanism eliminates false <strong>WAR (Anti-)</strong> and <strong>WAW (Output-)</strong> data dependencies?<br>
+    A) Larger L3 Cache &nbsp; B) Register Renaming &nbsp; C) Delayed Branching &nbsp; D) Split I/D Cache &nbsp; E) Memory Interleaving</summary>
+    <div class="q-ans"><strong>Answer: B) Register Renaming.</strong><br>WAR and WAW arise solely from reusing architectural register names (<code>R1</code>, <code>R2</code>), not true data flow. Mapping architectural names to distinct physical reservation registers eliminates them!</div></details>
+
+    <details><summary><span class="q-meta">Q12</span> Why does <strong>Horizontal Microprogramming</strong> execute faster than <strong>Vertical Microprogramming</strong>?<br>
+    A) Uses smaller control ROM &nbsp; B) Each microinstruction bit drives control lines directly in parallel without needing slow external decoders &nbsp; C) Only works on RISC &nbsp; D) Encodes fields in compact 4-bit codes &nbsp; E) Requires 2 cycles per micro-op</summary>
+    <div class="q-ans"><strong>Answer: B) Wide uncompressed control word with no decoder delay &amp; high parallelism.</strong><br>Vertical uses compact encoded fields that save ROM space but require hardware decoders before control signals trigger.</div></details>
+
+    <h3>Part B: Scale 2 Numericals &amp; Design Scenario Problems (Q13–Q24)</h3>
+
+    <details><summary><span class="q-meta">Q13 · Numerical</span> A server supports <strong>16 GB</strong> of physical memory that is <strong>byte-addressable</strong>. What is the minimum number of bits required on the CPU Address Bus (<code>MAR</code> width)?<br>
+    A) 30 bits &nbsp; B) 32 bits &nbsp; C) 34 bits &nbsp; D) 36 bits &nbsp; E) 40 bits</summary>
+    <div class="q-ans"><strong>Answer: C) 34 bits.</strong><br><code>16 GB = 16 × 2<sup>30</sup> B = 2<sup>4</sup> × 2<sup>30</sup> = 2<sup>34</sup></code> bytes → requires <strong>34</strong> address lines! (Note: 32 bits addresses only 4 GB).</div></details>
+
+    <details><summary><span class="q-meta">Q14 · Numerical</span> How many <code>2K × 4</code> RAM chips are needed to design a <strong><code>16K × 8</code></strong> main memory module?<br>
+    A) 8 &nbsp; B) 12 &nbsp; C) 16 &nbsp; D) 24 &nbsp; E) 32</summary>
+    <div class="q-ans"><strong>Answer: C) 16 chips.</strong><br>Depth rows = <code>16K / 2K = 8</code>; Width columns = <code>8 bits / 4 bits = 2</code>. Total = <code>8 × 2 = 16</code> chips (driven by a <code>3-to-8</code> decoder selecting the active row!).</div></details>
+
+    <details><summary><span class="q-meta">Q15 · Numerical</span> A CPU uses <strong>32-bit physical addresses</strong> with a <strong>64 KB</strong>, <strong>4-way set-associative</strong> cache whose block size is <strong>64 Bytes</strong>. How many bits are in the <code>Tag</code>, <code>Set Index</code>, and <code>Block Offset</code> fields respectively?<br>
+    A) 16, 10, 6 &nbsp; B) 18, 8, 6 &nbsp; C) 20, 6, 6 &nbsp; D) 18, 10, 4 &nbsp; E) 26, 0, 6</summary>
+    <div class="q-ans"><strong>Answer: B) Tag = 18, Set Index = 8, Block Offset = 6.</strong><br>Step 1: Block Offset = <code>log<sub>2</sub>(64) = 6</code> bits.<br>Step 2: Total lines = <code>64 KB / 64 B = 1024</code> lines.<br>Step 3: 4-way sets = <code>1024 / 4 = 256 = 2<sup>8</sup></code> → <code>Index = 8</code> bits.<br>Step 4: <code>Tag = 32 - 8 - 6 = 18</code> bits!</div></details>
+
+    <details><summary><span class="q-meta">Q16 · Numerical</span> In a sequential (hierarchical) cache lookup system, Cache access time = <code>4 ns</code>, Main Memory access time = <code>60 ns</code>, and Hit Ratio = <strong>90% (<code>0.9</code>)</strong>. What is the <strong>AMAT</strong>?<br>
+    A) 6.0 ns &nbsp; B) 9.6 ns &nbsp; C) 10.0 ns &nbsp; D) 14.0 ns &nbsp; E) 54.0 ns</summary>
+    <div class="q-ans"><strong>Answer: C) 10.0 ns.</strong><br>Hierarchical AMAT = <code>T<sub>cache</sub> + (1 − h) × T<sub>mem</sub> = 4 + (0.10 × 60) = 4 + 6 = 10 ns</code>. (Notice: in a <em>simultaneous</em> parallel model where <code>0.9×4 + 0.1×60 = 9.6 ns</code>, parallel saves checking time on a miss — always watch "hierarchical/look-aside" vs "simultaneous" wording!).</div></details>
+
+    <details><summary><span class="q-meta">Q17 · Numerical</span> A non-pipelined processor takes <strong>25 ns</strong> per instruction. It is split into a <strong>5-stage pipeline</strong> with unequal stage delays: <code>4 ns, 5 ns, 7 ns, 4 ns, 5 ns</code> plus <code>1 ns</code> inter-stage latch delay. What is the pipeline's clock cycle time (<code>τ</code>) and steady-state speedup (<code>n → ∞</code>)?<br>
+    A) 5 ns; 5× &nbsp; B) 7 ns; 3.57× &nbsp; C) 8 ns; 3.125× &nbsp; D) 6 ns; 4.16× &nbsp; E) 26 ns; 0.96×</summary>
+    <div class="q-ans"><strong>Answer: C) <code>τ = 8 ns</code>; steady-state Speedup = <code>3.125×</code>.</strong><br>Clock must accommodate slowest stage + latch: <code>τ = max(4,5,7,4,5) + 1 = 7 + 1 = 8 ns</code> (125 MHz)! As <code>n → ∞</code>, pipelined time per instruction = <code>τ = 8 ns</code> → Speedup = <code>25 / 8 = 3.125×</code> (notice why unbalanced stages cut speedup below ideal 5×!).</div></details>
+
+    <details><summary><span class="q-meta">Q18 · Scenario</span> An instruction sequence in a classic 5-stage RISC pipeline (<code>IF-ID-EX-MEM-WB</code>) WITH full operand forwarding runs:<br>
+    <code>1) LW R1, 0(R2)</code><br>
+    <code>2) ADD R3, R1, R4</code><br>
+    <code>3) SUB R5, R3, R6</code><br>
+    How many total stall cycles (bubbles) are inserted?<br>
+    A) 0 stalls &nbsp; B) 1 stall &nbsp; C) 2 stalls &nbsp; D) 3 stalls &nbsp; E) 4 stalls</summary>
+    <div class="q-ans"><strong>Answer: B) 1 stall cycle.</strong><br>Between <code>LW</code> (1) and <code>ADD</code> (2), <code>R1</code> arrives only at the END of <code>MEM</code> stage of <code>LW</code>, too late for <code>ADD</code>'s <code>EX</code> stage without stalling → <strong>1 load-use stall bubble</strong>! Then <code>ADD</code>'s result forwards directly to <code>SUB</code>'s EX stage with <strong>0 stalls</strong>!</div></details>
+
+    <details><summary><span class="q-meta">Q19 · Scenario</span> On a system with a 1-level Page Table, TLB hit time = <code>10 ns</code>, RAM access time = <code>90 ns</code>, and TLB Hit Ratio = <strong>80%</strong>. Ignoring page faults, what is the <strong>Effective Memory Access Time (EMAT)</strong>?<br>
+    A) 100 ns &nbsp; B) 118 ns &nbsp; C) 126 ns &nbsp; D) 180 ns &nbsp; E) 190 ns</summary>
+    <div class="q-ans"><strong>Answer: B) 118 ns.</strong><br>On TLB Hit (80%): <code>TLB (10) + Data RAM (90) = 100 ns</code>.<br>On TLB Miss (20%): <code>TLB (10) + PageTable RAM (90) + Data RAM (90) = 190 ns</code>.<br><code>EMAT = 0.8(100) + 0.2(190) = 80 + 38 = 118 ns</code>!</div></details>
+
+    <details><summary><span class="q-meta">Q20 · Scenario</span> A banking ETL workload spends <strong>60%</strong> of its execution time doing database vector hashing (parallelizable) and <strong>40%</strong> in single-threaded log commit. Even if you upgrade the parallel hashing hardware to be <strong>1000× faster</strong> (<code>s → ∞</code>), what is the <strong>theoretical ceiling on overall speedup</strong> (Amdahl's Law)?<br>
+    A) 1000× &nbsp; B) 10× &nbsp; C) 5× &nbsp; D) <strong>2.5×</strong> &nbsp; E) 1.5×</summary>
+    <div class="q-ans"><strong>Answer: D) 2.5× ceiling.</strong><br><code>Max Speedup = 1 / (1 − f) = 1 / (1 − 0.60) = 1 / 0.40 = 2.5×</code>! The 40% serial portion caps speedup no matter how fast the parallel part gets.</div></details>
+
+    <details><summary><span class="q-meta">Q21 · Scenario</span> A 10 Gbps network card delivers 256 KB packet buffers continuously to RAM. Which I/O method avoids both 100% CPU busy-waiting and stalling the CPU for the whole block duration while transferring bytes without CPU instruction execution?<br>
+    A) Polling (Programmed I/O) &nbsp; B) Interrupt-driven per byte &nbsp; C) DMA Burst Mode &nbsp; D) <strong>DMA Cycle Stealing Mode</strong> &nbsp; E) Port-Mapped <code>IN</code> loop</summary>
+    <div class="q-ans"><strong>Answer: D) DMA Cycle Stealing Mode.</strong><br>DMAC steals individual bus cycles intermittently so both the NIC transfer and CPU proceed smoothly without holding the bus exclusively (unlike Burst mode) and without per-byte CPU interrupts!</div></details>
+
+    <details><summary><span class="q-meta">Q22 · Scenario</span> In virtual-to-physical translation with a <strong>4 KB page size</strong> on a 32-bit system, which bits of a 32-bit virtual address pass <strong>completely unchanged</strong> directly into the physical address?<br>
+    A) Top 20 bits (VPN) &nbsp; B) Bottom 10 bits &nbsp; C) <strong>Bottom 12 bits (Page Offset)</strong> &nbsp; D) All 32 bits &nbsp; E) Middle 8 bits</summary>
+    <div class="q-ans"><strong>Answer: C) Bottom 12 bits (Page Offset).</strong><br>Because Page Size = Frame Size = <code>4 KB = 2<sup>12</sup></code> bytes, the lower <strong>12 offset bits</strong> are identical in both virtual and physical addresses — enabling parallel TLB lookup alongside L1 cache indexing (VIPT)!</div></details>
+
+    <details><summary><span class="q-meta">Q23 · Scenario</span> Two 4-core CPUs execute the same C benchmark. CPU-A runs at <code>4 GHz</code> with <code>CPI = 2.0</code> and compiled <code>IC = 10 × 10<sup>9</sup></code> instructions. CPU-B runs at <code>3 GHz</code> with <code>CPI = 1.2</code> and <code>IC = 8 × 10<sup>9</sup></code>. Which CPU finishes faster, and what are their execution times?<br>
+    A) CPU-A (2.5s vs 3.2s) &nbsp; B) <strong>CPU-B (3.2s vs 5.0s)</strong> &nbsp; C) Equal (4.0s) &nbsp; D) CPU-A (1.25s vs 2.4s) &nbsp; E) CPU-B (2.0s vs 4.0s)</summary>
+    <div class="q-ans"><strong>Answer: B) CPU-B (3.2 s) beats CPU-A (5.0 s)!</strong><br><code>Time<sub>A</sub> = (10×10<sup>9</sup> × 2.0) / (4×10<sup>9</sup>) = 5.0 s</code>.<br><code>Time<sub>B</sub> = (8×10<sup>9</sup> × 1.2) / (3×10<sup>9</sup>) = 3.2 s</code>! Clock frequency alone (4 GHz vs 3 GHz) loses to better IPC and lower instruction count.</div></details>
+
+    <details><summary><span class="q-meta">Q24 · Scenario</span> Adding more hardware bus masters to a shared PCI-like bus uses <strong>Daisy-Chaining arbitration</strong>. What operational risk threatens the lowest-priority device positioned farthest from the arbiter?<br>
+    A) Over-voltage &nbsp; B) Cache coherence crash &nbsp; C) <strong>Starvation</strong> during heavy traffic by upstream devices &nbsp; D) Endianness flip &nbsp; E) Double clock speed</summary>
+    <div class="q-ans"><strong>Answer: C) Starvation of far devices (plus daisy propagation delay).</strong><br>A bus grant signal stops at the first upstream requesting device; continuous upstream requests permanently starve downstream devices!</div></details>
+
+    <h3>Part C: Exam Trick Questions &amp; Classic Conceptual Traps (Q25–Q32)</h3>
+
+    <details><summary><span class="q-meta">Q25 · Trick</span> In an 8-bit <strong>2's complement</strong> ALU, adding <code>(-5) + (+12)</code> yields <code>(+7)</code> along with a hardware Carry-out bit <strong><code>C<sub>out</sub> = 1</code></strong>. Did signed arithmetic overflow occur?<br>
+    A) Yes, because <code>C<sub>out</sub> = 1</code> always indicates overflow &nbsp; B) <strong>No!</strong> Carry-out <code>C<sub>out</sub></code> is ignored in 2's complement; overflow requires <code>C<sub>in</sub>(MSB) ≠ C<sub>out</sub>(MSB)</code> &nbsp; C) Yes, result becomes <code>-7</code> &nbsp; D) Only in 1's complement &nbsp; E) Undefined</summary>
+    <div class="q-ans"><strong>Answer: B) No overflow!</strong><br>Trap alert: In <em>unsigned</em> addition, <code>C<sub>out</sub> = 1</code> means overflow. In <em>signed 2's complement</em>, <code>11111011 (-5) + 00001100 (+12) = (1)00000111 (+7)</code> has BOTH <code>C<sub>in</sub>(MSB)=1</code> and <code>C<sub>out</sub>(MSB)=1</code> → <code>1 ⊕ 1 = 0</code> (zero overflow!).</div></details>
+
+    <details><summary><span class="q-meta">Q26 · Trick</span> What is the <strong>4-bit Gray code</strong> equivalent of decimal <strong>9</strong> (Binary <code>1001</code>)?<br>
+    A) <code>1001</code> &nbsp; B) <code>1110</code> &nbsp; C) <strong><code>1101</code></strong> &nbsp; D) <code>1010</code> &nbsp; E) <code>0110</code></summary>
+    <div class="q-ans"><strong>Answer: C) <code>1101</code>.</strong><br>Conversion: <code>G<sub>3</sub> = B<sub>3</sub> = 1</code>; <code>G<sub>2</sub> = 1⊕0 = 1</code>; <code>G<sub>1</sub> = 0⊕0 = 0</code>; <code>G<sub>0</sub> = 0⊕1 = 1</code> → <strong><code>1101</code></strong>!</div></details>
+
+    <details><summary><span class="q-meta">Q27 · Trick</span> An expanding-opcode CPU has <strong>16-bit instructions</strong> and <strong>4-bit register addresses</strong>. There are <strong>14</strong> three-register instructions (<code>OP R1, R2, R3</code>). How many maximum <strong>two-register</strong> instructions (<code>OP R1, R2</code>) can it encode (leaving at least 1 prefix for 1-reg)?<br>
+    A) 2 &nbsp; B) 16 &nbsp; C) <strong>31</strong> (up to 32 if zero 1-reg) &nbsp; D) 64 &nbsp; E) 256</summary>
+    <div class="q-ans"><strong>Answer: C) 31 (or 32 max without further expansion).</strong><br>3-register uses <code>3 × 4 = 12</code> addr bits → <code>4</code> opcode bits = <code>16</code> patterns. Using 14 leaves <code>2</code> free prefixes, each expanding across the freed 4-bit register slot: <code>2 × 2<sup>4</sup> = 32</code> two-register slots!</div></details>
+
+    <details><summary><span class="q-meta">Q28 · Trick</span> Which statement about <strong>CPU Pipelining</strong> is <strong>FALSE</strong>?<br>
+    A) Ideal throughput approaches 1 instruction per cycle &nbsp; B) Split L1 I/D caches prevent IF/MEM structural hazards &nbsp; C) <strong>Pipelining reduces the execution latency of a single isolated instruction</strong> &nbsp; D) Branch misprediction flushes in-flight instructions &nbsp; E) Clock period is bound by slowest stage</summary>
+    <div class="q-ans"><strong>Answer: C) FALSE — single-instruction latency does NOT decrease!</strong><br>Adding latches and balancing to the slowest stage actually makes a single lone instruction take slightly <em>longer</em> end-to-end; pipelining accelerates <strong>aggregate throughput</strong> across streams of instructions!</div></details>
+
+    <details><summary><span class="q-meta">Q29 · Trick</span> On a <strong>Write-Through</strong> cache with <strong>No-Write-Allocate</strong>, why is a <strong>Dirty Bit</strong> unnecessary in cache tag metadata?<br>
+    A) Cache blocks never change &nbsp; B) Main RAM always receives every write immediately, so RAM is never stale relative to cache &nbsp; C) Valid bit acts as dirty bit &nbsp; D) Direct mapping doesn't support writes &nbsp; E) TLB stores dirty flags</summary>
+    <div class="q-ans"><strong>Answer: B) RAM stays continuously up-to-date on every write.</strong><br>Only <strong>Write-Back</strong> caches defer RAM writes and therefore require a <strong>Dirty (Modified) bit</strong> to know whether an evicted block must be written back to RAM!</div></details>
+
+    <details><summary><span class="q-meta">Q30 · Trick</span> In a level-triggered <strong>JK Flip-Flop</strong> with <code>J = 1, K = 1</code>, what happens if the clock HIGH pulse width exceeds the gate propagation delay?<br>
+    A) Outputs lock at <code>0</code> &nbsp; B) Illegal undefined state &nbsp; C) <strong>Race-Around Condition</strong> (output oscillates continuously between 0 &amp; 1 during clock HIGH!) &nbsp; D) Hold previous value &nbsp; E) Destroys register</summary>
+    <div class="q-ans"><strong>Answer: C) Race-Around Condition!</strong><br>Fixed in hardware using a <strong>Master-Slave JK</strong> configuration or <strong>edge-triggered</strong> clock!</div></details>
+
+    <details><summary><span class="q-meta">Q31 · Trick</span> A <strong>0-address (Stack) machine</strong> executes arithmetic using postfix expression <code>AB+CD+*</code>. How many memory/register address fields appear inside its <code>ADD</code> and <code>MUL</code> arithmetic instructions?<br>
+    A) Two addresses &nbsp; B) One implicit AC + one addr &nbsp; C) <strong>Zero explicit address fields</strong> (operands come implicitly from Top-of-Stack) &nbsp; D) Three addresses &nbsp; E) Variable</summary>
+    <div class="q-ans"><strong>Answer: C) Zero explicit address fields.</strong><br>Only <code>PUSH X</code> and <code>POP Y</code> carry an address field; arithmetic/logic opcodes operate silently on top two stack elements!</div></details>
+
+    <details><summary><span class="q-meta">Q32 · Trick</span> Increasing a <code>64 KB</code> cache from Direct-Mapped to <strong>8-Way Set Associative</strong> (same total cache size &amp; block size) causes which change to address bit fields?<br>
+    A) Offset shrinks by 3 bits &nbsp; B) <strong>Index shrinks by 3 bits and Tag grows by 3 bits</strong> &nbsp; C) Tag shrinks by 3 bits &nbsp; D) Index grows by 3 bits &nbsp; E) Address width shrinks</summary>
+    <div class="q-ans"><strong>Answer: B) Index shrinks by 3 bits, Tag grows by 3 bits.</strong><br>Going from 1-way to <code>8 = 2<sup>3</sup></code>-way reduces the number of Sets by factor <code>8</code> (<code>s' = s - 3</code>). Block Offset stays constant (block size unchanged), so those 3 freed Index bits move directly into the <strong>Tag</strong>!</div></details>
+  </section>
+
+  <!-- GLOSSARY -->
+  <section class="card" id="glossary">
+    <h2>Glossary &amp; High-Yield COA Abbreviations</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Term / Code</th><th>Full Form / Meaning</th><th>Term / Code</th><th>Full Form / Meaning</th></tr></thead>
+        <tbody>
+          <tr><td><strong>AMAT / EMAT</strong></td><td>Average Memory Access Time / Effective Memory Access Time</td><td><strong>BTB / ROB</strong></td><td>Branch Target Buffer / Reorder Buffer</td></tr>
+          <tr><td><strong>CAM / SRAM</strong></td><td>Content-Addressable Memory / Static Random Access Memory</td><td><strong>CPI / IPC</strong></td><td>Cycles Per Instruction / Instructions Per Cycle</td></tr>
+          <tr><td><strong>CISC / RISC</strong></td><td>Complex / Reduced Instruction Set Computer</td><td><strong>DMAC / HLDA</strong></td><td>Direct Memory Access Controller / Hold Acknowledge</td></tr>
+          <tr><td><strong>GPR / PSW</strong></td><td>General Purpose Register / Program Status Word</td><td><strong>ILP / SMT</strong></td><td>Instruction-Level Parallelism / Simultaneous Multithreading</td></tr>
+          <tr><td><strong>IR / PC</strong></td><td>Instruction Register / Program Counter</td><td><strong>ISA / RTL</strong></td><td>Instruction Set Architecture / Register Transfer Language</td></tr>
+          <tr><td><strong>ISR / NMI</strong></td><td>Interrupt Service Routine / Non-Maskable Interrupt</td><td><strong>MAR / MDR</strong></td><td>Memory Address Register / Memory Data Register</td></tr>
+          <tr><td><strong>MESI / ECC</strong></td><td>Modified-Exclusive-Shared-Invalid Cache Coherence / Error-Correcting Code</td><td><strong>MMU / TLB</strong></td><td>Memory Management Unit / Translation Lookaside Buffer</td></tr>
+          <tr><td><strong>MUX / PLA</strong></td><td>Multiplexer / Programmable Logic Array</td><td><strong>SOP / POS</strong></td><td>Sum of Products / Product of Sums</td></tr>
+          <tr><td><strong>SISD / SIMD / MIMD</strong></td><td>Single Instr Single Data / Single Instr Multi Data / Multi Instr Multi Data</td><td><strong>RAW / WAR / WAW</strong></td><td>Read-After-Write / Write-After-Read / Write-After-Write Hazard</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- MOCK TRACKER -->
+  <section class="card" id="tracker">
+    <h2>Mock Test Mistake Tracker</h2>
+    <p style="color:var(--muted);font-size:14px;">No mock tests logged yet. Take an AI Mock Test on any COA chapter or highlight weak formulas to drill scenarios here.</p>
+  </section>
+</main>
+
+<script src="study-tools.js" defer></script>
+<script src="quiz-tools.js" defer></script>
+<script src="ai-chat.js" defer></script>
+<script src="sidebar.js" defer></script>
+</body>
+</html>

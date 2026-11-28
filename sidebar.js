@@ -26,6 +26,12 @@
       subtitle: 'IBPS RRB SO IT Scale 2 · Prof. Knowledge',
       group: 'Professional Knowledge (IT)',
     },
+    {
+      href: 'pk_computer_organization_architecture.html',
+      title: 'PK - Computer Org & Arch',
+      subtitle: 'IBPS RRB SO IT Scale 2 · Prof. Knowledge',
+      group: 'Professional Knowledge (IT)',
+    },
   ];
 
   const THEME_KEY = 'site_theme';

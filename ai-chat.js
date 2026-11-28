@@ -215,7 +215,7 @@
   // =========================================================================
   function detectDomain() {
     const sig = (document.title + ' ' + window.location.pathname).toLowerCase();
-    if (/(?:^|\b)pk\s*-|linux|unix|bash|professional knowledge/.test(sig)) return 'pk_it';
+    if (/(?:^|\b)pk\s*-|linux|unix|bash|computer organization|architecture|professional knowledge/.test(sig)) return 'pk_it';
     if (sig.includes('computer')) return 'computer';
     if (sig.includes('financial') || sig.includes('banking')) return 'finance';
     return 'general';
