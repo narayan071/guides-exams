@@ -20,6 +20,12 @@
       title: 'Computer Knowledge',
       subtitle: 'IBPS RRB Scale 2 (IT) · Master Guide',
     },
+    {
+      href: 'pk_linux_unix_bash.html',
+      title: 'PK - Linux, UNIX & Bash',
+      subtitle: 'IBPS RRB SO IT Scale 2 · Prof. Knowledge',
+      group: 'Professional Knowledge (IT)',
+    },
   ];
 
   const THEME_KEY = 'site_theme';
@@ -156,10 +162,17 @@
     sidebar.id = 'guideSidebar';
     sidebar.setAttribute('aria-label', 'Study Guides Navigation');
 
+    let lastGroup = '';
     const linksHtml = GUIDES.map((g, idx) => {
       const isActive = g.href === current || (current === '' && idx === 0);
       const encodedHref = encodeURI(g.href);
+      let groupHeading = '';
+      if (g.group && g.group !== lastGroup) {
+        lastGroup = g.group;
+        groupHeading = '<div class="guide-sidebar-label">' + g.group + '</div>';
+      }
       return (
+        groupHeading +
         '<a class="guide-sidebar-link' +
         (isActive ? ' active' : '') +
         '" href="' +

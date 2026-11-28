@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PK - Linux, UNIX &amp; Bash Scripting — IBPS RRB SO IT Scale 2</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="apple-touch-icon" href="icon-192.png">
+<script>(function(){try{var t=localStorage.getItem('site_theme')||localStorage.getItem('fa_theme')||localStorage.getItem('ck_theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<link rel="stylesheet" href="sidebar.css">
+<link rel="stylesheet" href="study-tools.css">
+<link rel="stylesheet" href="quiz-tools.css">
+<link rel="stylesheet" href="ai-chat.css">
+<style>
+  :root {
+    --bg: #f8fafc;
+    --surface: #ffffff;
+    --surface-2: #f1f5f9;
+    --text: #0f172a;
+    --muted: #475569;
+    --border: #e2e8f0;
+    --accent: #0f766e;
+    --accent-soft: #f0fdfa;
+    --green-bg: #dcfce7;
+    --green-text: #166534;
+    --green-border: #86efac;
+    --red-bg: #fee2e2;
+    --red-text: #991b1b;
+    --red-border: #fca5a5;
+    --yellow-bg: #fef9c3;
+    --yellow-text: #854d0e;
+    --yellow-border: #fde047;
+    --trap-bg: #fff7ed;
+    --trap-border: #fb923c;
+    --trap-text: #9a3412;
+    --code-bg: #f1f5f9;
+    --shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  [data-theme="dark"] {
+    --bg: #0b1120;
+    --surface: #111827;
+    --surface-2: #1e293b;
+    --text: #f1f5f9;
+    --muted: #94a3b8;
+    --border: #273449;
+    --accent: #2dd4bf;
+    --accent-soft: #042f2e;
+    --green-bg: #052e16;
+    --green-text: #86efac;
+    --green-border: #166534;
+    --red-bg: #450a0a;
+    --red-text: #fca5a5;
+    --red-border: #991b1b;
+    --yellow-bg: #422006;
+    --yellow-text: #fde047;
+    --yellow-border: #854d0e;
+    --trap-bg: #2c1608;
+    --trap-border: #ea580c;
+    --trap-text: #fdba74;
+    --code-bg: #1e293b;
+    --shadow: 0 1px 3px rgba(0,0,0,0.4);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.55;
+    font-size: 15px;
+    overflow-x: clip;
+  }
+  .sticky-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    padding: 8px 16px;
+  }
+  .nav-inner {
+    max-width: 980px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .chips {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    flex: 1;
+    padding: 2px 0;
+  }
+  .chips::-webkit-scrollbar { display: none; }
+  .chip {
+    white-space: nowrap;
+    text-decoration: none;
+    color: var(--text);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 4px 11px;
+    font-size: 12.5px;
+    font-weight: 500;
+  }
+  .chip:hover { border-color: var(--accent); color: var(--accent); }
+  .theme-btn {
+    flex-shrink: 0;
+    background: var(--surface-2);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 5px 10px;
+    font-size: 12.5px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  main { max-width: 980px; margin: 0 auto; padding: 20px 16px 60px; }
+  header.hero {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 18px;
+  }
+  .kicker {
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 4px;
+  }
+  header.hero h1 { margin: 0 0 6px; font-size: 22px; }
+  header.hero p.lede { margin: 0; color: var(--muted); font-size: 14px; }
+  .search-box {
+    margin-top: 12px;
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--text);
+    font-size: 14px;
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 10px;
+    margin-top: 12px;
+  }
+  .stat {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 9px 12px;
+  }
+  .stat .val { font-size: 18px; font-weight: 700; display: block; color: var(--accent); }
+  .stat .lbl { font-size: 12px; color: var(--muted); }
+  section.card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 18px;
+    box-shadow: var(--shadow);
+  }
+  section.card h2 {
+    margin: 0 0 10px;
+    font-size: 18px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+  section.card h3 { margin: 14px 0 6px; font-size: 15px; }
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 11.5px;
+    font-weight: 700;
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--muted);
+  }
+  .badge-exam { background: var(--green-bg); color: var(--green-text); border-color: var(--green-border); }
+  .badge-prac { background: var(--yellow-bg); color: var(--yellow-text); border-color: var(--yellow-border); }
+  .start-box {
+    background: var(--accent-soft);
+    border-left: 4px solid var(--accent);
+    border-radius: 6px;
+    padding: 11px 14px;
+    margin: 10px 0 14px;
+    font-size: 14px;
+  }
+  .start-box > strong:first-child { color: var(--accent); display: block; margin-bottom: 3px; font-size: 12.5px; text-transform: uppercase; letter-spacing: 0.4px; }
+  .trap-box {
+    background: var(--trap-bg);
+    border-left: 4px solid var(--trap-border);
+    border-radius: 6px;
+    padding: 11px 14px;
+    margin: 14px 0;
+    font-size: 13.8px;
+  }
+  .trap-box strong.trap-title { color: var(--trap-text); display: block; margin-bottom: 4px; font-size: 12.5px; text-transform: uppercase; letter-spacing: 0.4px; }
+  .table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 10px 0;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 480px; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { background: var(--surface-2); font-weight: 600; white-space: nowrap; }
+  tr:last-child td { border-bottom: none; }
+  ul { margin: 6px 0 10px; padding-left: 18px; }
+  li { margin-bottom: 4px; }
+  code {
+    background: var(--code-bg);
+    padding: 1px 5px;
+    border-radius: 4px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 13px;
+    overflow-wrap: anywhere;
+  }
+  pre.cli-block {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    overflow-x: auto;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 12.8px;
+    line-height: 1.5;
+    margin: 8px 0 12px;
+    white-space: pre;
+  }
+  pre.cli-block code {
+    background: transparent;
+    padding: 0;
+    font-size: inherit;
+  }
+  details {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 9px 12px;
+    margin-bottom: 8px;
+    background: var(--surface-2);
+  }
+  summary { cursor: pointer; font-weight: 600; font-size: 13.8px; line-height: 1.45; }
+  details[open] summary { margin-bottom: 7px; color: var(--accent); }
+  .q-meta {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 1px 6px;
+    border-radius: 4px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--accent);
+    margin-right: 6px;
+  }
+  .q-ans {
+    font-size: 13.5px;
+    line-height: 1.5;
+    padding-top: 6px;
+    border-top: 1px dashed var(--border);
+  }
+  .hidden-card { display: none; }
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+    gap: 12px;
+    margin: 12px 0;
+  }
+  .info-card {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+  .info-card h4 {
+    margin: 0 0 8px;
+    font-size: 14px;
+    color: var(--accent);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 5px;
+  }
+  .info-card ul {
+    margin: 0;
+    padding-left: 16px;
+    font-size: 13.5px;
+    line-height: 1.5;
+  }
+  .info-card li { margin-bottom: 5px; }
+  .info-card li:last-child { margin-bottom: 0; }
+  .fact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 205px), 1fr));
+    gap: 6px 8px;
+    list-style: none;
+    padding: 0;
+    margin: 6px 0 12px;
+  }
+  .fact-grid.compact {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 155px), 1fr));
+  }
+  .fact-grid > li {
+    margin: 0;
+    padding: 6px 9px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    font-size: 13px;
+    line-height: 1.4;
+  }
+  .fact-grid > li > strong:first-child {
+    display: block;
+    color: var(--accent);
+    font-size: 12.8px;
+    margin-bottom: 1px;
+  }
+</style>
+</head>
+<body data-sidebar-pad="flush">
+<nav class="sticky-nav" aria-label="Chapter Navigation">
+  <div class="nav-inner">
+    <div class="chips">
+      <a class="chip" href="#ch1">1. Architecture &amp; Boot</a>
+      <a class="chip" href="#ch2">2. FHS, Inodes &amp; Links</a>
+      <a class="chip" href="#ch3">3. Users &amp; Permissions</a>
+      <a class="chip" href="#ch4">4. Commands &amp; Text Tools</a>
+      <a class="chip" href="#ch5">5. Process, Sys &amp; Net</a>
+      <a class="chip" href="#ch6">6. Redirects &amp; Pipes</a>
+      <a class="chip" href="#ch7">7. Bash Scripting</a>
+      <a class="chip" href="#ch8">8. Practice &amp; Tricks</a>
+      <a class="chip" href="#glossary">Glossary</a>
+      <a class="chip" href="#tracker">Mock Tracker</a>
+    </div>
+    <button class="theme-btn" id="themeToggle" type="button">Theme</button>
+  </div>
+</nav>
+
+<main>
+  <header class="hero">
+    <p class="kicker">Professional Knowledge · IBPS RRB SO IT Officer (Scale 2)</p>
+    <h1>PK - Linux, UNIX &amp; Bash Scripting</h1>
+    <p class="lede">Deep implementation-focused guide covering UNIX/Linux architecture, permissions &amp; <code>umask</code> math, text-processing pipelines, server troubleshooting, I/O redirection, Bash scripting traps, and a full 32-question practice &amp; scenario chapter.</p>
+    <div class="stats-grid">
+      <div class="stat"><span class="val">7 Chapters</span><span class="lbl">Core + Server Ops</span></div>
+      <div class="stat"><span class="val">32 Qs</span><span class="lbl">Concept + Scenario + Tricks</span></div>
+      <div class="stat"><span class="val">SO IT Scale 2</span><span class="lbl">Practical Exam Depth</span></div>
+      <div class="stat"><span class="val">AI + Tools</span><span class="lbl">Select Text → Ask AI</span></div>
+    </div>
+    <input class="search-box" id="quickSearch" type="search" placeholder="Filter Linux/Bash topics (e.g. umask, inode, 2>&amp;1, SUID, zombie, sed, awk, cron, $@, SIGKILL)...">
+  </header>
+
+  <!-- CH 1 -->
+  <section class="card" id="ch1">
+    <h2>Ch 1: UNIX / Linux Architecture, Boot Process &amp; Shells <span class="badge badge-exam">High-Yield</span></h2>
+    <div class="start-box">
+      <strong>Start Here</strong>
+      UNIX originated at <strong>AT&amp;T Bell Labs (1969)</strong> (Ken Thompson &amp; Dennis Ritchie; rewritten in <strong>C</strong> in 1973). GNU Project (1983, Richard Stallman) built open tools; <strong>Linux kernel (1991, Linus Torvalds)</strong> is monotonic/<strong>monolithic</strong> (modular loadable kernel modules <code>.ko</code>). Standards compliance is defined by <strong>POSIX (IEEE 1003)</strong>.
+    </div>
+
+    <h3>Layered OS Architecture &amp; Kernel Types</h3>
+    <ul class="fact-grid compact">
+      <li><strong>Execution Rings</strong><code>Hardware → Kernel (Ring 0) → Syscalls → Shell → User Apps (Ring 3)</code>.</li>
+      <li><strong>Kernel Role</strong>Process scheduling, virtual memory, VFS, device drivers, IPC &amp; syscalls.</li>
+      <li><strong>Shell Role</strong>Command-line interpreter &amp; scripting engine; parses, expands, and forks commands.</li>
+      <li><strong>Monolithic Kernel</strong>Linux/UNIX — drivers run inside kernel space (fast IPC, loadable <code>lsmod/modprobe</code>).</li>
+      <li><strong>Kernel Threads / Space</strong>Apps enter Kernel Mode only via software interrupt (<strong>syscall</strong> / <code>trap</code>).</li>
+      <li><strong>Terminal vs Shell</strong>Terminal/TTY (<code>/dev/pts/0</code>) handles I/O display; Shell interprets commands.</li>
+    </ul>
+
+    <h3>Linux Boot Sequence (Exact Exam Order)</h3>
+    <p>Scale 2 scenario questions test which stage fails when a server drops to <code>grub rescue&gt;</code> vs emergency shell vs kernel panic:</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Stage</th><th>Component</th><th>What Happens &amp; Key Exam Details</th></tr></thead>
+        <tbody>
+          <tr><td><strong>1. Firmware</strong></td><td><strong>BIOS / UEFI</strong></td><td>Runs <strong>POST</strong> (Power-On Self-Test); BIOS reads 1st sector (MBR), UEFI reads GPT EFI System Partition (ESP <code>/boot/efi</code>).</td></tr>
+          <tr><td><strong>2. Partition / Stage 1</strong></td><td><strong>MBR vs GPT</strong></td><td><strong>MBR (512 bytes):</strong> <code>446 B</code> boot code + <code>64 B</code> (4 primary × 16 B) partition table + <code>2 B</code> magic (<code>0x55AA</code>); <strong>2 TB max</strong>. <strong>GPT:</strong> 128 partitions, &gt;2 TB, CRC32 checksum.</td></tr>
+          <tr><td><strong>3. Bootloader</strong></td><td><strong>GRUB2</strong></td><td>Grand Unified Bootloader (<code>/boot/grub/grub.cfg</code>); lets you select kernel, edit kernel parameters, or boot single-user recovery.</td></tr>
+          <tr><td><strong>4. Kernel + RAM Disk</strong></td><td><strong><code>vmlinuz</code> + <code>initramfs</code></strong></td><td>Compressed kernel loads into RAM, mounts temporary root <code>initramfs</code> containing storage/filesystem drivers needed to mount the real <code>/</code>.</td></tr>
+          <tr><td><strong>5. User-Space Init</strong></td><td><strong>PID 1 (<code>systemd</code> / <code>init</code>)</strong></td><td>First user-space process (<strong>always PID 1</strong>). Reads <code>default.target</code> (or legacy <code>/etc/inittab</code>), mounts filesystems (<code>/etc/fstab</code>), starts daemons.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Legacy Runlevels vs Modern <code>systemd</code> Targets</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Runlevel</th><th><code>systemd</code> Target</th><th>Mode / Operational Use Case</th></tr></thead>
+        <tbody>
+          <tr><td><code>0</code></td><td><code>poweroff.target</code></td><td>Halt / shut down the system safely.</td></tr>
+          <tr><td><code>1</code> or <code>S</code></td><td><code>rescue.target</code></td><td><strong>Single-user mode</strong> — root maintenance shell, no networking/multi-user logins (used for root password reset / <code>fsck</code>).</td></tr>
+          <tr><td><code>3</code></td><td><code>multi-user.target</code></td><td>Full multi-user <strong>CLI server mode</strong> with networking (standard Linux production server default).</td></tr>
+          <tr><td><code>5</code></td><td><code>graphical.target</code></td><td>Multi-user + X11/Wayland GUI display manager.</td></tr>
+          <tr><td><code>6</code></td><td><code>reboot.target</code></td><td>Graceful system reboot. (<code>Ctrl+Alt+Del</code> in console or <code>systemctl reboot</code>).</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>UNIX/Linux Shells Comparison</h3>
+    <ul class="fact-grid compact">
+      <li><strong><code>sh</code> (Bourne Shell)</strong>Original AT&amp;T UNIX shell (Stephen Bourne); strict POSIX minimal scripting (often symlinked to <code>dash</code> on Debian/Ubuntu).</li>
+      <li><strong><code>bash</code> (Bourne-Again)</strong>Default interactive &amp; scripting Linux shell; arrays, <code>[[ ]]</code>, brace expansion, history, job control.</li>
+      <li><strong><code>zsh</code> / <code>ksh</code> / <code>csh</code></strong><code>zsh</code> = macOS default &amp; rich completion; <code>ksh</code> = KornShell (UNIX enterprise); <code>csh</code> = C-like syntax.</li>
+      <li><strong>Check Current Shell</strong><code>echo $0</code> shows <strong>currently running</strong> shell vs <code>echo $SHELL</code> shows user's configured <strong>login shell</strong> from <code>/etc/passwd</code>!</li>
+    </ul>
+
+    <div class="trap-box">
+      <strong class="trap-title">Exam Trap: $SHELL vs $0</strong>
+      If your login shell is <code>/bin/bash</code> and you launch <code>zsh</code> in your terminal, <code>echo $SHELL</code> still prints <code>/bin/bash</code>, whereas <code>ps -p $$</code> or <code>echo $0</code> shows <code>zsh</code>.
+    </div>
+  </section>
+
+  <!-- CH 2 -->
+  <section class="card" id="ch2">
+    <h2>Ch 2: Filesystem Hierarchy (FHS), Inodes, Hard vs Soft Links &amp; File Types</h2>
+    <div class="start-box">
+      <strong>Start Here</strong>
+      In UNIX/Linux, <strong>"Everything is a file"</strong> (regular files, directories, hardware devices, pipes, sockets). Paths use forward slash <code>/</code> (case-sensitive; Windows uses <code>\</code> and case-insensitive NTFS). Max filename length on <code>ext4</code> is <strong>255 bytes</strong>.
+    </div>
+
+    <h3>Filesystem Hierarchy Standard (FHS)</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Directory</th><th>Role &amp; Critical Files</th><th>Directory</th><th>Role &amp; Critical Files</th></tr></thead>
+        <tbody>
+          <tr><td><code>/</code></td><td>Root of single inverted directory tree</td><td><code>/etc</code></td><td>Host-specific system configs (<code>passwd</code>, <code>fstab</code>, <code>hosts</code>, <code>ssh/</code>)</td></tr>
+          <tr><td><code>/bin</code></td><td>Essential user binaries (<code>ls</code>, <code>cp</code>, <code>cat</code>, <code>bash</code> — modern distros symlink to <code>/usr/bin</code>)</td><td><code>/sbin</code></td><td>Essential system/root admin binaries (<code>fdisk</code>, <code>ip</code>, <code>fsck</code>, <code>iptables</code>)</td></tr>
+          <tr><td><code>/home</code></td><td>Regular users' home directories (<code>/home/alice</code>; tilde <code>~</code>)</td><td><code>/root</code></td><td>Root user's home (kept on <code>/</code> so recovery works even if <code>/home</code> is unmounted)</td></tr>
+          <tr><td><code>/var</code></td><td>Variable data: logs (<code>/var/log</code>), mail, print spools, DBs</td><td><code>/tmp</code></td><td>World-writable temp storage with Sticky Bit (<code>1777</code>); often cleared on boot</td></tr>
+          <tr><td><code>/usr</code></td><td>Read-only user programs &amp; libraries (<code>/usr/bin</code>, <code>/usr/local</code>)</td><td><code>/lib</code></td><td>Shared libraries (<code>.so</code>) &amp; kernel modules (<code>/lib/modules</code>)</td></tr>
+          <tr><td><code>/dev</code></td><td>Device files: block (<code>/dev/sda</code>, <code>nvme0n1</code>) &amp; char (<code>/dev/null</code>, <code>zero</code>, <code>urandom</code>)</td><td><code>/proc</code> &amp; <code>/sys</code></td><td>Virtual pseudo-filesystems in RAM exposing live kernel, CPU (<code>/proc/cpuinfo</code>), PID &amp; hardware info</td></tr>
+          <tr><td><code>/boot</code></td><td>Static bootloader files (GRUB), kernel (<code>vmlinuz</code>), <code>initramfs</code></td><td><code>/opt</code></td><td>Optional/3rd-party vendor software bundles (e.g. JDK, monitoring agents)</td></tr>
+          <tr><td><code>/mnt</code></td><td>Temporary manual mount point for administrators</td><td><code>/media</code></td><td>Auto-mount point for removable media (USB drives, optical discs)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3><code>ls -l</code> Anatomy &amp; 7 UNIX File Types</h3>
+    <pre class="cli-block"><code>-rwxr-xr-- 2 appuser devops 4096 Nov 28 10:15 backup.sh
+│└──┬──┘└┬┘ └─┬──┘   └─┬──┘  └─┬─┘ └───┬─────┘ └───┬───┘
+│   │    │    │        │       │       │           └─ Filename (stored in parent directory entry)
+│   │    │    │        │       │       └─ mtime (last content modification)
+│   │    │    │        │       └─ Size in bytes (directories usually show 4096 B block)
+│   │    │    │        └─ Group owner
+│   │    │    └─ Owner username
+│   │    └─ Hard link count (subdirectories increase dir link count: starts at 2: '.' and '..')
+│   └─ 9 Permission bits: User (rwx) | Group (r-x) | Others (r--)
+└─ File Type (1st char): - regular | d dir | l symlink | b block | c char | p FIFO pipe | s socket</code></pre>
+
+    <h3>Inodes, Timestamps &amp; Hard Link vs Soft (Symbolic) Link</h3>
+    <div class="info-grid">
+      <div class="info-card">
+        <h4>What an Inode Stores vs Does NOT Store</h4>
+        <ul>
+          <li><strong>Stored in Inode (Index Node, seen via <code>stat</code> / <code>ls -i</code>):</strong> File type, permissions, UID/GID, byte size, link count, <code>atime/mtime/ctime</code>, pointers to disk data blocks.</li>
+          <li><strong>NOT Stored in Inode:</strong> <strong>Filename</strong> (stored in parent directory mapping <code>name → inode#</code>) and actual file bytes.</li>
+          <li><strong>Why <code>mv</code> on same partition is O(1):</strong> Only rewrites parent directory entry; inode# stays identical. Copying (<code>cp</code>) creates a new inode.</li>
+          <li><strong>3 Timestamps:</strong> <code>atime</code> (last read), <code>mtime</code> (content change), <code>ctime</code> (inode metadata change like <code>chmod/chown/ln</code>).</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h4>Hard Link vs Symbolic (Soft) Link</h4>
+        <ul>
+          <li><strong>Hard Link (<code>ln orig hard</code>):</strong> Shares the <strong>exact same inode#</strong>; increments link count. Deleting <code>orig</code> keeps data intact until link count drops to <code>0</code> (<code>rm</code> just unlinks a name).</li>
+          <li><strong>Hard Link Limits:</strong> Cannot span different filesystems/partitions; cannot link directories (prevents tree loops).</li>
+          <li><strong>Soft Link (<code>ln -s orig sym</code>):</strong> Separate inode holding the <strong>target path string</strong> (<code>lrwxrwxrwx</code>). Can cross filesystems &amp; link directories. Deleting <code>orig</code> leaves a <strong>dangling/broken symlink</strong>.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="trap-box">
+      <strong class="trap-title">Scale 2 Ops Scenario: "No space left on device" when df -h shows 30% Free!</strong>
+      Each file consumes 1 inode. Millions of tiny 1 KB temp/session files can exhaust 100% of a filesystem's fixed inodes while gigabytes of blocks stay unused. Diagnose with <strong><code>df -i</code></strong>!
+    </div>
+  </section>
+
+  <!-- CH 3 -->
+  <section class="card" id="ch3">
+    <h2>Ch 3: Users, Groups, Permissions (<code>chmod</code>, <code>chown</code>, <code>umask</code>) &amp; Special Bits <span class="badge badge-exam">Exam Favorite</span></h2>
+    <div class="start-box">
+      <strong>Start Here</strong>
+      UID <code>0</code> is always <code>root</code> (superuser — bypasses normal permission checks). System accounts typically use UIDs <code>1–999</code>; normal users start at <code>1000</code>. Always validate <code>sudo</code> edits with <strong><code>visudo</code></strong> so syntax errors don't lock out admin access!
+    </div>
+
+    <h3>User &amp; Auth Configuration Files</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>File</th><th>Permissions</th><th>Format &amp; Purpose</th></tr></thead>
+        <tbody>
+          <tr><td><code>/etc/passwd</code></td><td><code>644</code> (world-read)</td><td>7 colon fields: <code>user:x:UID:GID:comment:home:shell</code> (<code>/sbin/nologin</code> disables interactive login).</td></tr>
+          <tr><td><code>/etc/shadow</code></td><td><code>640</code> / <code>000</code> (root only)</td><td>9 fields storing hashed password (<code>$6$</code> SHA-512 / <code>$y$</code> yescrypt), salt, expiry &amp; aging rules.</td></tr>
+          <tr><td><code>/etc/group</code></td><td><code>644</code></td><td>4 fields: <code>group_name:x:GID:user1,user2</code>.</td></tr>
+          <tr><td><code>/etc/sudoers</code></td><td><code>440</code> (edit via <code>visudo</code>)</td><td>Grants privileged root command delegation without sharing root password; logs commands.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:13.5px;color:var(--muted);"><strong>User Commands:</strong> <code>useradd -m -s /bin/bash u1</code> | <code>usermod -aG sudo,docker u1</code> (<strong>Trap:</strong> omitting <code>-a</code> overwrites all existing secondary groups!) | <code>passwd u1</code> | <code>id</code> | <code>groups</code> | <code>who / w / last</code> | <code>su - u1</code> (dash loads target user's clean login env &amp; <code>$HOME</code>) vs <code>sudo -u postgres cmd</code>.</p>
+
+    <h3><code>rwx</code> on Files vs Directories (CRITICAL Comparison)</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Bit</th><th>Value</th><th>Effect on a Regular File</th><th>Effect on a Directory</th></tr></thead>
+        <tbody>
+          <tr><td><code>r</code> (Read)</td><td><strong>4</strong></td><td>Read file contents (<code>cat</code>, <code>grep</code>).</td><td>List filenames in directory (<code>ls</code> — needs <code>x</code> to see metadata with <code>ls -l</code>).</td></tr>
+          <tr><td><code>w</code> (Write)</td><td><strong>2</strong></td><td>Modify or truncate file contents (NOT delete/rename the file itself!).</td><td>Create, rename, or <strong>delete files inside</strong> that directory (requires <code>x</code> too!).</td></tr>
+          <tr><td><code>x</code> (Execute)</td><td><strong>1</strong></td><td>Run file as binary or script (note: scripts also require <code>r</code> to read lines!).</td><td>Traverse/<code>cd</code> into directory &amp; access known paths inside it.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Octal / Symbolic <code>chmod</code>, Ownership &amp; Special Permission Bits</h3>
+    <div class="info-grid">
+      <div class="info-card">
+        <h4>Common Numeric &amp; Symbolic Modes</h4>
+        <ul>
+          <li><code>755</code> (<code>rwxr-xr-x</code>): Executable scripts, web root dirs.</li>
+          <li><code>644</code> (<code>rw-r--r--</code>): Standard config &amp; text files.</li>
+          <li><code>600</code> (<code>rw-------</code>): SSH private keys (<code>~/.ssh/id_ed25519</code> — SSH refuses key if group/others can read!).</li>
+          <li><strong>Symbolic syntax:</strong> <code>u</code> (user), <code>g</code> (group), <code>o</code> (others), <code>a</code> (all); operators <code>+</code> (add), <code>-</code> (remove), <code>=</code> (exact). E.g. <code>chmod u+x,go-w script.sh</code>.</li>
+          <li><strong>Ownership:</strong> <code>chown user:group file</code> (<code>-R</code> recursive; only <strong>root</strong> can change file owner <code>user</code>). <code>chgrp group file</code> changes only group.</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h4>Special Bits: SUID (4), SGID (2), Sticky Bit (1)</h4>
+        <ul>
+          <li><strong>SUID (<code>4xxx</code> / <code>chmod u+s</code>):</strong> Runs executable with <strong>file owner's</strong> effective UID (e.g., <code>/usr/bin/passwd</code> shows <code>-rwsr-xr-x</code> so normal users can update root-owned <code>/etc/shadow</code>).</li>
+          <li><strong>SGID (<code>2xxx</code> / <code>chmod g+s</code>):</strong> On binary → runs as file's group; on <strong>directory</strong> → newly created files inherit the <strong>directory's group</strong> (team collaboration dirs!).</li>
+          <li><strong>Sticky Bit (<code>1xxx</code> / <code>chmod +t</code>):</strong> On shared dirs like <code>/tmp</code> (<code>drwxrwxrwt</code>) → only the <strong>file owner</strong>, dir owner, or <code>root</code> can delete/rename files inside!</li>
+          <li><strong>Upper vs Lowercase Trap:</strong> <code>rws</code>/<code>rwt</code> = underlying <code>x</code> bit is set; uppercase <code>rwS</code>/<code>rwT</code> = special bit set WITHOUT underlying <code>x</code>!</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3><code>umask</code> Calculation (File Creation Mask)</h3>
+    <ul>
+      <li><strong>Base Defaults:</strong> New directories start at <strong><code>777</code></strong>; new regular files start at <strong><code>666</code></strong> (never auto-executable by default for security!).</li>
+      <li><strong>Rule:</strong> <code>Effective Mode = Base_Mode &amp; (~umask)</code> (clears bits set in <code>umask</code>).</li>
+      <li><strong>Examples:</strong> <code>umask 022</code> (default root/standard) → File <code>644</code>, Dir <code>755</code>. <code>umask 027</code> → File <strong><code>640</code></strong>, Dir <strong><code>750</code></strong>. <code>umask 077</code> (strict private) → File <code>600</code>, Dir <code>700</code>.</li>
+    </ul>
+    <div class="trap-box">
+      <strong class="trap-title">Odd-Digit umask Numerical Trap (Scale 2 Classic!)</strong>
+      NEVER use blind decimal subtraction for files! With <code>umask 027</code>: Dir = <code>777 - 027 = 750</code>, but for a <strong>File</strong> (base <code>666</code>), <code>7</code> (<code>111</code>) masks <code>6</code> (<code>110</code>) down to <code>0</code> (<code>---</code>), NOT <code>-1</code> or borrow! Correct file permission for <code>umask 027</code> is <strong><code>640</code></strong> (<code>rw-r-----</code>). Even more subtle: <code>umask 011</code> on base <code>666</code> removes NO bits (since <code>6</code> has no execute bit <code>1</code>!), leaving <code>666</code>!
+    </div>
+  </section>
+
+  <!-- CH 4 -->
+  <section class="card" id="ch4">
+    <h2>Ch 4: File Operations, Search &amp; Text-Processing Commands (<code>grep</code>, <code>sed</code>, <code>awk</code>, <code>find</code>) <span class="badge badge-exam">Core Practical</span></h2>
+    <div class="start-box">
+      <strong>Start Here</strong>
+      Remember UNIX tools are small single-purpose filters designed to chain with <code>|</code> pipes. Know how to extract fields, filter error logs, sort numeric values properly, deduplicate lines, find stale files, and package archives cleanly.
+    </div>
+
+    <h3>Navigation, File Management &amp; Inspection</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Command</th><th>High-Yield Flags &amp; Practical Behavior</th></tr></thead>
+        <tbody>
+          <tr><td><code>ls</code></td><td><code>-l</code> long, <code>-a</code> all (incl. dotfiles <code>.env</code>), <code>-h</code> human sizes, <code>-t</code> sort by mtime newest first, <code>-S</code> sort by size, <code>-R</code> recursive, <code>-d */</code> dirs only, <code>-i</code> inode#.</td></tr>
+          <tr><td><code>cp</code> / <code>mv</code> / <code>rm</code></td><td><code>cp -a</code> (archive: recursive + preserves permissions/timestamps/symlinks), <code>mv</code> (moves &amp; renames), <code>rm -rf</code> (recursive force; <code>--</code> stops flag parsing if filename starts with <code>-</code>!).</td></tr>
+          <tr><td><code>mkdir</code> / <code>rmdir</code></td><td><code>mkdir -p a/b/c</code> creates parent dirs without error if existing; <code>rmdir</code> deletes ONLY empty dirs.</td></tr>
+          <tr><td><code>cat</code> / <code>tac</code> / <code>less</code></td><td><code>cat -n</code> (line numbers); <code>tac</code> prints bottom-to-top; <code>less</code> pages large logs in memory-safe chunks (vs loading full file).</td></tr>
+          <tr><td><code>head</code> / <code>tail</code></td><td>Default <strong>10 lines</strong>. <code>head -n 20</code>; <code>tail -f app.log</code> streams live appends; <code>tail -F</code> follows across log rotation!</td></tr>
+          <tr><td><code>wc</code></td><td>Word Count: <code>-l</code> lines, <code>-w</code> words, <code>-c</code> bytes, <code>-m</code> characters (UTF-8 aware). Default prints <code>lines words bytes file</code>.</td></tr>
+          <tr><td><code>file</code> / <code>stat</code></td><td><code>file</code> identifies binary/ELF/text via magic bytes (ignores extension!); <code>stat</code> displays inode, size, permissions &amp; <code>atime/mtime/ctime</code>.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Text Filtering &amp; Data Wrangling Pipelines</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Command</th><th>Key Options &amp; Real Banking Server Example</th></tr></thead>
+        <tbody>
+          <tr><td><code>grep</code> / <code>egrep</code></td><td><code>-i</code> ignore case, <code>-v</code> invert (exclude lines), <code>-n</code> line num, <code>-c</code> count, <code>-r</code> recursive dir, <code>-w</code> whole word, <code>-l</code> print filenames, <code>-E</code> Extended Regex (<code>egrep</code>). E.g. <code>grep -rnE "ERROR|TIMEOUT" /var/log/cbs/</code>.</td></tr>
+          <tr><td><code>sort</code></td><td>Lexicographical by default! <strong>MUST use <code>-n</code> for numbers</strong> (otherwise <code>"10" &lt; "2"</code>!). <code>-r</code> reverse, <code>-u</code> unique, <code>-k 3</code> 3rd column, <code>-t ','</code> CSV delimiter, <code>-h</code> human sizes (with <code>du -h</code>).</td></tr>
+          <tr><td><code>uniq</code></td><td><strong>Removes ONLY adjacent duplicate lines!</strong> Almost always piped after <code>sort</code>: <code>sort ips.txt | uniq -c | sort -nr</code>. Flags: <code>-c</code> count, <code>-d</code> only duplicates, <code>-u</code> only non-repeated lines.</td></tr>
+          <tr><td><code>cut</code> &amp; <code>tr</code></td><td><code>cut -d':' -f1,7 /etc/passwd</code> extracts username &amp; shell (<strong>Trap:</strong> cannot handle variable multi-space padding — use <code>awk</code> instead!). <code>tr 'a-z' 'A-Z'</code> translates chars; <code>tr -d '\r'</code> strips DOS CRLF; <code>tr -s ' '</code> squeezes spaces.</td></tr>
+          <tr><td><code>diff</code> / <code>cmp</code> / <code>comm</code></td><td><code>diff -u f1 f2</code> unified line-by-line text diff; <code>cmp</code> byte-by-byte compare (works on binaries); <code>comm</code> compares two <strong>sorted</strong> files (3 cols: left-only, right-only, common).</td></tr>
+          <tr><td><code>sed</code></td><td>Stream Editor: <code>sed 's/old/new/'</code> replaces <strong>1st match/line</strong> (add <code>g</code> for all!); <code>sed -i 's/prod/uat/g' conf</code> in-place edit; <code>sed -n '10,20p' file</code> print lines 10–20; <code>sed '/^#/d'</code> delete comments.</td></tr>
+          <tr><td><code>awk</code></td><td>Splits lines by whitespace (or <code>-F','</code>). Built-ins: <code>$0</code> whole line, <code>$1..$N</code> fields, <code>NF</code> field count (<code>$NF</code> = last field!), <code>NR</code> line number. Example summing column 3: <code>awk -F',' '{sum+=$3} END{print sum}' txns.csv</code>.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Searching &amp; Archiving (<code>find</code>, <code>locate</code>, <code>which</code>, <code>tar</code>)</h3>
+    <ul class="fact-grid">
+      <li><strong><code>find</code> (Live Disk Search)</strong><code>find /var/log -type f -name "*.log" -size +50M -mtime +7 -exec gzip {} \;</code> (<code>-mtime +7</code> = &gt;7 days ago; <code>-mtime -7</code> = within last 7 days!).</li>
+      <li><strong><code>locate</code> / <code>updatedb</code></strong>Queries cached filesystem index database — blazing fast, but misses newly created files until <code>updatedb</code> runs.</li>
+      <li><strong><code>which</code> vs <code>whereis</code> vs <code>type</code></strong><code>which cmd</code> searches <code>$PATH</code>; <code>whereis</code> finds binary + source + man page; <code>type</code> shows if shell builtin, alias, or disk binary!</li>
+      <li><strong><code>tar</code> (Tape Archive)</strong><code>tar -czvf app.tar.gz dir/</code> (Create, gZip, Verbose, File); <code>tar -xzvf app.tar.gz -C /opt</code> (Extract to <code>/opt</code>); <code>-t</code> list without extracting; <code>-j</code> bzip2; <code>-J</code> xz.</li>
+    </ul>
+
+    <div class="trap-box">
+      <strong class="trap-title">Common Command Traps</strong>
+      1) In <code>tar -czvf name.tgz dir</code>, <strong><code>f</code> MUST immediately precede the archive filename</strong>.<br>
+      2) <code>grep "10.0.0.1"</code> treats dots <code>.</code> as "any character" unless escaped (<code>\.</code>) or <code>grep -F</code> (fixed string).<br>
+      3) <code>sort</code> without <code>-n</code> sorts <code>100</code> before <code>20</code>!
+    </div>
+  </section>
+
+  <!-- CH 5 -->
+  <section class="card" id="ch5">
+    <h2>Ch 5: Process Management, Signals, System Monitoring, Cron &amp; Networking Ops</h2>
+    <div class="start-box">
+      <strong>Start Here</strong>
+      In Scale 2 IT Officer production scenarios, expect questions on killing hung vs stuck processes, interpreting <code>ps</code>/<code>top</code> states (especially <strong>Zombie vs Orphan</strong> and <strong>Uninterruptible <code>D</code></strong>), free RAM vs page cache, <strong>open deleted files filling disk</strong>, <code>systemctl</code> lifecycle, and <code>cron</code> scheduling!
+    </div>
+
+    <h3>Process Creation, States &amp; UNIX Signals</h3>
+    <div class="info-grid">
+      <div class="info-card">
+        <h4>Syscalls &amp; <code>ps / top</code> Process States</h4>
+        <ul>
+          <li><strong>Lifecycle:</strong> <code>fork()</code> clones parent returning child PID to parent and <code>0</code> to child; <code>exec()</code> replaces child's memory image with new binary; <code>wait()</code> collects child's exit code.</li>
+          <li><code>R</code> (Running/Runnable) • <code>S</code> (Interruptible Sleep waiting for event) • <code>T</code> (Stopped by job control/debugger).</li>
+          <li><strong><code>D</code> (Uninterruptible Sleep):</strong> Blocked inside kernel I/O (faulty NFS/disk) — <strong>even <code>kill -9</code> cannot terminate it until kernel I/O returns!</strong></li>
+          <li><strong><code>Z</code> (Zombie / Defunct):</strong> Child finished executing, exit status still sits in process table because parent hasn't called <code>wait()</code> yet. You cannot <code>kill -9</code> a zombie (it's already dead!); signal or restart its <strong>parent (<code>PPID</code>)</strong>!</li>
+          <li><strong>Orphan Process:</strong> Still-running child whose parent died; automatically adopted (re-parented) by <strong>PID 1 (<code>systemd</code>)</strong>.</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h4>Key Signals (<code>kill -l</code>) &amp; Job Control</h4>
+        <ul>
+          <li><code>1 SIGHUP</code>: Terminal hangup — tells daemons (Nginx, sshd) to <strong>reload config</strong> gracefully.</li>
+          <li><code>2 SIGINT</code>: <code>Ctrl+C</code> interrupt from keyboard (catchable).</li>
+          <li><code>15 SIGTERM</code>: <strong>Default signal</strong> of <code>kill &lt;pid&gt;</code>! Allows graceful cleanup, closing DB connections &amp; temp files.</li>
+          <li><code>9 SIGKILL</code>: Immediate kernel termination — <strong>cannot be caught, blocked, or ignored</strong> (last resort!).</li>
+          <li><code>19 SIGSTOP</code> (<code>Ctrl+Z</code> sends <code>20 SIGTSTP</code>) &amp; <code>18 SIGCONT</code>: Pause / resume process.</li>
+          <li><strong>Job Control:</strong> <code>cmd &amp;</code> (background), <code>jobs</code>, <code>fg %1</code>, <code>bg %1</code>, <code>nohup ./batch.sh &amp;</code> (ignores SIGHUP after SSH disconnect, writes <code>nohup.out</code>).</li>
+          <li><strong>CPU Priority (<code>nice</code>):</strong> Range <strong><code>-20</code> (highest) to <code>+19</code> (lowest)</strong>; default <code>0</code>. Regular users can only make processes nicer (positive values); only <code>root</code> can use negative nice!</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Server Monitoring, Troubleshooting &amp; Service Commands</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Command</th><th>Operational Purpose &amp; Scenario Trap</th></tr></thead>
+        <tbody>
+          <tr><td><code>ps aux</code> / <code>ps -ef</code></td><td>List processes (PID, PPID, %CPU, %MEM, STAT, TTY, CMD). Use <code>pgrep</code> / <code>pkill</code> / <code>killall</code> to match by process name.</td></tr>
+          <tr><td><code>top</code> / <code>uptime</code></td><td>Live CPU/RAM view &amp; <strong>1, 5, 15 min Load Averages</strong> (load = runnable + <code>D</code>-state I/O tasks; load ≤ CPU cores = healthy).</td></tr>
+          <tr><td><code>free -h</code></td><td>Shows RAM &amp; Swap. <strong>Trap:</strong> Look at <strong><code>available</code></strong>, NOT just <code>free</code>! Linux borrows unused RAM for disk <strong>buff/cache</strong> and frees it instantly when apps need it.</td></tr>
+          <tr><td><code>df -h</code> vs <code>du -sh</code></td><td><code>df -h</code> = filesystem block usage (kernel statfs); <code>du -sh *</code> = sums visible files in directories. <strong>Trap:</strong> If <code>df</code> says 100% full but <code>du</code> is smaller, a running process still holds an open FD to an already-deleted file — find with <strong><code>lsof +L1</code></strong> (or <code>lsof | grep deleted</code>) and reload/restart that daemon!</td></tr>
+          <tr><td><code>systemctl</code></td><td><code>start</code> / <code>stop</code> (now) • <code>reload</code> (re-reads config zero-downtime) vs <code>restart</code> • <code>enable</code> / <code>disable</code> (auto-start at boot) • <code>is-active</code> / <code>status</code>. Logs via <code>journalctl -u service -n 50</code>.</td></tr>
+          <tr><td><code>ip</code> &amp; <code>ss</code></td><td>Modern <code>iproute2</code> replacements for deprecated <code>ifconfig</code>/<code>netstat</code>: <code>ip a</code> (IPs), <code>ip r</code> (routing table), <code>ss -tulnp</code> (listening TCP/UDP sockets + process PIDs!).</td></tr>
+          <tr><td><code>dig</code> / <code>rsync</code> / <code>scp</code></td><td><code>dig domain.com</code> (DNS query), <code>ping -c 4</code> (ICMP), <code>traceroute</code> / <code>mtr</code>, <code>scp</code> (SSH file copy), <code>rsync -avz</code> (delta sync over SSH — skips unchanged blocks!).</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Job Scheduling: <code>cron</code> (Recurring) vs <code>at</code> (One-Time)</h3>
+    <pre class="cli-block"><code>┌───────── minute (0 - 59)
+│ ┌─────── hour (0 - 23)
+│ │ ┌───── day of month (1 - 31)
+│ │ │ ┌─── month (1 - 12 or jan-dec)
+│ │ │ │ ┌─ day of week (0 - 6 or 0,7 = Sunday)
+* * * * *  /usr/local/bin/eod_backup.sh &gt;&gt; /var/log/eod.log 2&gt;&amp;1</code></pre>
+    <ul>
+      <li><strong>Special Crontab Tokens:</strong> <code>@reboot</code>, <code>@daily</code> (<code>0 0 * * *</code>), <code>*/15</code> (every 15 units), <code>1-5</code> (Mon–Fri), <code>0,30</code> (list). Manage with <code>crontab -e</code> (edit), <code>-l</code> (list), <code>-r</code> (remove!).</li>
+      <li><strong>Cron Environment Trap:</strong> Cron runs with a minimal non-interactive environment (tiny <code>PATH=/usr/bin:/bin</code>) — always use <strong>absolute paths</strong> (e.g. <code>/usr/local/bin/python3</code>) inside cron jobs!</li>
+      <li><strong>DOM vs DOW OR-Trap:</strong> If <em>both</em> Day-of-Month and Day-of-Week are specified (not <code>*</code>), standard Vixie cron triggers on days matching <strong>EITHER condition (logical OR, not AND!)</strong> — e.g. <code>0 3 1-7 * 0</code> runs on days 1–7 <em>plus every</em> Sunday!</li>
+    </ul>
+  </section>
+
+  <!-- CH 6 -->
+  <section class="card" id="ch6">
+    <h2>Ch 6: I/O Redirection, Pipes, Wildcards (Globs vs Regex) &amp; Quoting</h2>
+    <div class="start-box">
+      <strong>Start Here</strong>
+      Redirection is parsed <strong>left-to-right</strong> by the shell <em>before</em> the command executes. Understanding file descriptors <code>0</code>, <code>1</code>, <code>2</code>, pipe subshells, and quote strength prevents 80% of Bash production bugs and exam output traps.
+    </div>
+
+    <h3>Standard File Descriptors &amp; Redirection Patterns</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>FD / Operator</th><th>Meaning &amp; Behavior</th><th>Exam Example / Trap</th></tr></thead>
+        <tbody>
+          <tr><td><code>0</code> (<code>&lt;</code>)</td><td><code>stdin</code> — Standard Input from file</td><td><code>mysql db &lt; dump.sql</code> • <code>cat &lt;&lt; 'EOF'</code> (Here-doc, quotes disable <code>$</code> expansion!) • <code>&lt;&lt;&lt; "str"</code> (Here-string).</td></tr>
+          <tr><td><code>1</code> (<code>&gt;</code>, <code>&gt;&gt;</code>)</td><td><code>stdout</code> — Overwrite (<code>&gt;</code>) / Append (<code>&gt;&gt;</code>)</td><td><strong>Trap:</strong> Shell truncates target of <code>&gt;</code> <strong>before</strong> running command (<code>sort f &gt; f</code> wipes <code>f</code> empty! Use <code>-o f</code> or temp file!).</td></tr>
+          <tr><td><code>2</code> (<code>2&gt;</code>, <code>2&gt;&gt;</code>)</td><td><code>stderr</code> — Diagnostic / Error Output</td><td><code>find / -name conf 2&gt;/dev/null</code> discards Permission Denied noise cleanly.</td></tr>
+          <tr><td><code>&gt; file 2&gt;&amp;1</code> / <code>&amp;&gt; file</code></td><td>Redirects <strong>both stdout &amp; stderr</strong> to <code>file</code></td><td><strong>Order Trap:</strong> <code>cmd 2&gt;&amp;1 &gt; log</code> fails to capture stderr in <code>log</code> (stderr gets old terminal fd1 before fd1 moves!). Always put <code>&gt; file</code> FIRST (or use Bash <code>&amp;&gt; file</code>).</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Pipes (<code>|</code>), <code>tee</code>, <code>xargs</code> &amp; Chaining Operators</h3>
+    <ul class="fact-grid compact">
+      <li><strong>Pipe (<code>cmd1 | cmd2</code>)</strong>Connects <code>stdout</code> of <code>cmd1</code> → <code>stdin</code> of <code>cmd2</code> (NOT stderr unless <code>2&gt;&amp;1 |</code> or <code>|&amp;</code>!). Each stage runs in a <strong>subshell</strong>.</li>
+      <li><strong><code>tee</code> (T-splitter)</strong><code>./deploy.sh | tee -a deploy.log</code> prints output to screen AND writes to file (<code>-a</code> appends instead of overwriting!).</li>
+      <li><strong><code>xargs</code> (Stdin → Args)</strong>Commands like <code>rm</code>, <code>cp</code>, <code>echo</code> ignore stdin! <code>find . -name "*.tmp" -print0 | xargs -0 rm</code> safely converts null-delimited paths into arguments (handles filenames with spaces!).</li>
+      <li><strong>Chaining (<code>; &amp;&amp; ||</code>)</strong><code>a ; b</code> runs <code>b</code> always | <code>a &amp;&amp; b</code> runs <code>b</code> only if <code>a</code> succeeds (<code>$? == 0</code>) | <code>a || b</code> runs <code>b</code> only if <code>a</code> fails (<code>$? != 0</code>).</li>
+    </ul>
+
+    <h3>Quoting Hierarchy &amp; Shell Wildcards (Globs) vs Regex</h3>
+    <div class="info-grid">
+      <div class="info-card">
+        <h4>Single Quote vs Double Quote vs Backslash</h4>
+        <ul>
+          <li><strong>No Quotes:</strong> Expands variables, command substitution, globs (<code>*</code>), AND splits words on whitespace (<code>$IFS</code>).</li>
+          <li><strong>Double Quotes (<code>"..."</code>):</strong> Keeps spaces intact (prevents word splitting &amp; globbing!), while STILL expanding <code>$VAR</code>, <code>$(cmd)</code>, and <code>\</code>. <strong>Always quote variables: <code>"$file"</code>!</strong></li>
+          <li><strong>Single Quotes (<code>'...'</code>):</strong> Literal mode — treats <strong>every</strong> character literally (no <code>$VAR</code>, no <code>*</code>, no escape — cannot even contain <code>'</code> inside!).</li>
+          <li><strong>Backslash (<code>\</code>):</strong> Escapes the single character right after it (or splits a long command across lines at EOL).</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h4>Shell Globbing vs Regular Expressions (Trap!)</h4>
+        <ul>
+          <li><strong>Shell Globs (Filename expansion):</strong> <code>*</code> = 0+ any chars; <code>?</code> = exactly 1 char; <code>[abc]</code> / <code>[!0-9]</code> = 1 char class; <code>{a,b}</code> = brace expansion (generates strings even if files don't exist: <code>mkdir -p logs/{2025,2026}</code>).</li>
+          <li><strong>Hidden Files Trap:</strong> <code>ls *</code> does <strong>NOT</strong> match dotfiles (<code>.bashrc</code>)!</li>
+          <li><strong>Regex Trap (<code>grep</code>, <code>sed</code>, <code>awk</code>):</strong> Inside regex, <code>.</code> = any 1 char (NOT literal dot!), <code>*</code> = 0+ copies of <em>preceding atom</em> (<code>a*</code>, NOT wildcard!), <code>+</code> = 1+ (needs <code>-E</code>), <code>^</code> = start of line, <code>$</code> = end of line!</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CH 7 -->
+  <section class="card" id="ch7">
+    <h2>Ch 7: Bash Shell Scripting — Variables, Conditionals, Loops &amp; Production Patterns <span class="badge badge-prac">Implementation</span></h2>
+    <div class="start-box">
+      <strong>Start Here</strong>
+      Start every portable script with <code>#!/usr/bin/env bash</code> (or <code>#!/bin/bash</code>). Running <code>./script.sh</code> executes inside a <strong>subshell</strong> (child variables never leak back to caller!); running <code>source script.sh</code> or <code>. script.sh</code> executes in the <strong>current shell</strong>!
+    </div>
+
+    <h3>Variables, Assignments &amp; Exit Status</h3>
+    <ul>
+      <li><strong>No Spaces Around <code>=</code> (Classic Syntax Trap!):</strong> Write <code>HOST="10.0.1.5"</code> — writing <code>HOST = "10.0.1.5"</code> runs command <code>HOST</code> with argument <code>=</code> (fails with <code>HOST: command not found</code>)!</li>
+      <li><strong><code>export</code> &amp; Scope:</strong> Unexported variable <code>X=5</code> stays local to current shell; <code>export X=5</code> passes it down to child processes/scripts. Read-only: <code>readonly PI=3.14</code> or <code>declare -r</code>; integer: <code>declare -i n=10</code>.</li>
+      <li><strong>Exit Codes (<code>$?</code>):</strong> <code>0</code> = success (truthy in Bash <code>if</code> — <strong>opposite</strong> of C/Python booleans!); <code>1</code> = general error; <code>2</code> = misuse of shell builtin; <code>126</code> = not executable / permission denied; <code>127</code> = command not found; <code>128 + N</code> = killed by signal N (e.g., <code>137</code> = <code>128 + 9</code> killed by <code>SIGKILL</code> / OOM!).</li>
+    </ul>
+
+    <h3>Special Positional Parameters (Memorize!)</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Var</th><th>Meaning</th><th>Var</th><th>Meaning &amp; Crucial Nuance</th></tr></thead>
+        <tbody>
+          <tr><td><code>$0</code></td><td>Script / command name invoked</td><td><code>$1..$9</code></td><td>Positional arguments (10th+ requires braces: <code>${10}</code>).</td></tr>
+          <tr><td><code>$#</code></td><td>Total count of positional args passed</td><td><code>$?</code></td><td>Exit status of last foreground command (<code>0</code> = OK).</td></tr>
+          <tr><td><code>"$@"</code></td><td>All args preserving quoted elements separately (<code>"a b" "c"</code> → 2 args!)</td><td><code>"$*"</code></td><td>All args joined into <strong>one string</strong> by 1st char of <code>$IFS</code> (space).</td></tr>
+          <tr><td><code>$$</code></td><td>PID of current shell / running script</td><td><code>$!</code></td><td>PID of most recently launched background job (<code>&amp;</code>).</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Test Operators (<code>[ ]</code> vs <code>[[ ]]</code> vs <code>(( ))</code>) &amp; Control Flow</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Check Type</th><th>Operators &amp; Usage inside <code>[ ... ]</code> / <code>[[ ... ]]</code></th><th>Pitfalls to Avoid</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Numeric</strong></td><td><code>-eq</code> (==), <code>-ne</code> (!=), <code>-gt</code> (&gt;), <code>-ge</code> (&gt;=), <code>-lt</code> (&lt;), <code>-le</code> (&lt;=)</td><td><strong>Never use <code>&lt;</code> or <code>&gt;</code> inside single brackets <code>[ ]</code></strong> — they redirect files! Use <code>-gt</code> or arithmetic <code>(( a &gt; b ))</code>.</td></tr>
+          <tr><td><strong>String</strong></td><td><code>=</code> / <code>==</code> (equal), <code>!=</code>, <code>-z "$s"</code> (empty/zero len), <code>-n "$s"</code> (non-empty)</td><td>Always double-quote <code>"$s"</code> in <code>[ ]</code> so empty variable doesn't crash syntax; prefer <code>[[ ... ]]</code> (safer + regex <code>=~</code>!).</td></tr>
+          <tr><td><strong>File Tests</strong></td><td><code>-e</code> exists • <code>-f</code> regular file • <code>-d</code> dir • <code>-L</code> symlink • <code>-s</code> size &gt; 0 • <code>-r/-w/-x</code> perms</td><td><code>if [ -d "$DIR" ] &amp;&amp; [ ! -s "$LOCK" ]; then ... fi</code> checks directory exists AND lockfile is empty.</td></tr>
+          <tr><td><strong>Arithmetic</strong></td><td><code>$(( a + b ))</code>, <code>(( i++ ))</code>, <code>sum=$((sum + 1))</code></td><td>Bash integer math only (<code>5/2 = 2</code>)! Use <code>bc -l</code> or <code>awk</code> for floating-point decimals.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Practical Production Script Example (Read &amp; Trace Every Line!)</h3>
+    <pre class="cli-block"><code>#!/usr/bin/env bash
+set -euo pipefail                  # -e exit on err | -u err on unset var | pipefail catches failed pipe stages
+trap 'rm -f /tmp/backup.lock' EXIT # Cleanup runs on normal exit OR error signal!
+
+if [ "$#" -lt 1 ]; then
+  echo "Usage: $0 &lt;target-dir&gt;" &gt;&amp;2
+  exit 2
+fi
+
+SRC_DIR="$1"
+OUT_ARC="/backup/cbs_$(date +%F).tar.gz"
+
+if [ ! -d "$SRC_DIR" ]; then
+  echo "Error: '$SRC_DIR' not found" &gt;&amp;2
+  exit 1
+fi
+
+tar -czf "$OUT_ARC" "$SRC_DIR"
+for i in {1..3}; do
+  echo "Verified archive copy #$i: $OUT_ARC"
+done</code></pre>
+    <ul class="fact-grid compact">
+      <li><strong><code>case ... esac</code></strong>Cleaner than multi-<code>elif</code> for CLI flags (<code>start|stop)</code>, end branches with <code>;;</code>).</li>
+      <li><strong><code>for / while / until</code></strong><code>for f in *.log; do ...; done</code> | <code>while IFS= read -r line; do ...; done &lt; file</code> reads lines safely without trimming spaces!</li>
+      <li><strong>Functions &amp; Scope</strong>Variables in functions are <strong>global by default</strong> unless marked with <code>local var=...</code>! <code>return</code> sets exit code <code>0–255</code>, NOT strings (use <code>echo</code> + <code>$(func)</code> for strings!).</li>
+      <li><strong>Command Line Args Loop</strong><code>shift</code> drops <code>$1</code> and shifts <code>$2 → $1</code>, <code>$3 → $2</code> when parsing CLI options.</li>
+    </ul>
+  </section>
+
+  <!-- CH 8: PRACTICE & TRICK QUESTIONS -->
+  <section class="card" id="ch8">
+    <h2>Ch 8: Practice Questions &amp; Exam Trick Scenarios <span class="badge badge-prac">32 Exam Qs · Concept + Scenario + Output</span></h2>
+    <div class="start-box">
+      <strong>Start Here — How to Use This Chapter</strong>
+      Attempt each question mentally <em>before</em> expanding the answer. Every question targets common IBPS RRB SO IT Scale 2 concepts, server administration scenarios, and classic shell/command traps. Select any term or explanation to highlight it or tap <strong>✨ Ask AI</strong> for a deeper walk-through.
+    </div>
+
+    <h3>Part A: Core Concept &amp; Command Mastery (Q1–Q12)</h3>
+
+    <details><summary><span class="q-meta">Q1</span> During Linux boot, which step immediately follows GRUB2 loading <code>vmlinuz</code> and <code>initramfs</code>, and what PID does it always receive?<br>
+    A) <code>fsck</code>, PID 0 &nbsp; B) <code>systemd</code>/<code>init</code>, PID 1 &nbsp; C) <code>login</code>, PID 1 &nbsp; D) <code>bash</code>, PID 2 &nbsp; E) BIOS POST, PID 0</summary>
+    <div class="q-ans"><strong>Answer: B) <code>systemd</code> / <code>init</code>, PID 1.</strong><br>Once the kernel extracts <code>initramfs</code> drivers and mounts the root filesystem <code>/</code>, it executes <code>/sbin/init</code> (symlinked to <code>systemd</code>), which is always <strong>PID 1</strong> and adopts orphan processes. (PID 0 is the internal kernel scheduler/swapper task, not user-space).</div></details>
+
+    <details><summary><span class="q-meta">Q2</span> Which piece of file information is <strong>NOT</strong> stored inside a Linux inode?<br>
+    A) File permissions &amp; UID &nbsp; B) Data block pointers &nbsp; C) Hard link count &nbsp; D) Original filename &nbsp; E) Timestamps (<code>mtime/ctime</code>)</summary>
+    <div class="q-ans"><strong>Answer: D) Original filename.</strong><br>Filenames live in the <strong>parent directory entry</strong> (mapping <code>filename → inode#</code>). Because filenames aren't in the inode, multiple hard links in different directories can point to the exact same inode under different names!</div></details>
+
+    <details><summary><span class="q-meta">Q3</span> What happens to a <strong>hard link</strong> vs a <strong>symbolic (soft) link</strong> when the original target file is deleted with <code>rm</code>?<br>
+    A) Both break immediately &nbsp; B) Hard link still holds intact data; soft link breaks (dangling) &nbsp; C) Soft link retains data; hard link breaks &nbsp; D) <code>rm</code> is blocked until all soft links are removed &nbsp; E) Kernel panics on next access</summary>
+    <div class="q-ans"><strong>Answer: B) Hard link retains data; soft link breaks.</strong><br><code>rm</code> only removes one directory link and decrements the inode link count; file data persists until the link count reaches <code>0</code>. A symlink stores only a path string, so deleting the target leaves it pointing at a missing path.</div></details>
+
+    <details><summary><span class="q-meta">Q4</span> Which <code>umask</code> value causes newly created files to have <code>640</code> (<code>rw-r-----</code>) and new directories to have <code>750</code> (<code>rwxr-x---</code>)?<br>
+    A) <code>022</code> &nbsp; B) <code>027</code> &nbsp; C) <code>077</code> &nbsp; D) <code>640</code> &nbsp; E) <code>137</code></summary>
+    <div class="q-ans"><strong>Answer: B) <code>027</code>.</strong><br>Directory: <code>777 &amp; ~027 = 750</code>. File (base <code>666</code>): <code>666 &amp; ~027 = 640</code> (note the bit <code>1</code> in <code>7</code> masks execute bit, which files already lack, so <code>6 &amp; ~7 = 0</code> — classic odd-umask trap!).</div></details>
+
+    <details><summary><span class="q-meta">Q5</span> Which permission bit on <code>/tmp</code> (<code>drwxrwxrwt</code>) prevents User A from deleting a file created by User B inside the same directory?<br>
+    A) SUID (<code>4000</code>) &nbsp; B) SGID (<code>2000</code>) &nbsp; C) Immutable flag (<code>chattr +i</code>) &nbsp; D) Sticky Bit (<code>1000</code>) &nbsp; E) Read-only group bit</summary>
+    <div class="q-ans"><strong>Answer: D) Sticky Bit (<code>1000</code> / <code>chmod +t</code>).</strong><br>Even though <code>/tmp</code> has <code>777</code> write access for everyone, the Sticky Bit restricts deletion/renaming of entries inside it strictly to the file owner, directory owner, or <code>root</code>.</div></details>
+
+    <details><summary><span class="q-meta">Q6</span> By default, what signal does <code>kill 4512</code> send if no signal flag is specified?<br>
+    A) <code>SIGKILL (9)</code> &nbsp; B) <code>SIGINT (2)</code> &nbsp; C) <code>SIGHUP (1)</code> &nbsp; D) <code>SIGTERM (15)</code> &nbsp; E) <code>SIGSTOP (19)</code></summary>
+    <div class="q-ans"><strong>Answer: D) <code>SIGTERM (15)</code>.</strong><br><code>SIGTERM (15)</code> asks the process to shut down gracefully (saving state/closing sockets). <code>SIGKILL (9)</code> must be specified explicitly (<code>kill -9 4512</code>) and cannot be caught or ignored.</div></details>
+
+    <details><summary><span class="q-meta">Q7</span> Which field in <code>/etc/passwd</code> indicates that the encrypted password hash is stored securely in <code>/etc/shadow</code>?<br>
+    A) Field 1 (<code>*</code>) &nbsp; B) Field 2 (<code>x</code>) &nbsp; C) Field 3 (<code>0</code>) &nbsp; D) Field 5 (GECOS) &nbsp; E) Field 7 (<code>/bin/false</code>)</summary>
+    <div class="q-ans"><strong>Answer: B) Field 2 (<code>x</code>).</strong><br>Format: <code>username:x:UID:GID:GECOS:home:shell</code>. Putting <code>x</code> in field 2 instructs PAM/auth libraries to look up the actual password hash in root-protected <code>/etc/shadow</code>.</div></details>
+
+    <details><summary><span class="q-meta">Q8</span> Which command safely monitors a live log file even after <code>logrotate</code> renames the old log and creates a fresh file at the same path?<br>
+    A) <code>tail -n app.log</code> &nbsp; B) <code>tail -f app.log</code> &nbsp; C) <code>tail -F app.log</code> &nbsp; D) <code>head -f app.log</code> &nbsp; E) <code>cat -f app.log</code></summary>
+    <div class="q-ans"><strong>Answer: C) <code>tail -F app.log</code>.</strong><br><code>-f</code> tracks the open file descriptor (so after log rotation it follows the renamed <code>app.log.1</code>!), whereas <code>-F</code> (<code>--follow=name --retry</code>) re-opens the filename whenever a new file replaces it.</div></details>
+
+    <details><summary><span class="q-meta">Q9</span> Which <code>crontab</code> entry runs a backup script at <strong>02:30 AM every Monday through Friday</strong>?<br>
+    A) <code>2 30 * * 1-5</code> &nbsp; B) <code>30 2 * * 1-5</code> &nbsp; C) <code>30 2 1-5 * *</code> &nbsp; D) <code>* 2 30 * 1-5</code> &nbsp; E) <code>30 14 * * 1-5</code></summary>
+    <div class="q-ans"><strong>Answer: B) <code>30 2 * * 1-5</code>.</strong><br>Cron order is always <code>MIN HOUR DOM MON DOW</code>. Option C runs on the 1st–5th day of every month instead of weekdays; Option A puts hour/minute swapped (invalid minute 30 in hour field).</div></details>
+
+    <details><summary><span class="q-meta">Q10</span> In <code>ls -l</code> output, what do permissions starting with <code>-rwsr-xr-x</code> signify?<br>
+    A) Sticky bit set on directory &nbsp; B) SGID set without execute &nbsp; C) SUID set WITH owner execute bit &nbsp; D) SUID set WITHOUT owner execute bit &nbsp; E) Symlink with executable flag</summary>
+    <div class="q-ans"><strong>Answer: C) SUID set WITH owner execute bit.</strong><br>Lowercase <code>s</code> in the owner triad (bits 1–3 after file type) means SUID (<code>4000</code>) + owner <code>x</code>. Uppercase <code>S</code> would mean SUID set without owner <code>x</code>.</div></details>
+
+    <details><summary><span class="q-meta">Q11</span> Why does <code>cut -d' ' -f4 file.txt</code> often return the wrong column on aligned command output like <code>ps</code> or <code>ls -l</code>, and what tool handles it cleanly?<br>
+    A) <code>cut</code> requires <code>-c</code>; use <code>cat</code> &nbsp; B) <code>cut</code> treats each consecutive space as a separate empty field; use <code>awk '{print $4}'</code> &nbsp; C) <code>cut</code> ignores field numbers &gt;3; use <code>grep</code> &nbsp; D) <code>cut</code> only works on root files; use <code>tr</code> &nbsp; E) <code>cut</code> sorts alphabetically first; use <code>sed</code></summary>
+    <div class="q-ans"><strong>Answer: B) Use <code>awk '{print $4}'</code>.</strong><br><code>cut -d' '</code> splits on <em>every single space</em>, so multiple padding spaces shift column numbers unpredictably. <code>awk</code> (and <code>tr -s ' '</code>) automatically treats runs of whitespace as a single delimiter.</div></details>
+
+    <details><summary><span class="q-meta">Q12</span> Which modern Linux command replaces deprecated <code>netstat -tulnp</code> to display listening TCP/UDP sockets along with PIDs?<br>
+    A) <code>ip addr</code> &nbsp; B) <code>ss -tulnp</code> &nbsp; C) <code>dig -p</code> &nbsp; D) <code>vmstat -n</code> &nbsp; E) <code>route -n</code></summary>
+    <div class="q-ans"><strong>Answer: B) <code>ss -tulnp</code>.</strong><br><code>ss</code> (Socket Statistics from <code>iproute2</code>) reads kernel socket info directly via netlink, making it much faster than parsing <code>/proc/net</code> via legacy <code>netstat</code>.</div></details>
+
+    <h3>Part B: Scenario-Based Scale 2 IT Officer Questions (Q13–Q24)</h3>
+
+    <details><summary><span class="q-meta">Q13 · Scenario</span> A banking app server alerts that <code>df -h</code> shows <code>/var</code> at <strong>100% full</strong>, yet <code>du -sh /var/*</code> totals only 40% of the partition size. A teammate ran <code>rm /var/log/cbs-huge.log</code> 10 minutes ago. Why wasn't disk space freed, and how do you find &amp; fix it cleanly?<br>
+    A) Run <code>mkfs.ext4</code> on <code>/var</code> &nbsp; B) Run <code>sync</code>; kernel buffers delay delete by 1 hour &nbsp; C) The running JVM/service still holds an open FD to the deleted inode; run <code>lsof +L1</code> and gracefully reload/restart that service &nbsp; D) Switch <code>umask</code> to <code>000</code> &nbsp; E) Create a hard link to <code>/dev/null</code></summary>
+    <div class="q-ans"><strong>Answer: C) Open FD to unlinked inode (<code>lsof +L1</code>).</strong><br>Removing a filename only unlinks its directory entry; Linux does not reclaim disk blocks until <em>both</em> link count = 0 AND open file descriptors = 0. Identify the holding PID with <code>lsof +L1</code> (or <code>lsof | grep deleted</code>) and restart/reload the daemon.</div></details>
+
+    <details><summary><span class="q-meta">Q14 · Scenario</span> On a Linux payment gateway, <code>df -h</code> shows <strong>18 GB free</strong>, but writing even a 10-byte file fails with <code>No space left on device</code>. Which command diagnoses the bottleneck?<br>
+    A) <code>free -h</code> &nbsp; B) <code>df -i</code> &nbsp; C) <code>top -o %MEM</code> &nbsp; D) <code>vmstat 1</code> &nbsp; E) <code>ulimit -u</code></summary>
+    <div class="q-ans"><strong>Answer: B) <code>df -i</code> (inode exhaustion).</strong><br>Filesystems like <code>ext4</code> allocate a fixed number of inodes at format time. Millions of tiny temp/session files can consume 100% of inodes before disk blocks fill up!</div></details>
+
+    <details><summary><span class="q-meta">Q15 · Scenario</span> In <code>/opt/team</code> (permissions <code>drwxrwxr-x</code>, no sticky bit), a file <code>audit.csv</code> has permissions <code>000</code> (<code>---------</code>) and is owned by <code>root</code>. Can non-root user <code>raj</code> (member of the directory's group) delete <code>audit.csv</code> with <code>rm -f</code>?<br>
+    A) No, because <code>audit.csv</code> has <code>000</code> &nbsp; B) No, only root can delete root-owned files &nbsp; C) <strong>Yes</strong>, because deleting a file modifies the <strong>parent directory</strong> where <code>raj</code> has <code>w+x</code> &nbsp; D) Only if SUID is set on <code>rm</code> &nbsp; E) Only via <code>mv</code>, never <code>rm</code></summary>
+    <div class="q-ans"><strong>Answer: C) Yes!</strong><br>Classic Linux permissions trap: reading/editing a file checks the file's own bits, but creating, renaming, or unlinking (<code>rm</code>) checks <code>w + x</code> on the <strong>parent directory</strong> (since unlinking edits the directory table). Without the Sticky Bit, <code>raj</code> can delete it! (<code>rm -i</code>/default prompts because file isn't writable, whereas <code>rm -f</code> unlinks cleanly).</div></details>
+
+    <details><summary><span class="q-meta">Q16 · Scenario</span> An IT admin wants to run a batch script and save <strong>both standard output and errors</strong> into <code>run.log</code>. Which command succeeds?<br>
+    A) <code>./batch.sh 2&gt;&amp;1 &gt; run.log</code> &nbsp; B) <code>./batch.sh &gt; run.log 2&gt;&amp;1</code> &nbsp; C) <code>./batch.sh &gt; run.log | tee err.log</code> &nbsp; D) <code>./batch.sh 1&gt; run.log 2&gt; run.log</code> &nbsp; E) <code>./batch.sh &lt;&lt; run.log</code></summary>
+    <div class="q-ans"><strong>Answer: B) <code>./batch.sh &gt; run.log 2&gt;&amp;1</code>.</strong><br>Redirection is evaluated left-to-right! In A, <code>2&gt;&amp;1</code> points stderr to the <em>screen</em> before stdout moves to <code>run.log</code>. In D, opening the same file independently twice causes fd1 and fd2 to overwrite each other's offsets! Option B (or Bash <code>&amp;&gt; run.log</code>) points both cleanly to the single open FD.</div></details>
+
+    <details><summary><span class="q-meta">Q17 · Scenario</span> A sysadmin runs <code>find /tmp/cache -name "*.tmp" -type f | rm -f</code>, expecting old temp files to vanish, yet nothing is deleted. Why, and what fixes it safely (even with spaces in filenames)?<br>
+    A) Missing <code>sudo</code> &nbsp; B) <code>rm</code> ignores <code>stdin</code>; pipe through <code>-print0 | xargs -0 rm -f</code> or use <code>find ... -delete</code> &nbsp; C) Pipe sends stderr instead of stdout &nbsp; D) <code>-name</code> must come after <code>rm</code> &nbsp; E) <code>find</code> cannot search <code>/tmp</code></summary>
+    <div class="q-ans"><strong>Answer: B) <code>rm</code> does not read filenames from <code>stdin</code>.</strong><br><code>rm</code> expects filenames as positional <em>command-line arguments</em>. Use <code>find ... -delete</code> or <code>find ... -print0 | xargs -0 rm -f</code> (using null-byte separator prevents filenames containing spaces from breaking into two bogus arguments!).</div></details>
+
+    <details><summary><span class="q-meta">Q18 · Scenario</span> You updated <code>/etc/nginx/nginx.conf</code> on a live banking portal during peak hours. How do you test syntax and apply changes with <strong>zero downtime</strong> to existing active connections?<br>
+    A) <code>nginx -t &amp;&amp; systemctl restart nginx</code> &nbsp; B) <code>killall -9 nginx &amp;&amp; nginx</code> &nbsp; C) <code>nginx -t &amp;&amp; systemctl reload nginx</code> (or <code>kill -HUP</code>) &nbsp; D) <code>systemctl enable nginx</code> &nbsp; E) <code>reboot</code></summary>
+    <div class="q-ans"><strong>Answer: C) <code>nginx -t &amp;&amp; systemctl reload nginx</code>.</strong><br><code>nginx -t</code> validates syntax before touching the live master process; <code>reload</code> (sending <code>SIGHUP</code>) spawns new worker processes with the new config while letting old workers finish active in-flight connections gracefully! <code>restart</code> drops active connections.</div></details>
+
+    <details><summary><span class="q-meta">Q19 · Scenario</span> A script <code>env_init.sh</code> defines and runs <code>export API_ENV=prod</code>. You execute <code>./env_init.sh</code>, then type <code>echo $API_ENV</code> in your terminal and get an empty line. Why?<br>
+    A) Missing <code>$</code> before <code>API_ENV=prod</code> &nbsp; B) <code>./env_init.sh</code> spawned a child subshell; child exports cannot modify the parent shell's environment (use <code>source ./env_init.sh</code>) &nbsp; C) Bash clears variables after script exit &nbsp; D) <code>export</code> only works for integers &nbsp; E) Missing shebang</summary>
+    <div class="q-ans"><strong>Answer: B) Executed in a child subshell; use <code>source ./env_init.sh</code> (or <code>. ./env_init.sh</code>).</strong><br>Environment variables flow strictly <strong>parent → child</strong>, never upward! To apply variable/directory changes inside your current interactive shell, source the file in-process.</div></details>
+
+    <details><summary><span class="q-meta">Q20 · Scenario</span> Top shows several processes in <strong><code>Z</code> (Zombie)</strong> state and one process in <strong><code>D</code> (Uninterruptible sleep)</strong> state tied to an unresponsive NFS mount. Even <code>kill -9</code> fails on both. Why?<br>
+    A) Only UID 1 can kill <code>Z</code> and <code>D</code> &nbsp; B) Zombies are already dead awaiting parent <code>wait()</code> (kill/fix PPID); <code>D</code>-state processes are blocked inside kernel I/O and ignore signals until I/O resolves &nbsp; C) Use <code>kill -15</code> instead of <code>-9</code> &nbsp; D) SELinux blocks root signals &nbsp; E) Rebooting makes zombies permanent</summary>
+    <div class="q-ans"><strong>Answer: B) Zombies are already dead; <code>D</code>-state is mid-kernel-I/O.</strong><br><code>kill -9</code> destroys live user-space processes: zombies already exited (reaped when their parent handles <code>SIGCHLD</code>/exits), while <code>D</code>-state processes don't return from the kernel syscall to inspect pending signals until the storage/NFS I/O returns or times out.</div></details>
+
+    <details><summary><span class="q-meta">Q21 · Scenario</span> On a Linux production DB box (32 GB RAM), <code>free -h</code> shows: <code>total 32G | used 8G | free 1.2G | buff/cache 22.8G | available 23.5G</code>. Should you raise a critical low-memory alert?<br>
+    A) Yes — only 1.2G free remains (&lt;5%) &nbsp; B) Yes — <code>buff/cache</code> cannot be reclaimed &nbsp; C) No — Linux proactively uses spare RAM as disk page cache and reclaims it automatically; real headroom is <strong><code>available</code> (23.5G)</strong> &nbsp; D) Yes — run <code>kill -9</code> on kernel cache &nbsp; E) Only Swap matters</summary>
+    <div class="q-ans"><strong>Answer: C) No — healthy system with ~23.5 GB <code>available</code>.</strong><br>"Unused RAM is wasted RAM" in Linux: clean filesystem caches in <code>buff/cache</code> are evicted instantaneously whenever applications request memory. Always alert on <code>available</code> RAM &amp; swap thrashing, not raw <code>free</code>!</div></details>
+
+    <details><summary><span class="q-meta">Q22 · Scenario</span> You run <code>usermod -G docker anita</code> intending to add developer <code>anita</code> (previously in <code>sudo,developers</code>) to the <code>docker</code> group. Next day, <code>anita</code> reports losing <code>sudo</code> access! Why?<br>
+    A) <code>docker</code> forbids <code>sudo</code> &nbsp; B) Missing <code>-a</code> (append): <code>usermod -G</code> without <code>-a</code> <strong>overwrites</strong> all existing supplementary groups! &nbsp; C) <code>usermod</code> deletes the user account &nbsp; D) Need <code>chmod +s /bin/sudo</code> &nbsp; E) Group changes require BIOS reset</summary>
+    <div class="q-ans"><strong>Answer: B) Forgot <code>-a</code> (<code>usermod -aG docker anita</code>).</strong><br>Always combine <code>-a</code> with <code>-G</code> when adding a user to an extra group, otherwise their secondary group list is replaced solely with the newly specified list!</div></details>
+
+    <details><summary><span class="q-meta">Q23 · Scenario</span> An automation script has cron schedule: <code>0 4 1-7 * 0 /opt/jobs/weekly_monthly.sh</code>. What happens across a month?<br>
+    A) Runs ONLY on the first Sunday of the month &nbsp; B) Never runs because syntax is invalid &nbsp; C) Runs every day from the 1st–7th <strong>PLUS every Sunday</strong> of the month (logical OR trap!) &nbsp; D) Runs every 4 hours on Sunday &nbsp; E) Runs once per year</summary>
+    <div class="q-ans"><strong>Answer: C) Logical OR between Day-of-Month and Day-of-Week!</strong><br>In Vixie cron, when <em>both</em> DOM and DOW are non-wildcard (<code>!= *</code>), cron fires if <em>either</em> matches. To run strictly on the first Sunday of a month, trigger daily/DOM <code>1-7</code> in cron and guard with <code>[ "$(date +%u)" -eq 7 ] &amp;&amp; ...</code> inside the command!</div></details>
+
+    <details><summary><span class="q-meta">Q24 · Scenario</span> An SSH client refuses a private key <code>~/.ssh/prod_key</code> with error <code>UNPROTECTED PRIVATE KEY FILE! Permissions 0644 are too open</code>. What exact command fixes it?<br>
+    A) <code>chmod 777 ~/.ssh/prod_key</code> &nbsp; B) <code>chmod 600 ~/.ssh/prod_key</code> (or <code>400</code>) &nbsp; C) <code>chmod +t ~/.ssh/prod_key</code> &nbsp; D) <code>chmod 755 ~/.ssh/prod_key</code> &nbsp; E) <code>umask 000</code></summary>
+    <div class="q-ans"><strong>Answer: B) <code>chmod 600 ~/.ssh/prod_key</code> (or <code>400</code>).</strong><br>OpenSSH strictly rejects private keys accessible by group or others; only the key owner may have read/write access (and <code>~/.ssh</code> itself is normally <code>700</code>).</div></details>
+
+    <h3>Part C: Output Prediction &amp; Bash Syntax Traps (Q25–Q32)</h3>
+
+    <details><summary><span class="q-meta">Q25 · Output Trap</span> What is the output and side effect of this Bash command?<br>
+    <code>if [ 10 &gt; 2 ]; then echo "YES"; else echo "NO"; fi</code><br>
+    A) Prints <code>YES</code>, no side effect &nbsp; B) Prints <code>NO</code>, because 10 &gt; 2 is lexicographically false &nbsp; C) Syntax error &nbsp; D) Prints <code>YES</code> AND silently creates an empty file named <code>2</code>! &nbsp; E) Loops infinitely</summary>
+    <div class="q-ans"><strong>Answer: D) Prints <code>YES</code> and creates empty file <code>2</code>!</strong><br>Inside single brackets <code>[ ... ]</code>, <code>&gt;</code> is NOT greater-than — Bash interprets <code>&gt; 2</code> as <strong>stdout redirection to file <code>2</code></strong>, leaving <code>[ 10 ]</code> (a non-empty string, which is true!). Always use <code>[ 10 -gt 2 ]</code> or <code>(( 10 &gt; 2 ))</code>.</div></details>
+
+    <details><summary><span class="q-meta">Q26 · Output Trap</span> Given <code>BANK="RRB"</code>, what does <code>echo '$BANK' "$BANK" \$BANK</code> print?<br>
+    A) <code>RRB RRB RRB</code> &nbsp; B) <code>$BANK RRB $BANK</code> &nbsp; C) <code>'RRB' "RRB" $BANK</code> &nbsp; D) <code>$BANK $BANK RRB</code> &nbsp; E) Syntax error</summary>
+    <div class="q-ans"><strong>Answer: B) <code>$BANK RRB $BANK</code>.</strong><br>Single quotes <code>'$BANK'</code> keep <code>$BANK</code> literal; double quotes <code>"$BANK"</code> expand variables to <code>RRB</code>; backslash <code>\$BANK</code> escapes <code>$</code> so it prints literally!</div></details>
+
+    <details><summary><span class="q-meta">Q27 · Output Trap</span> You run script <code>./check.sh "hello world" 2026</code> where <code>check.sh</code> runs:<br>
+    <code>echo "$# $(for x in "$*"; do echo "[$x]"; done) | $(for x in "$@"; do echo "[$x]"; done)"</code><br>
+    What does <code>$#</code> equal, and how many bracketed items do <code>"$*"</code> vs <code>"$@"</code> emit?<br>
+    A) <code>3</code>; 1 and 3 &nbsp; B) <code>2</code>; 1 item (<code>[hello world 2026]</code>) and 2 items (<code>[hello world]</code>, <code>[2026]</code>) &nbsp; C) <code>2</code>; 2 items and 1 item &nbsp; D) <code>3</code>; 3 and 3 &nbsp; E) <code>1</code>; 1 and 2</summary>
+    <div class="q-ans"><strong>Answer: B) <code>$# = 2</code>; <code>"$*"</code> emits 1 combined string; <code>"$@"</code> preserves 2 distinct arguments!</strong><br><code>"hello world"</code> is quoted as 1 arg and <code>2026</code> as arg #2 (<code>$# = 2</code>). Always wrap <code>"$@"</code> in scripts forwarding user arguments!</div></details>
+
+    <details><summary><span class="q-meta">Q28 · Output Trap</span> File <code>nums.txt</code> has lines: <code>apple</code>, <code>banana</code>, <code>apple</code>. What does <code>uniq -c nums.txt</code> output (WITHOUT <code>sort</code> first)?<br>
+    A) <code>2 apple</code> and <code>1 banana</code> &nbsp; B) Three lines: <code>1 apple</code>, <code>1 banana</code>, <code>1 apple</code> &nbsp; C) <code>3</code> &nbsp; D) Empty output &nbsp; E) Error: file not sorted</summary>
+    <div class="q-ans"><strong>Answer: B) <code>1 apple</code>, <code>1 banana</code>, <code>1 apple</code>.</strong><br><code>uniq</code> inspects only <strong>adjacent</strong> lines and does NOT sort or error on unsorted input! Always pipe <code>sort nums.txt | uniq -c</code> to aggregate counts properly.</div></details>
+
+    <details><summary><span class="q-meta">Q29 · Output Trap</span> What does <code>echo "A B C" | false &amp;&amp; echo "OK" || echo "FAIL"</code> print, and why?<br>
+    A) <code>OK</code> &nbsp; B) <code>A B C</code> then <code>OK</code> &nbsp; C) <code>FAIL</code> &nbsp; D) Both <code>OK</code> and <code>FAIL</code> &nbsp; E) Nothing</summary>
+    <div class="q-ans"><strong>Answer: C) <code>FAIL</code>.</strong><br>In a pipeline, exit status <code>$?</code> is the exit code of the <strong>last command</strong> in the pipeline (unless <code>pipefail</code> is active; here <code>false</code> is last anyway → exit <code>1</code>). So <code>&amp;&amp; echo "OK"</code> skips, and <code>|| echo "FAIL"</code> executes!</div></details>
+
+    <details><summary><span class="q-meta">Q30 · Output Trap</span> What does <code>echo "err err" | sed 's/err/ok/'</code> print?<br>
+    A) <code>ok ok</code> &nbsp; B) <code>ok err</code> &nbsp; C) <code>err ok</code> &nbsp; D) Unchanged <code>err err</code> &nbsp; E) Syntax error</summary>
+    <div class="q-ans"><strong>Answer: B) <code>ok err</code>.</strong><br>Without the global flag <code>g</code> (<code>s/err/ok/g</code>), <code>sed</code> replaces only the <strong>first</strong> match on each line!</div></details>
+
+    <details><summary><span class="q-meta">Q31 · Script Bug</span> Why does this script snippet fail when invoked?<br>
+    <code>COUNT = 0<br>COUNT=$((COUNT + 1))</code><br>
+    A) Missing <code>$</code> on left side of <code>COUNT=</code> &nbsp; B) Missing <code>let</code> &nbsp; C) Spaces around <code>=</code> make Bash try executing command <code>COUNT</code> with arguments <code>=</code> and <code>0</code> &nbsp; D) Integers must be quoted &nbsp; E) Missing semicolons</summary>
+    <div class="q-ans"><strong>Answer: C) Spaces around <code>=</code>!</strong><br>Variable assignment in Bash strictly requires <strong>no whitespace</strong> around <code>=</code> (<code>COUNT=0</code>). Otherwise Bash executes <code>COUNT</code> as a command!</div></details>
+
+    <details><summary><span class="q-meta">Q32 · Output Trap</span> Inside <code>data.txt</code>, line 1 is <code>10,20,30</code> and line 2 is <code>5,15,25</code>. What does <code>awk -F',' 'BEGIN{t=0} {t+=$2} END{print NR, t}' data.txt</code> print?<br>
+    A) <code>2 35</code> &nbsp; B) <code>3 35</code> &nbsp; C) <code>2 15</code> &nbsp; D) <code>1 20</code> &nbsp; E) <code>2 105</code></summary>
+    <div class="q-ans"><strong>Answer: A) <code>2 35</code>.</strong><br><code>-F','</code> splits by comma; <code>$2</code> is column 2 (<code>20 + 15 = 35</code>); in the <code>END</code> block, <code>NR</code> holds total records processed (<code>2</code> lines). Prints <code>2 35</code>!</div></details>
+  </section>
+
+  <!-- GLOSSARY -->
+  <section class="card" id="glossary">
+    <h2>Glossary &amp; High-Yield Linux / Bash Reference</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Term / Code</th><th>Full Form / Meaning</th><th>Term / Code</th><th>Full Form / Meaning</th></tr></thead>
+        <tbody>
+          <tr><td><strong>POSIX / GNU</strong></td><td>Portable Operating System Interface (IEEE 1003) / GNU's Not Unix</td><td><strong>FHS / VFS</strong></td><td>Filesystem Hierarchy Standard / Virtual File System</td></tr>
+          <tr><td><strong>BIOS / UEFI</strong></td><td>Basic Input Output System / Unified Extensible Firmware Interface</td><td><strong>MBR / GPT</strong></td><td>Master Boot Record (512B, 2TB max) / GUID Partition Table</td></tr>
+          <tr><td><strong>GRUB</strong></td><td>Grand Unified Bootloader (loads Linux kernel &amp; initramfs)</td><td><strong>PID / PPID</strong></td><td>Process Identifier / Parent Process Identifier (systemd = PID 1)</td></tr>
+          <tr><td><strong>UID / GID</strong></td><td>User Identifier (root = 0) / Group Identifier</td><td><strong>SUID / SGID</strong></td><td>Set User ID (4000) / Set Group ID (2000) special permission bit</td></tr>
+          <tr><td><strong>FD / TTY</strong></td><td>File Descriptor (0 stdin, 1 stdout, 2 stderr) / Teletype terminal</td><td><strong>FIFO / IPC</strong></td><td>First-In First-Out Named Pipe / Inter-Process Communication</td></tr>
+          <tr><td><strong>EOF / CRLF</strong></td><td>End of File (<code>Ctrl+D</code>) / Carriage Return + Line Feed (Windows <code>\r\n</code> vs UNIX <code>\n</code>)</td><td><strong>IFS / PATH</strong></td><td>Internal Field Separator / Executable Search Path Directories</td></tr>
+          <tr><td><strong>SIGTERM / SIGKILL</strong></td><td>Signal 15 (graceful termination, default) / Signal 9 (unblockable kill)</td><td><strong>SIGHUP / SIGINT</strong></td><td>Signal 1 (hangup / reload daemon) / Signal 2 (<code>Ctrl+C</code> interrupt)</td></tr>
+          <tr><td><strong>$? / $# / $@</strong></td><td>Last Exit Code / Argument Count / Separate Quoted Arguments</td><td><strong>$$ / $! / $0</strong></td><td>Current Shell PID / Last Background Job PID / Script Name</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- MOCK TRACKER -->
+  <section class="card" id="tracker">
+    <h2>Mock Test Mistake Tracker</h2>
+    <p style="color:var(--muted);font-size:14px;">No mock tests logged yet. Take an AI Mock Test from the chapters above to drill scenario questions and track mistakes here.</p>
+  </section>
+</main>
+
+<script src="study-tools.js" defer></script>
+<script src="quiz-tools.js" defer></script>
+<script src="ai-chat.js" defer></script>
+<script src="sidebar.js" defer></script>
+</body>
+</html>

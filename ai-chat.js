@@ -215,12 +215,14 @@
   // =========================================================================
   function detectDomain() {
     const sig = (document.title + ' ' + window.location.pathname).toLowerCase();
+    if (/(?:^|\b)pk\s*-|linux|unix|bash|professional knowledge/.test(sig)) return 'pk_it';
     if (sig.includes('computer')) return 'computer';
     if (sig.includes('financial') || sig.includes('banking')) return 'finance';
     return 'general';
   }
 
   function getDomainLabel(domain) {
+    if (domain === 'pk_it') return 'SO IT · PK';
     if (domain === 'computer') return 'Computer IT';
     if (domain === 'finance') return 'Financial Awareness';
     return 'Study Guide';
@@ -252,20 +254,28 @@
       .filter(Boolean)
       .join('\n');
 
-    if (domain === 'computer') {
+    if (domain === 'computer' || domain === 'pk_it') {
+      const roleLine =
+        domain === 'pk_it'
+          ? 'You are an expert Computer Science, Systems Administration & IBPS RRB Scale 2 (IT Officer — Professional Knowledge) tutor.'
+          : 'You are an expert Computer Science & IBPS RRB Scale 2 (IT Officer) tutor.';
+      const trapFocus =
+        domain === 'pk_it'
+          ? 'Highlight exact Scale 2 implementation details, command flags, edge-case behavior, real production debugging scenarios, and "X vs Y" confusion traps.'
+          : 'Highlight exact specs/numbers examiners test (OSI layer, port number, Big-O, IEEE 802 standard, 2026 MS Office/Windows behavior, "X vs Y" confusions).';
       return [
-        'You are an expert Computer Science & IBPS RRB Scale 2 (IT Officer) tutor.',
-        'The student highlighted a compressed term, acronym, or brief note from their Computer Knowledge master guide because it lacked enough explanation.',
+        roleLine,
+        'The student highlighted a compressed term, command, or brief note from their study guide because it lacked enough explanation.',
         sharedContext,
         'When explaining a selected term for the first time, organize cleanly with:',
         '### 1. Core Concept & How It Works',
         'Explain in clear intuitive terms (2-4 crisp sentences or short bullets) what it is and the exact underlying mechanism.',
         '### 2. Concrete Example',
-        'Give a short practical example (e.g., tiny SQL/code snippet, Linux command output, Excel formula trace, packet flow, binary/memory calculation, or everyday analogy).',
-        '### 3. Exam Angles & Confusion Traps',
-        'Highlight exact specs/numbers examiners test (OSI layer, port number, Big-O, IEEE 802 standard, 2026 MS Office/Windows behavior, "X vs Y" confusions).',
+        'Give a short practical example (e.g., runnable CLI/Bash snippet, SQL query, config output, packet flow, binary/memory calculation, or everyday analogy).',
+        '### 3. Exam Angles, Implementation Traps & Confusion Traps',
+        trapFocus,
         '### 4. Content Fact-Check',
-        'Check the selected snippet + surrounding guide line against authoritative CS/vendor standards (IEEE, RFC, W3C, Microsoft, Linux FHS): start with **Verified ✅**, **Nuance / Watch ⚠️**, or **Correction Needed ❌**, and state any fix concisely if needed.',
+        'Check the selected snippet + surrounding guide line against authoritative CS/POSIX/vendor standards (IEEE, RFC, W3C, Microsoft, Linux/POSIX): start with **Verified ✅**, **Nuance / Watch ⚠️**, or **Correction Needed ❌**, and state any fix concisely if needed.',
       ].join('\n\n');
     }
 
@@ -1307,7 +1317,14 @@
       const lastMsg = msgs[msgs.length - 1];
       if (!state.isLoading && lastMsg && lastMsg.role === 'model') {
         const chips =
-          domain === 'computer'
+          domain === 'pk_it'
+            ? [
+                'Give a Scale 2 scenario MCQ',
+                'Show real terminal example',
+                'Compare with similar flag/tool',
+                'Double-check syntax & edge cases',
+              ]
+            : domain === 'computer'
             ? [
                 'Compare with similar term',
                 'Give 2 IBPS IT MCQs',
