@@ -619,6 +619,22 @@
         </tbody>
       </table>
     </div>
+    <h3>Linux Directory Structure (Filesystem Hierarchy)</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Directory</th><th>Purpose / Contents</th><th>Directory</th><th>Purpose / Contents</th></tr></thead>
+        <tbody>
+          <tr><td><code>/</code></td><td><strong>Root</strong> — top-level directory of the entire filesystem tree</td><td><code>/etc</code></td><td><strong>Etcetera</strong> — system-wide configuration files (<code>passwd</code>, <code>fstab</code>)</td></tr>
+          <tr><td><code>/bin</code></td><td>Essential <strong>user binaries</strong> / commands (<code>ls</code>, <code>cp</code>, <code>cat</code>)</td><td><code>/sbin</code></td><td><strong>System binaries</strong> for root/admin tasks (<code>fdisk</code>, <code>reboot</code>)</td></tr>
+          <tr><td><code>/home</code></td><td>Personal directories for regular users (<code>/home/user</code>)</td><td><code>/root</code></td><td>Home directory of the <strong>superuser (root)</strong></td></tr>
+          <tr><td><code>/var</code></td><td><strong>Variable</strong> data — logs (<code>/var/log</code>), spools, caches</td><td><code>/tmp</code></td><td><strong>Temporary</strong> files (typically cleared on reboot)</td></tr>
+          <tr><td><code>/usr</code></td><td>User programs, libraries &amp; read-only application data</td><td><code>/lib</code></td><td>Shared <strong>libraries</strong> &amp; kernel modules for <code>/bin</code> &amp; <code>/sbin</code></td></tr>
+          <tr><td><code>/dev</code></td><td><strong>Device</strong> files representing hardware (<code>/dev/sda</code>, <code>/dev/null</code>)</td><td><code>/proc</code></td><td>Virtual filesystem for live <strong>kernel &amp; process</strong> info</td></tr>
+          <tr><td><code>/boot</code></td><td>Linux kernel (<code>vmlinuz</code>) &amp; bootloader (<strong>GRUB</strong>) files</td><td><code>/opt</code></td><td><strong>Optional</strong> / third-party add-on software packages</td></tr>
+          <tr><td><code>/mnt</code></td><td>Temporary manual mount point for filesystems</td><td><code>/media</code></td><td>Auto-mount point for removable media (USB, CD/DVD)</td></tr>
+        </tbody>
+      </table>
+    </div>
     <div class="table-wrap">
       <table>
         <thead><tr><th>Command</th><th>Function</th><th>Command</th><th>Function</th></tr></thead>
