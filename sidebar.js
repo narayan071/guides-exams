@@ -193,6 +193,10 @@
       linksHtml +
       '</nav>' +
       '<div class="guide-sidebar-footer">' +
+      '<div class="guide-footer-row" id="guideAiFooterRow" hidden>' +
+      '<span>AI Tutor</span>' +
+      '<button type="button" class="guide-theme-toggle" id="guideAiOpenBtn">&#10024; Open Chat</button>' +
+      '</div>' +
       '<div class="guide-footer-row">' +
       '<span>Text Size</span>' +
       '<div class="guide-scale-controls">' +
@@ -210,6 +214,15 @@
     document.body.prepend(expandFab);
     document.body.prepend(backdrop);
     document.body.prepend(sidebar);
+
+    if (window.StudyAiChat && typeof window.StudyAiChat.open === 'function') {
+      const aiRow = document.getElementById('guideAiFooterRow');
+      if (aiRow) aiRow.hidden = false;
+    }
+    document.getElementById('guideAiOpenBtn')?.addEventListener('click', function () {
+      if (!desktopMq.matches) closeSidebar();
+      window.StudyAiChat?.open();
+    });
 
     document.getElementById('guideSidebarThemeBtn')?.addEventListener('click', toggleSiteTheme);
     document.getElementById('guideScaleDec')?.addEventListener('click', function () {

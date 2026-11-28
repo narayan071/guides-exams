@@ -91,6 +91,7 @@
     } catch {
       // ignore
     }
+    window.dispatchEvent(new CustomEvent('gemini-keys-updated'));
   }
 
   function getActiveKeyEntry(listOpt) {
@@ -116,6 +117,7 @@
     } catch {
       // ignore
     }
+    window.dispatchEvent(new CustomEvent('gemini-keys-updated'));
   }
 
   function addKeyEntry(label, key) {

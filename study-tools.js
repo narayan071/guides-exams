@@ -234,7 +234,7 @@
     if (!el) return true;
     if (
       el.closest(
-        'header.hero, .st-search-controls, .hl-toolbar, .hl-drawer, .hl-drawer-backdrop, .guide-sidebar, .guide-mobile-bar, .sticky-nav, nav, script, style, noscript, input, textarea, select, button'
+        'header.hero, .st-search-controls, .hl-toolbar, .hl-drawer, .hl-drawer-backdrop, .ai-sidebar, .ai-backdrop, .guide-sidebar, .guide-mobile-bar, .sticky-nav, nav, script, style, noscript, input, textarea, select, button'
       )
     ) {
       return true;
@@ -1051,8 +1051,9 @@
           searchInput.focus();
           searchInput.select();
         } else if (e.key === 'Escape' && !isTyping && searchState.query) {
-          // Only clear if drawer isn't open
-          if (!drawer.classList.contains('open')) {
+          // Only clear if drawer or AI sidebar isn't open
+          const aiOpen = document.getElementById('aiChatSidebar')?.classList.contains('open');
+          if (!drawer.classList.contains('open') && !aiOpen) {
             clearSearch();
           }
         }
@@ -1122,10 +1123,13 @@
       '<button type="button" class="hl-color-btn" data-color="hl-yellow" title="Key Fact / Formula"><span class="hl-swatch yellow"></span><span class="hl-btn-label">Key</span></button>' +
       '<button type="button" class="hl-color-btn" data-color="hl-red" title="Weak / Revise Again"><span class="hl-swatch red"></span><span class="hl-btn-label">Weak</span></button>' +
       '<button type="button" class="hl-color-btn" data-color="hl-green" title="Mastered"><span class="hl-swatch green"></span><span class="hl-btn-label">Mastered</span></button>' +
-      '<button type="button" class="hl-remove-btn" id="hlRemoveBtn" title="Remove overlapping highlight">Remove</button>';
+      '<button type="button" class="hl-remove-btn" id="hlRemoveBtn" title="Remove overlapping highlight">Remove</button>' +
+      '<span class="hl-toolbar-sep" aria-hidden="true"></span>' +
+      '<button type="button" class="hl-ai-btn" id="hlAskAiBtn" title="Ask Gemini AI to explain &amp; verify"><span class="hl-ai-spark" aria-hidden="true">&#10024;</span><span class="hl-ai-label">Ask AI</span></button>';
     document.body.appendChild(toolbar);
 
     const removeBtn = document.getElementById('hlRemoveBtn');
+    const askAiBtn = document.getElementById('hlAskAiBtn');
 
     // Prevent pointerdown on toolbar from clearing selection before click fires
     toolbar.addEventListener('pointerdown', (e) => {
@@ -1434,6 +1438,78 @@
       hideToolbar();
     });
 
+    function buildAiSelectionContext(range) {
+      const selectedText = range.toString().replace(/\s+/g, ' ').trim();
+      const startEl =
+        range.startContainer.nodeType === 3
+          ? range.startContainer.parentElement
+          : range.startContainer;
+      const card = startEl && startEl.closest('section.card');
+      const chapterId = card && card.id ? card.id : '';
+
+      let chapterTitle = '';
+      if (card) {
+        const h2 = card.querySelector('h2');
+        if (h2) {
+          const clone = h2.cloneNode(true);
+          clone.querySelectorAll('.badge').forEach((b) => b.remove());
+          chapterTitle = clone.textContent.replace(/\s+/g, ' ').trim();
+        }
+      }
+
+      const block =
+        startEl &&
+        startEl.closest('tr, li, .start-box, .trap-box, details, p, h3, h4');
+      const surroundingBlockText = block
+        ? block.textContent.replace(/\s+/g, ' ').trim().slice(0, 900)
+        : '';
+
+      let tableHeaders = '';
+      const tableEl = startEl && startEl.closest('table');
+      if (tableEl) {
+        const ths = Array.from(tableEl.querySelectorAll('thead th')).map((th) =>
+          th.textContent.replace(/\s+/g, ' ').trim()
+        );
+        if (ths.length > 0) tableHeaders = ths.join(' | ');
+      }
+
+      let subtopicTitle = '';
+      if (card && block) {
+        const h3s = Array.from(card.querySelectorAll('h3'));
+        for (const h3 of h3s) {
+          if (
+            h3 === block ||
+            (h3.compareDocumentPosition(block) & Node.DOCUMENT_POSITION_FOLLOWING)
+          ) {
+            subtopicTitle = h3.textContent.replace(/\s+/g, ' ').trim();
+          }
+        }
+      }
+
+      return {
+        selectedText,
+        chapterId,
+        chapterTitle,
+        subtopicTitle,
+        tableHeaders,
+        surroundingBlockText,
+      };
+    }
+
+    askAiBtn?.addEventListener('click', () => {
+      if (!pendingSelectionRange) return;
+      const ctx = buildAiSelectionContext(pendingSelectionRange);
+      try {
+        window.getSelection().removeAllRanges();
+      } catch {
+        // ignore
+      }
+      hideToolbar();
+      if (ctx.selectedText && window.StudyAiChat && typeof window.StudyAiChat.askSelection === 'function') {
+        window.StudyAiChat.askSelection(ctx);
+      }
+    });
+
     // -----------------------------------------------------------------------
     // C. DRAWER RENDERING & ACTIONS
     // -----------------------------------------------------------------------
@@ -1518,9 +1594,14 @@
             snippet +
             '</div>' +
             '</button>' +
+            '<div class="hl-item-actions">' +
+            '<button type="button" class="hl-item-ask" data-ask-hl="' +
+            escapeHtml(item.id) +
+            '" title="Ask AI about this highlight" aria-label="Ask AI about highlight">&#10024;</button>' +
             '<button type="button" class="hl-item-del" data-del="' +
             escapeHtml(item.id) +
             '" title="Delete highlight" aria-label="Delete highlight">&times;</button>' +
+            '</div>' +
             '</div>';
         });
 
@@ -1561,6 +1642,29 @@
     });
 
     drawerBodyEl.addEventListener('click', (e) => {
+      const askBtn = e.target.closest('[data-ask-hl]');
+      if (askBtn) {
+        const id = askBtn.dataset.askHl;
+        const item = highlights.find((h) => h.id === id);
+        if (!item) return;
+        const range = resolvedRangesMap.get(id) || resolveHighlightAnchor(item, main);
+        const ctx = range
+          ? buildAiSelectionContext(range)
+          : {
+              selectedText: item.text.trim(),
+              chapterId: item.chapterId || '',
+              chapterTitle: getChapterLabel(item.chapterId),
+              subtopicTitle: '',
+              tableHeaders: '',
+              surroundingBlockText: [item.prefix, item.text, item.suffix].filter(Boolean).join(''),
+            };
+        closeDrawer();
+        if (window.StudyAiChat && typeof window.StudyAiChat.askSelection === 'function') {
+          window.StudyAiChat.askSelection(ctx);
+        }
+        return;
+      }
+
       const delBtn = e.target.closest('[data-del]');
       if (delBtn) {
         const id = delBtn.dataset.del;
