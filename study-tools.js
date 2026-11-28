@@ -1125,11 +1125,13 @@
       '<button type="button" class="hl-color-btn" data-color="hl-green" title="Mastered"><span class="hl-swatch green"></span><span class="hl-btn-label">Mastered</span></button>' +
       '<button type="button" class="hl-remove-btn" id="hlRemoveBtn" title="Remove overlapping highlight">Remove</button>' +
       '<span class="hl-toolbar-sep" aria-hidden="true"></span>' +
-      '<button type="button" class="hl-ai-btn" id="hlAskAiBtn" title="Ask Gemini AI to explain &amp; verify"><span class="hl-ai-spark" aria-hidden="true">&#10024;</span><span class="hl-ai-label">Ask AI</span></button>';
+      '<button type="button" class="hl-ai-btn" id="hlAskAiBtn" title="Auto-explain &amp; verify selection"><span class="hl-ai-spark" aria-hidden="true">&#10024;</span><span class="hl-ai-label">Ask AI</span></button>' +
+      '<button type="button" class="hl-ai-custom-btn" id="hlAskCustomBtn" title="Ask a custom question about selection">Ask...</button>';
     document.body.appendChild(toolbar);
 
     const removeBtn = document.getElementById('hlRemoveBtn');
     const askAiBtn = document.getElementById('hlAskAiBtn');
+    const askCustomBtn = document.getElementById('hlAskCustomBtn');
 
     // Prevent pointerdown on toolbar from clearing selection before click fires
     toolbar.addEventListener('pointerdown', (e) => {
@@ -1507,6 +1509,20 @@
       hideToolbar();
       if (ctx.selectedText && window.StudyAiChat && typeof window.StudyAiChat.askSelection === 'function') {
         window.StudyAiChat.askSelection(ctx);
+      }
+    });
+
+    askCustomBtn?.addEventListener('click', () => {
+      if (!pendingSelectionRange) return;
+      const ctx = buildAiSelectionContext(pendingSelectionRange);
+      try {
+        window.getSelection().removeAllRanges();
+      } catch {
+        // ignore
+      }
+      hideToolbar();
+      if (ctx.selectedText && window.StudyAiChat && typeof window.StudyAiChat.prepareSelectionQuestion === 'function') {
+        window.StudyAiChat.prepareSelectionQuestion(ctx);
       }
     });
 

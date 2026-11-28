@@ -267,7 +267,7 @@
         roleLine,
         'The student highlighted a compressed term, command, or brief note from their study guide because it lacked enough explanation.',
         sharedContext,
-        'When explaining a selected term for the first time, organize cleanly with:',
+        'If the student asks a specific custom question (e.g. "give one example and answer in short"), answer their exact question directly and concisely using the guide context. Otherwise, when explaining a selected term for the first time, organize cleanly with:',
         '### 1. Core Concept & How It Works',
         'Explain in clear intuitive terms (2-4 crisp sentences or short bullets) what it is and the exact underlying mechanism.',
         '### 2. Concrete Example',
@@ -284,7 +284,7 @@
         'You are an expert Indian Banking, Economics & IBPS RRB Scale 2 (IT / GBO) Financial Awareness tutor.',
         'The student highlighted a compressed term, scheme, rate, or brief line from their Financial Awareness master guide because it lacked enough background or clarity.',
         sharedContext,
-        'When explaining a selected item for the first time, organize cleanly with:',
+        'If the student asks a specific custom question (e.g. "give one example and answer in short"), answer their exact question directly and concisely using the guide context. Otherwise, when explaining a selected item for the first time, organize cleanly with:',
         '### 1. Plain-English Meaning & Purpose',
         'Explain clearly what it is, why RBI / Govt / SEBI created or uses it, and which regulator/body administers it.',
         '### 2. How It Works (Real Banking Flow)',
@@ -831,6 +831,7 @@
       threads: loadJson(getChatHistoryStorageKey(), []),
       activeThreadId: null,
       pendingExplainContext: null,
+      pendingCustomContext: null,
       isLoading: false,
       errorState: null, // { message, isFreeTierSearchError, isProTierError, retryText }
       abortController: null,
@@ -1164,7 +1165,10 @@
 
     function renderContextBanner() {
       const thread = getActiveThread();
-      const ctx = (thread && thread.context) || state.pendingExplainContext;
+      const ctx =
+        (thread && thread.context) ||
+        state.pendingCustomContext ||
+        state.pendingExplainContext;
       if (!ctx || !ctx.selectedText) {
         contextBanner.hidden = true;
         return;
@@ -1214,14 +1218,37 @@
       const msgs = thread && Array.isArray(thread.messages) ? thread.messages : [];
 
       if (msgs.length === 0 && !state.isLoading && !state.errorState) {
-        const hasPending = Boolean(state.pendingExplainContext);
+        const hasPendingExplain = Boolean(state.pendingExplainContext);
+        const hasPendingCustom = Boolean(state.pendingCustomContext);
         messagesEl.innerHTML =
           '<div class="ai-empty">' +
-          (hasPending
+          (hasPendingExplain
             ? '<strong>Gemini API Key Needed</strong><br>Paste your saved or new Gemini key in Settings above and click <strong>Save &amp; Explain</strong> to expand this topic automatically.'
-            : '<strong>Select any text in the guide and tap &#10024; Ask AI</strong><br>Get instant plain-English explanations, concrete examples, exam traps, and fact verification for compressed topics — or type any question below.') +
+            : hasPendingCustom
+            ? '<strong>Ask your question about the selected text above</strong><br>Type anything below (e.g. <em>"give one example and answer in short"</em>) or pick a quick prompt.'
+            : '<strong>Select any text in the guide and tap &#10024; Ask AI</strong><br>Get instant plain-English explanations, concrete examples, exam traps, and fact verification — or tap <strong>Ask...</strong> to type a specific question.') +
           '</div>';
-        suggestionsEl.hidden = true;
+        if (hasPendingCustom) {
+          const customChips = [
+            'Give one example and answer in short',
+            'Explain in 2 simple sentences',
+            'What is the exam trap here?',
+            'Verify if this is accurate in 2026',
+          ];
+          suggestionsEl.innerHTML = customChips
+            .map(
+              (c) =>
+                '<button type="button" class="ai-sugg-chip" data-sugg="' +
+                escapeHtml(c) +
+                '">' +
+                escapeHtml(c) +
+                '</button>'
+            )
+            .join('');
+          suggestionsEl.hidden = false;
+        } else {
+          suggestionsEl.hidden = true;
+        }
         return;
       }
 
@@ -1410,6 +1437,9 @@
         sendBtn.textContent = 'Send';
         sendBtn.classList.add('ai-btn-primary');
       }
+      chatInput.placeholder = state.pendingCustomContext
+        ? 'Ask about this selection (e.g. give one example and answer in short)...'
+        : 'Ask a follow-up or any topic question...';
     }
 
     function renderAll() {
@@ -1541,8 +1571,24 @@
     // =========================================================================
     // ACTIONS: EXPLAIN SELECTION & FOLLOW-UP CHAT
     // =========================================================================
+    function prepareSelectionQuestion(ctx) {
+      if (!ctx || !ctx.selectedText) return;
+      if (state.abortController) state.abortController.abort();
+      state.isLoading = false;
+      state.abortController = null;
+      state.pendingExplainContext = null;
+      state.pendingCustomContext = ctx;
+      state.activeThreadId = null;
+      state.showHistory = false;
+      state.errorState = null;
+      state.snippetExpanded = false;
+      openSidebar();
+      chatInput.focus();
+    }
+
     async function askSelection(ctx, opts = {}) {
       if (!ctx || !ctx.selectedText) return;
+      state.pendingCustomContext = null;
       openSidebar();
 
       const normSel = ctx.selectedText.replace(/\s+/g, ' ').trim();
@@ -1685,7 +1731,20 @@
       state.errorState = null;
 
       let thread = getActiveThread();
-      if (!thread) {
+      if (!thread && state.pendingCustomContext) {
+        const ctx = state.pendingCustomContext;
+        state.pendingCustomContext = null;
+        const cleanTitle = ctx.selectedText.replace(/\s+/g, ' ').trim().slice(0, 58);
+        thread = {
+          id: 'ai_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 5),
+          title: cleanTitle || prompt.slice(0, 58),
+          chapterLabel: ctx.chapterTitle || domainLabel,
+          context: ctx,
+          messages: [],
+        };
+        state.threads.unshift(thread);
+        state.activeThreadId = thread.id;
+      } else if (!thread) {
         thread = {
           id: 'ai_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 5),
           title: prompt.slice(0, 58),
@@ -1698,9 +1757,22 @@
       }
 
       if (!opts.isRetry) {
+        let apiPrompt = prompt;
+        if (thread.messages.length === 0 && thread.context && thread.context.selectedText) {
+          const ctx = thread.context;
+          const parts = [
+            'Selected Text: "' + ctx.selectedText.trim() + '"',
+            ctx.chapterTitle
+              ? 'Section: ' + ctx.chapterTitle + (ctx.subtopicTitle ? ' > ' + ctx.subtopicTitle : '')
+              : '',
+            ctx.surroundingBlockText ? 'Surrounding Guide Context: ' + ctx.surroundingBlockText : '',
+            'Student Question: ' + prompt,
+          ].filter(Boolean);
+          apiPrompt = parts.join('\n');
+        }
         thread.messages.push({
           role: 'user',
-          text: prompt,
+          text: apiPrompt,
           displayText: prompt,
         });
         if (thread.title === 'New Chat') {
@@ -1753,6 +1825,7 @@
       state.isLoading = false;
       state.errorState = null;
       state.pendingExplainContext = null;
+      state.pendingCustomContext = null;
       state.showHistory = false;
       state.activeThreadId = null;
       openSidebar();
@@ -1846,6 +1919,7 @@
 
     window.StudyAiChat = {
       askSelection,
+      prepareSelectionQuestion,
       open: openSidebar,
       close: closeSidebar,
       newChat: startNewGeneralChat,

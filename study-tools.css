@@ -380,20 +380,50 @@ span.st-hl-fallback.hl-green {
   font-size: 12px;
   line-height: 1;
 }
+.hl-ai-custom-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.hl-ai-custom-btn:hover {
+  background: var(--accent);
+  color: #ffffff;
+}
+[data-theme="dark"] .hl-ai-custom-btn:hover {
+  color: #0b1120;
+}
 
 @media (max-width: 480px) {
+  .hl-toolbar {
+    gap: 4px;
+    padding: 4px 6px;
+  }
   .hl-color-btn span.hl-btn-label {
     display: none;
   }
   .hl-color-btn {
-    padding: 6px 8px;
+    padding: 5px 7px;
   }
   .hl-swatch {
-    width: 16px;
-    height: 16px;
+    width: 15px;
+    height: 15px;
   }
-  .hl-ai-btn {
-    padding: 5px 9px;
+  .hl-remove-btn {
+    padding: 4px 7px;
+    font-size: 11.5px;
+  }
+  .hl-ai-btn,
+  .hl-ai-custom-btn {
+    padding: 4px 8px;
+    font-size: 11.5px;
   }
 }
 
