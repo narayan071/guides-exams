@@ -246,6 +246,7 @@
         ? 'Surrounding Guide Note/Row:\n"""\n' + ctx.surroundingBlockText + '\n"""'
         : '',
       honestyRule,
+      'Formatting: Prefer crisp Unicode symbols (e.g., α = N / M, α ≤ 1, ∞, →, O(n log n), 2²⁰, ₹) over raw TeX commands; when writing multi-part equations or fractions, wrap cleanly in standard $...$ or $$...$$.',
       'Keep explanations crisp, scannable in a sidebar chatbox, and deeply helpful so the learner truly understands the concept without needing external browsing.',
     ]
       .filter(Boolean)
@@ -302,14 +303,283 @@
   }
 
   // =========================================================================
-  // SAFE MARKDOWN RENDERER
+  // SAFE MARKDOWN & LATEX MATH RENDERER
   // =========================================================================
+  const LATEX_SYMBOLS = {
+    alpha: 'α', beta: 'β', gamma: 'γ', delta: 'δ', epsilon: 'ε', varepsilon: 'ε',
+    zeta: 'ζ', eta: 'η', theta: 'θ', vartheta: 'ϑ', iota: 'ι', kappa: 'κ',
+    lambda: 'λ', mu: 'μ', nu: 'ν', xi: 'ξ', pi: 'π', varpi: 'ϖ', rho: 'ρ',
+    sigma: 'σ', varsigma: 'ς', tau: 'τ', upsilon: 'υ', phi: 'φ', varphi: 'φ',
+    chi: 'χ', psi: 'ψ', omega: 'ω',
+    Gamma: 'Γ', Delta: 'Δ', Theta: 'Θ', Lambda: 'Λ', Xi: 'Ξ', Pi: 'Π',
+    Sigma: 'Σ', Upsilon: 'Υ', Phi: 'Φ', Psi: 'Ψ', Omega: 'Ω',
+    le: '≤', leq: '≤', ge: '≥', geq: '≥', ne: '≠', neq: '≠',
+    approx: '≈', equiv: '≡', sim: '∼', simeq: '≃', cong: '≅', propto: '∝',
+    ll: '≪', gg: '≫',
+    to: '→', rightarrow: '→', gets: '←', leftarrow: '←', leftrightarrow: '↔',
+    Rightarrow: '⇒', Leftarrow: '⇐', Leftrightarrow: '⇔', implies: '⇒', iff: '⇔', mapsto: '↦',
+    times: '×', cdot: '·', div: '÷', pm: '±', mp: '∓', infty: '∞',
+    in: '∈', notin: '∉', ni: '∋', subset: '⊂', subseteq: '⊆', supset: '⊃', supseteq: '⊇',
+    cup: '∪', cap: '∩', emptyset: '∅', varnothing: '∅',
+    forall: '∀', exists: '∃', neg: '¬', lnot: '¬', land: '∧', lor: '∨',
+    oplus: '⊕', otimes: '⊗', sum: '∑', prod: '∏', int: '∫',
+    partial: '∂', nabla: '∇', degree: '°', circ: '°',
+    dots: '…', ldots: '…', cdots: '⋯', vdots: '⋮',
+    prime: '′', therefore: '∴', because: '∵',
+  };
+
+  const LATEX_FUNCS = new Set([
+    'log', 'ln', 'lg', 'exp', 'sin', 'cos', 'tan', 'sec', 'csc', 'cot',
+    'min', 'max', 'inf', 'sup', 'lim', 'mod', 'bmod', 'gcd', 'det', 'dim', 'arg',
+  ]);
+
+  const BLACKBOARD_MAP = { R: 'ℝ', N: 'ℕ', Z: 'ℤ', Q: 'ℚ', C: 'ℂ' };
+
+  function readLatexGroup(s, idx) {
+    let p = idx;
+    while (p < s.length && /\s/.test(s[p])) p++;
+    if (p >= s.length) return { content: '', next: p };
+    if (s[p] === '{') {
+      let depth = 1;
+      let start = p + 1;
+      p++;
+      while (p < s.length && depth > 0) {
+        if (s[p] === '\\' && p + 1 < s.length) {
+          p += 2;
+          continue;
+        }
+        if (s[p] === '{') depth++;
+        else if (s[p] === '}') depth--;
+        p++;
+      }
+      const end = depth === 0 ? p - 1 : p;
+      return { content: s.slice(start, end), next: p };
+    }
+    if (s[p] === '\\') {
+      const m = s.slice(p).match(/^\\([a-zA-Z]+|[^a-zA-Z\s])/);
+      if (m) return { content: m[0], next: p + m[0].length };
+    }
+    return { content: s[p], next: p + 1 };
+  }
+
+  function renderLatexExpr(escapedExpr) {
+    let s = String(escapedExpr || '').trim();
+    let out = '';
+    let i = 0;
+
+    while (i < s.length) {
+      const ch = s[i];
+
+      if (ch === '{') {
+        const grp = readLatexGroup(s, i);
+        out += renderLatexExpr(grp.content);
+        i = grp.next;
+        continue;
+      }
+
+      if (ch === '^' || ch === '_') {
+        const tag = ch === '^' ? 'sup' : 'sub';
+        const grp = readLatexGroup(s, i + 1);
+        out += '<' + tag + '>' + renderLatexExpr(grp.content) + '</' + tag + '>';
+        i = grp.next;
+        continue;
+      }
+
+      if (ch === '\\') {
+        if (s[i + 1] === '\\') {
+          out += '<br>';
+          i += 2;
+          continue;
+        }
+        const escSpec = s.slice(i).match(/^\\([,%$_#{}| ])/);
+        if (escSpec) {
+          const c = escSpec[1];
+          out += c === ',' || c === ' ' ? ' ' : c;
+          i += 2;
+          continue;
+        }
+        if (s.slice(i).startsWith('\\:') || s.slice(i).startsWith('\\;')) {
+          out += ' ';
+          i += 2;
+          continue;
+        }
+        if (s.slice(i).startsWith('\\&amp;')) {
+          out += ' &amp; ';
+          i += 6;
+          continue;
+        }
+        const cmdMatch = s.slice(i).match(/^\\([a-zA-Z]+)/);
+        if (cmdMatch) {
+          const cmd = cmdMatch[1];
+          i += cmdMatch[0].length;
+
+          if (cmd === 'left' || cmd === 'right') {
+            while (i < s.length && /\s/.test(s[i])) i++;
+            if (s[i] === '.') {
+              i++;
+            } else if (s.slice(i, i + 2) === '\\{' || s.slice(i, i + 2) === '\\}') {
+              out += s[i + 1];
+              i += 2;
+            } else if (i < s.length && /[()[\]|]/.test(s[i])) {
+              out += s[i];
+              i++;
+            }
+            continue;
+          }
+          if (cmd === 'frac' || cmd === 'dfrac' || cmd === 'tfrac') {
+            const num = readLatexGroup(s, i);
+            const den = readLatexGroup(s, num.next);
+            out +=
+              '<span class="ai-frac"><span class="ai-frac-num">' +
+              renderLatexExpr(num.content) +
+              '</span><span class="ai-frac-den">' +
+              renderLatexExpr(den.content) +
+              '</span></span>';
+            i = den.next;
+            continue;
+          }
+          if (cmd === 'binom') {
+            const top = readLatexGroup(s, i);
+            const bot = readLatexGroup(s, top.next);
+            out += 'C(' + renderLatexExpr(top.content) + ', ' + renderLatexExpr(bot.content) + ')';
+            i = bot.next;
+            continue;
+          }
+          if (cmd === 'sqrt') {
+            let rootIdx = '';
+            if (s[i] === '[') {
+              const closeIdx = s.indexOf(']', i + 1);
+              if (closeIdx !== -1) {
+                rootIdx = '<sup>' + renderLatexExpr(s.slice(i + 1, closeIdx)) + '</sup>';
+                i = closeIdx + 1;
+              }
+            }
+            const body = readLatexGroup(s, i);
+            out += rootIdx + '<span class="ai-sqrt">√<span class="ai-sqrt-body">' + renderLatexExpr(body.content) + '</span></span>';
+            i = body.next;
+            continue;
+          }
+          if (cmd === 'overline' || cmd === 'bar') {
+            const grp = readLatexGroup(s, i);
+            out += '<span class="ai-overline">' + renderLatexExpr(grp.content) + '</span>';
+            i = grp.next;
+            continue;
+          }
+          if (cmd === 'text' || cmd === 'mathrm' || cmd === 'operatorname' || cmd === 'textrm') {
+            const grp = readLatexGroup(s, i);
+            out += '<span class="ai-math-fn">' + grp.content + '</span>';
+            i = grp.next;
+            continue;
+          }
+          if (cmd === 'mathbf' || cmd === 'textbf') {
+            const grp = readLatexGroup(s, i);
+            out += '<strong>' + renderLatexExpr(grp.content) + '</strong>';
+            i = grp.next;
+            continue;
+          }
+          if (cmd === 'mathbb') {
+            const grp = readLatexGroup(s, i);
+            const mapped = grp.content.trim();
+            out += BLACKBOARD_MAP[mapped] || mapped;
+            i = grp.next;
+            continue;
+          }
+          if (cmd === 'not') {
+            while (i < s.length && /\s/.test(s[i])) i++;
+            const nextCmd = s.slice(i).match(/^\\([a-zA-Z]+)/);
+            if (nextCmd && nextCmd[1] === 'in') {
+              out += '∉';
+              i += nextCmd[0].length;
+              continue;
+            }
+            if (nextCmd && (nextCmd[1] === 'equiv' || nextCmd[1] === 'sim')) {
+              out += nextCmd[1] === 'equiv' ? '≢' : '≁';
+              i += nextCmd[0].length;
+              continue;
+            }
+            if (s[i] === '=') {
+              out += '≠';
+              i++;
+              continue;
+            }
+            out += '¬';
+            continue;
+          }
+          if (cmd === 'quad') {
+            out += '&ensp;';
+            continue;
+          }
+          if (cmd === 'qquad') {
+            out += '&emsp;';
+            continue;
+          }
+          if (LATEX_SYMBOLS[cmd]) {
+            out += LATEX_SYMBOLS[cmd];
+            continue;
+          }
+          if (LATEX_FUNCS.has(cmd)) {
+            out += '<span class="ai-math-fn">' + cmd + '</span>';
+            continue;
+          }
+          out += cmd;
+          continue;
+        }
+        out += ch;
+        i++;
+        continue;
+      }
+
+      if (ch === '-' && !/\d/.test(s[i - 1] || '') && !/[a-zA-Z]/.test(s[i - 1] || '')) {
+        out += '−';
+      } else {
+        out += ch;
+      }
+      i++;
+    }
+
+    return out;
+  }
+
+  function isLikelyInlineLatex(inner) {
+    if (!inner || inner.length > 160) return false;
+    const t = inner.trim();
+    if (!t) return false;
+    // Prevent matching currency pairs like "$100,000 to $250,000" or "$50-$100"
+    if (/^\d[\d,.\s]*(?:k|m|b|lakh|crore|to|and|\/|-|–|—)?\s*$/i.test(t) && !/[\\^_=<>]/.test(t)) {
+      return false;
+    }
+    if (/^\d/.test(t) && /\s/.test(t) && !/[\\^_=<>+*/|]/.test(t)) {
+      return false;
+    }
+    return true;
+  }
+
   function formatInlineMarkdown(escapedLine) {
     const codeTokens = [];
     let s = escapedLine.replace(/`([^`]+)`/g, (_, code) => {
       const idx = codeTokens.length;
       codeTokens.push('<code>' + code + '</code>');
       return '\u0000CODE' + idx + '\u0000';
+    });
+
+    const mathTokens = [];
+    function pushMath(html, isBlock) {
+      const idx = mathTokens.length;
+      mathTokens.push(
+        '<span class="' + (isBlock ? 'ai-math-block' : 'ai-math') + '">' + html + '</span>'
+      );
+      return '\u0000MATH' + idx + '\u0000';
+    }
+
+    // Inline display / bracketed math delimiters first
+    s = s.replace(/\$\$([^$]+?)\$\$/g, (_, inner) => pushMath(renderLatexExpr(inner), true));
+    s = s.replace(/\\\[(.+?)\\\]/g, (_, inner) => pushMath(renderLatexExpr(inner), true));
+    s = s.replace(/\\\((.+?)\\\)/g, (_, inner) => pushMath(renderLatexExpr(inner), false));
+
+    // Inline $...$ guarded against currency false positives
+    s = s.replace(/(^|[^\\A-Za-z0-9])\$([^\n$]+?)\$(?!\d)/g, (full, pre, inner) => {
+      if (/^\s|\s$/.test(inner) || !isLikelyInlineLatex(inner)) return full;
+      return pre + pushMath(renderLatexExpr(inner), false);
     });
 
     // Safe external links [label](https://...)
@@ -320,6 +590,7 @@
     s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
     s = s.replace(/(^|[\s(])\*([^*\n]+)\*(?=[\s).,;:!?]|$)/g, '$1<em>$2</em>');
 
+    s = s.replace(/\u0000MATH(\d+)\u0000/g, (_, idx) => mathTokens[Number(idx)] || '');
     s = s.replace(/\u0000CODE(\d+)\u0000/g, (_, idx) => codeTokens[Number(idx)] || '');
     return s;
   }
@@ -330,13 +601,24 @@
     const normalized = String(rawText).replace(/\r\n/g, '\n');
 
     // Extract fenced code blocks before escaping rest
-    const withPlaceholders = normalized.replace(/```([a-zA-Z0-9_-]*)\n([\s\S]*?)```/g, (_, lang, code) => {
+    let withPlaceholders = normalized.replace(/```([a-zA-Z0-9_-]*)\n([\s\S]*?)```/g, (_, lang, code) => {
       const idx = fenced.length;
       fenced.push(
         '<pre><code>' + escapeHtml(code.replace(/\n$/, '')) + '</code></pre>'
       );
       return '\n\u0000FENCE' + idx + '\u0000\n';
     });
+
+    // Extract multi-line or standalone display math $$...$$ and \[...\]
+    withPlaceholders = withPlaceholders.replace(
+      /(?:^|\n)\s*(?:\$\$([\s\S]+?)\$\$|\\\[([\s\S]+?)\\\])\s*(?=\n|$)/g,
+      (_, m1, m2) => {
+        const expr = m1 != null ? m1 : m2;
+        const idx = fenced.length;
+        fenced.push('<div class="ai-math-block">' + renderLatexExpr(escapeHtml(expr)) + '</div>');
+        return '\n\u0000FENCE' + idx + '\u0000\n';
+      }
+    );
 
     const lines = escapeHtml(withPlaceholders).split('\n');
     const out = [];

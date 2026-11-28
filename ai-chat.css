@@ -554,6 +554,64 @@
   border-bottom: 0;
 }
 
+/* Rendered LaTeX / Mathematical Expressions */
+.ai-math {
+  font-family: "STIX Two Math", Cambria, "Times New Roman", Georgia, serif;
+  font-size: 1.03em;
+  white-space: nowrap;
+}
+.ai-math-block {
+  font-family: "STIX Two Math", Cambria, "Times New Roman", Georgia, serif;
+  display: block;
+  margin: 8px 0;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  text-align: center;
+  overflow-x: auto;
+  font-size: 1.05em;
+}
+.ai-math-fn {
+  font-family: inherit;
+  font-style: normal;
+}
+.ai-frac {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  vertical-align: middle;
+  font-size: 0.85em;
+  line-height: 1.05;
+  margin: 0 2px;
+}
+.ai-frac-num {
+  padding: 0 3px 1px;
+  border-bottom: 1px solid currentColor;
+}
+.ai-frac-den {
+  padding: 1px 3px 0;
+}
+.ai-sqrt {
+  display: inline-flex;
+  align-items: baseline;
+}
+.ai-sqrt-body {
+  border-top: 1px solid currentColor;
+  padding: 0 2px;
+}
+.ai-overline {
+  border-top: 1px solid currentColor;
+  padding-top: 1px;
+}
+.ai-math sub,
+.ai-math sup,
+.ai-math-block sub,
+.ai-math-block sup {
+  font-size: 0.75em;
+  line-height: 0;
+}
+
 /* Grounded Web Sources */
 .ai-sources {
   margin-top: 8px;
