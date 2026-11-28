@@ -8,6 +8,9 @@
   const CHAT_MODEL_STORAGE = 'gemini_chat_model';
   const CHAT_CUSTOM_MODEL_STORAGE = 'gemini_chat_custom_model';
   const CHAT_WEB_VERIFY_STORAGE = 'gemini_chat_web_verify';
+  const CHAT_WIDTH_STORAGE = 'study_ai_sb_width';
+  const DEFAULT_SB_WIDTH = 440;
+  const WIDE_SB_WIDTH = 720;
 
   const DEFAULT_CHAT_MODEL = 'gemini-3.8-flash';
   const BETTER_MODEL_RANK = [
@@ -780,12 +783,14 @@
     sidebar.setAttribute('aria-label', 'Ask AI Study Tutor');
 
     sidebar.innerHTML =
+      '<div class="ai-resize-handle" id="aiResizeHandle" title="Drag to widen or narrow AI panel"></div>' +
       '<div class="ai-header">' +
       '  <div class="ai-header-left">' +
       '    <h2 class="ai-header-title">&#10024; Ask AI</h2>' +
       '    <span class="ai-domain-badge">' + escapeHtml(domainLabel) + '</span>' +
       '  </div>' +
       '  <div class="ai-header-actions">' +
+      '    <button type="button" class="ai-icon-btn ai-width-btn" id="aiWidthToggleBtn" title="Widen / Narrow panel">&harr;</button>' +
       '    <button type="button" class="ai-icon-btn" id="aiHistToggleBtn" title="Recent AI chats">History</button>' +
       '    <button type="button" class="ai-icon-btn" id="aiSettingsToggleBtn" title="Gemini keys &amp; model settings">Key / Model</button>' +
       '    <button type="button" class="ai-icon-btn" id="aiNewChatBtn" title="Start new general chat">+ New</button>' +
@@ -807,6 +812,8 @@
 
     const settingsTray = document.getElementById('aiSettingsTray');
     const historyTray = document.getElementById('aiHistoryTray');
+    const resizeHandle = document.getElementById('aiResizeHandle');
+    const widthToggleBtn = document.getElementById('aiWidthToggleBtn');
     const settingsToggleBtn = document.getElementById('aiSettingsToggleBtn');
     const histToggleBtn = document.getElementById('aiHistToggleBtn');
     const newChatBtn = document.getElementById('aiNewChatBtn');
@@ -850,6 +857,67 @@
     function saveThreads() {
       state.threads = state.threads.slice(0, 20);
       saveJson(getChatHistoryStorageKey(), state.threads);
+    }
+
+    function clampSidebarWidth(w) {
+      const maxW = Math.max(360, Math.min(1100, window.innerWidth - 36));
+      return Math.round(Math.max(340, Math.min(maxW, w)));
+    }
+
+    function applySidebarWidth(w, persist) {
+      const clamped = clampSidebarWidth(w);
+      document.documentElement.style.setProperty('--ai-sb-width', clamped + 'px');
+      if (widthToggleBtn) {
+        const isWide = clamped >= 580;
+        widthToggleBtn.classList.toggle('active', isWide);
+        widthToggleBtn.title = isWide ? 'Reset panel width' : 'Widen panel';
+      }
+      if (persist) {
+        try { localStorage.setItem(CHAT_WIDTH_STORAGE, String(clamped)); } catch {}
+      }
+      return clamped;
+    }
+
+    (function restoreWidth() {
+      try {
+        const savedW = parseInt(localStorage.getItem(CHAT_WIDTH_STORAGE) || '', 10);
+        if (savedW >= 340) applySidebarWidth(savedW, false);
+      } catch {}
+    })();
+
+    widthToggleBtn?.addEventListener('click', () => {
+      const current = parseInt(
+        getComputedStyle(document.documentElement).getPropertyValue('--ai-sb-width'),
+        10
+      ) || DEFAULT_SB_WIDTH;
+      applySidebarWidth(current >= 580 ? DEFAULT_SB_WIDTH : WIDE_SB_WIDTH, true);
+    });
+
+    if (resizeHandle) {
+      let dragging = false;
+      resizeHandle.addEventListener('pointerdown', (e) => {
+        if (window.innerWidth < 640) return;
+        dragging = true;
+        sidebar.classList.add('resizing');
+        resizeHandle.setPointerCapture?.(e.pointerId);
+        e.preventDefault();
+      });
+      window.addEventListener('pointermove', (e) => {
+        if (!dragging) return;
+        applySidebarWidth(window.innerWidth - e.clientX, false);
+      });
+      function finishDrag() {
+        if (!dragging) return;
+        dragging = false;
+        sidebar.classList.remove('resizing');
+        const current = parseInt(
+          getComputedStyle(document.documentElement).getPropertyValue('--ai-sb-width'),
+          10
+        ) || DEFAULT_SB_WIDTH;
+        applySidebarWidth(current, true);
+      }
+      window.addEventListener('pointerup', finishDrag);
+      window.addEventListener('pointercancel', finishDrag);
     }
 
     function openSidebar() {
